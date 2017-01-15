@@ -3,7 +3,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+/** Class that handles database connection and SQL queries and instructions
+*/
 public class DbCon {
 	
 private Connection connection = null;
