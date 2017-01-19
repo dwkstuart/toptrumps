@@ -21,8 +21,15 @@ public class Shuffle {
 
 			}
 
-			for (int i=0; i<40; i++)
-				System.err
-				.print(" " + shuffle[i] + " ");
+//			for (int i=0; i<40; i++){
+//				System.err
+//				.print(" " + shuffle[i] + " ");}
+			
+			
+			Card a = new Card("TRex 6 6 12 9 9");
+			System.err.println(a);	
+			System.out.println(a.displayCard());
 			 }
+	
+		
 }

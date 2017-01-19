@@ -1,17 +1,17 @@
 /** Class that holds the decriptions and values of a single top trump card
 */
 public class Card {
-
+	private String [] category = new String[]{"description", "height", "weight", "length", "ferocity", "intelligence"};
 	private String description = "";
 	private int height, weight, length, ferocity, intelligence;
-	
+	private String[] values = new String[6];
 	/**@param String details, string passed in with description and values 
 	*	from text file
 	*sets the instance variables
 	*/
 	public Card(String details) {
 		String info = details;
-		String[] values = info.split(" +");
+		values = info.split(" +");
 		// values[]= info.split(" ");
 
 		description = values[0];
@@ -66,4 +66,20 @@ public class Card {
 	description, height, weight, length,  ferocity, intelligence);
 		return card; }
 
+	public String displayCard()
+	{	String display = null;
+		StringBuilder build = new StringBuilder();
+		String header ="DINO TOP TRUMPS!!!\n";
+		build.append(header);
+		build.append("\t" + description+"\n");
+		for(int i=1; i<6; i++)
+		{
+		display = String.format("%-15s: %4s\n" , category[i], values[i]);
+		System.out.println("display is" + display);
+		build.append(display);
+		}
+		
+		String out = build.toString();
+		return out;
+	}
 }
