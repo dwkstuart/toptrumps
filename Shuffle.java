@@ -4,7 +4,9 @@ import java.util.Random;
 public class Shuffle {
 
 	public static void main(String[] args) {
-
+		
+		startGui test = new startGui();
+		
 		int [] shuffle = new int[40];
 			for (int i = 0; i <40; i++)
 			{shuffle[i]= i+1;
