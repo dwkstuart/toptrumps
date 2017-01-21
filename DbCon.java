@@ -17,8 +17,8 @@ private Connection connection = null;
 	public void DbConnect()
 	{
 		String DBName = "TopTrumps";
-		String DBUser = "";
-		String DBPassword = "";
+		String DBUser = "postgres";
+		String DBPassword = "database";
 		
 		try
 		{
