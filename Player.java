@@ -9,7 +9,8 @@ public class Player {
 	// Instance variables- player id, an int between 0 and 4
 	private int playerID;
 	private int playerNum;
-	private int[] Card = new int[40];// Is this what you meant here?
+	private Card[] hand = new Card[40];
+	private int cardAddIndex = 0;		// sorry, this is super sloppy... maybe a better way to do this? -Niall
 	private Card currentCard;
 	private int numCards;
 	private boolean active;
@@ -37,17 +38,17 @@ public class Player {
 	public void setPlayerNum(int newPlayerNum) {
 		if (newPlayerNum < 0 || newPlayerNum > 100) {
 			throw new IllegalArgumentException();
-			} 
+			}
 		else {
 			playerNum = newPlayerNum;}
 			}
-  
-	
+
+
 	// Boolean active - if a player is still in the game or not ?not sure if
 	// this is needed, could count number of cards in hand if =0 then out the game
 	public void setActive(boolean ingame){
 	active=ingame;
-	
+
 	if(active)
 
 	{
@@ -59,11 +60,20 @@ public class Player {
 		System.out.println("I'm out of the game");
 	}
 	}
+	
+	/**
+	 * @author Niall
+	 * Method to add a 'Card' object to the back of the player's current hand.
+	 * @param Card cardToAdd The card object to be added to the back of the player's hand.
+	 */
+	public void addCardToHand(Card cardToAdd) {
+		hand[cardAddIndex] = cardToAdd;
+		cardAddIndex++;
+	}
 	// getCurrentCard - return the top card in their hand; at 0 in the array
 public Card getCurrentCard() {
 		return currentCard;
 	}
-	// addCard; -add a card to the back of their hand, first null value.
 
 	// removeCard? - remove top card from the hand and shift array to fill gap
 	// at 0
