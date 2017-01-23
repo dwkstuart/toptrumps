@@ -65,7 +65,9 @@ public class Card {
 	{String card = String.format("The %s has %d height, %d weight, %d length, %d ferocity and %d intelligence", 
 	description, height, weight, length,  ferocity, intelligence);
 		return card; }
-
+	
+	/*@return  return the card description with valuesn in columns
+	*/
 	public String displayCard()
 	{	String display = null;
 		StringBuilder build = new StringBuilder();
@@ -75,7 +77,6 @@ public class Card {
 		for(int i=1; i<6; i++)
 		{
 		display = String.format("%-15s: %4s\n" , category[i], values[i]);
-		System.out.println("display is" + display);
 		build.append(display);
 		}
 		

@@ -5,7 +5,7 @@ public class Shuffle {
 
 	public static void main(String[] args) {
 		
-		startGui test = new startGui();
+		//startGui test = new startGui();
 		
 		int [] shuffle = new int[40];
 			for (int i = 0; i <40; i++)
@@ -29,9 +29,16 @@ public class Shuffle {
 			
 			
 			Card a = new Card("TRex 6 6 12 9 9");
-			System.err.println(a);	
-			System.out.println(a.displayCard());
-			 }
-	
+			Card b = new Card("Barney 8 10 15 9 25");
+			Player CPU1 = new Player(2);
+			CPU1.addCard(a);
+			CPU1.addCard(b);
+			Card x = CPU1.getCurrentCard();
+			System.out.println(CPU1.getPlayerID());
+			System.out.println(CPU1.getStatus());
+			System.err.println(x);
+			
+	 }
+		
 		
 }
