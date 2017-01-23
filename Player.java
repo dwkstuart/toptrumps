@@ -60,10 +60,23 @@ public class Player {
 	}
 	}
 	// getCurrentCard - return the top card in their hand; at 0 in the array
-public Card getCurrentCard() {
+	public Card getCurrentCard() {
 		return currentCard;
 	}
 	// addCard; -add a card to the back of their hand, first null value.
+	public addCard() {
+	
+	int i=0;
+	
+	while (i<array.length) {
+		
+		if(playerHand[i]==null) {
+			playerHand[i]=a;
+			break;
+		}
+		i++
+	}
+
 
 	// removeCard? - remove top card from the hand and shift array to fill gap
 	// at 0
