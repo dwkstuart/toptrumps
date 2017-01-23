@@ -9,10 +9,10 @@ public class Player {
 	// Instance variables- player id, an int between 0 and 4
 	private int playerID;
 	private int playerNum;
-	private int[] Card = new int[40];// Is this what you meant here?
+	private Card[] playerCards = new Card[40];// Is this what you meant here?
 	private Card currentCard;
 	private int numCards;
-	private boolean active;
+	private boolean active=true;
 
 	// constructor
 	public Player(int player_ID) {
@@ -64,17 +64,18 @@ public class Player {
 		return currentCard;
 	}
 	// addCard; -add a card to the back of their hand, first null value.
-	public addCard() {
+	public void addCard(Card a) {
 	
 	int i=0;
 	
-	while (i<array.length) {
+	while (i<playerCards.length) {
 		
-		if(playerHand[i]==null) {
-			playerHand[i]=a;
+		if(playerCards[i]==null) {
+			playerCards[i]=a;
 			break;
 		}
-		i++
+		i++;
+	}
 	}
 
 
@@ -94,7 +95,7 @@ public class Player {
 	}
 
 	// getStatus - return boolean if they are an active player or not
-public boolean getStatus() {
+	public boolean getStatus() {
 		return active;}
 // setStatus ?might not be needed
 
