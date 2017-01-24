@@ -16,7 +16,8 @@ public class Player {
 
 	// constructor
 	public Player(int player_ID) {
-		playerID = player_ID;
+		this.playerID = player_ID;
+		System.out.println(playerID);
 	}
 
 	// a method to check the correct player number is selected
@@ -61,17 +62,19 @@ public class Player {
 	}
 	// getCurrentCard - return the top card in their hand; at 0 in the array
 	public Card getCurrentCard() {
-		return currentCard;
+		
+		return playerCards[0];
 	}
 	// addCard; -add a card to the back of their hand, first null value.
 	public void addCard(Card a) {
 	
 	int i=0;
 	
-	while (i<playerCards.length) {
+	while (i<40) {
 		
 		if(playerCards[i]==null) {
 			playerCards[i]=a;
+			playerCards[i].displayCard();
 			break;
 		}
 		i++;
