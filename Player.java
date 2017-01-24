@@ -9,7 +9,7 @@ public class Player {
 	// Instance variables- player id, an int between 0 and 4
 	private int playerID;
 	private int playerNum;
-	private Card[] playerCards = new Card[40];// Is this what you meant here?
+	private Card[] hand = new Card[40];
 	private Card currentCard;
 	private int numCards;
 	private boolean active=true;
@@ -65,16 +65,14 @@ public class Player {
 		
 		return playerCards[0];
 	}
-	// addCard; -add a card to the back of their hand, first null value.
-	public void addCard(Card a) {
+	// 
+	Card; -add a card to the back of their hand, first null value.
+	public void addCardToHand(Card cardToAdd) {
 	
-	int i=0;
-	
+	int i=0;	// index in card array
 	while (i<40) {
-		
 		if(playerCards[i]==null) {
-			playerCards[i]=a;
-			playerCards[i].displayCard();
+			playerCards[i]=cardToAdd;
 			break;
 		}
 		i++;
