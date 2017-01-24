@@ -60,6 +60,7 @@ public class Player {
 		System.out.println("I'm out of the game");
 	}
 	}
+	
 	// getCurrentCard - return the top card in their hand; at 0 in the array
 	public Card getCurrentCard() {
 		
@@ -80,9 +81,7 @@ public class Player {
 	}
 
 
-	// removeCard? - remove top card from the hand and shift array to fill gap
-	// at 0
-	// (not sure if we need this as well as getCurrentCard)
+	
 
 	// getNumCards - return the number of card objects in the array
 	public int getNumCards() {
@@ -96,9 +95,11 @@ public class Player {
 	}
 
 	// getStatus - return boolean if they are an active player or not
+	//called at end of round
 	public boolean getStatus() {
+		if(numCards==0)
+		active=false;
 		return active;}
-// setStatus ?might not be needed
 
 
 }
