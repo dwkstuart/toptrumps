@@ -4,13 +4,20 @@
 public class Main {
 
 	public static void main(String[] args) {
-		DbCon TrumpsDb = new DbCon();
-		TrumpsDb.DbConnect();
-		TrumpsDb.getNumGames();
-		TrumpsDb.getPlayerWins();
-		TrumpsDb.getCPUWins();
-		TrumpsDb.getAvgDraws();
-		TrumpsDb.getLargestNumRounds();
+
+		GameGUI game  = new GameGUI();
+		game.SetOpponentsView(1);
+		game.UpdatePlayer(0);
+		game.getDeck();
+
+
+		// DbCon TrumpsDb = new DbCon();
+		// TrumpsDb.DbConnect();
+		// TrumpsDb.getNumGames();
+		// TrumpsDb.getPlayerWins();
+		// TrumpsDb.getCPUWins();
+		// TrumpsDb.getAvgDraws();
+		// TrumpsDb.getLargestNumRounds();
 	}
 
 }
