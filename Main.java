@@ -4,6 +4,12 @@
 public class Main {
 
 	public static void main(String[] args) {
+
+		startGui run =  new startGui();
+		
+	
+
+
 		DbCon TrumpsDb = new DbCon();
 		TrumpsDb.DbConnect();
 		TrumpsDb.getNumGames();

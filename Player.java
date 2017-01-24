@@ -9,14 +9,15 @@ public class Player {
 	// Instance variables- player id, an int between 0 and 4
 	private int playerID;
 	private int playerNum;
-	private int[] Card = new int[40];// Is this what you meant here?
+	private Card[] hand = new Card[40];
 	private Card currentCard;
 	private int numCards;
-	private boolean active;
+	private boolean active=true;
 
 	// constructor
 	public Player(int player_ID) {
-		playerID = player_ID;
+		this.playerID = player_ID;
+		System.out.println(playerID);
 	}
 
 	// a method to check the correct player number is selected
@@ -60,10 +61,24 @@ public class Player {
 	}
 	}
 	// getCurrentCard - return the top card in their hand; at 0 in the array
-public Card getCurrentCard() {
-		return currentCard;
+	public Card getCurrentCard() {
+		
+		return playerCards[0];
 	}
-	// addCard; -add a card to the back of their hand, first null value.
+	// 
+	Card; -add a card to the back of their hand, first null value.
+	public void addCardToHand(Card cardToAdd) {
+	
+	int i=0;	// index in card array
+	while (i<40) {
+		if(playerCards[i]==null) {
+			playerCards[i]=cardToAdd;
+			break;
+		}
+		i++;
+	}
+	}
+
 
 	// removeCard? - remove top card from the hand and shift array to fill gap
 	// at 0
@@ -81,7 +96,7 @@ public Card getCurrentCard() {
 	}
 
 	// getStatus - return boolean if they are an active player or not
-public boolean getStatus() {
+	public boolean getStatus() {
 		return active;}
 // setStatus ?might not be needed
 
