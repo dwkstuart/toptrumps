@@ -11,13 +11,13 @@ public class Main {
 		game.getDeck();
 
 
-		// DbCon TrumpsDb = new DbCon();
-		// TrumpsDb.DbConnect();
-		// TrumpsDb.getNumGames();
-		// TrumpsDb.getPlayerWins();
-		// TrumpsDb.getCPUWins();
-		// TrumpsDb.getAvgDraws();
-		// TrumpsDb.getLargestNumRounds();
+		DbCon TrumpsDb = new DbCon();
+		TrumpsDb.DbConnect();
+		TrumpsDb.getNumGames();
+		TrumpsDb.getPlayerWins();
+		TrumpsDb.getCPUWins();
+		TrumpsDb.getAvgDraws();
+		TrumpsDb.getLargestNumRounds();
 	}
 
 }
