@@ -29,7 +29,7 @@ public class Game {
 
 		// create, shuffle and deal an array of card objects amongst all players
 		deck = new Card[deckSize];
-		currentCardIndex = 0; // initialise at 0 until cards are added to the
+		currentCardIndex = 0; // Initialize at 0 until cards are added to the
 								// array :)
 
 		// IMPORTANT: These methods shouldn't be called here!
