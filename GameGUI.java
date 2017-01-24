@@ -46,7 +46,7 @@ public class GameGUI extends JFrame {
   private String[] deck;
 
 
-    public GameGUI(){
+    public GameGUI(int player){
       setLayout(new GridLayout(3,1));
       setDefaultCloseOperation(EXIT_ON_CLOSE);
       setTitle("DINOSAUR TOP TRUMPS!");
@@ -55,7 +55,14 @@ public class GameGUI extends JFrame {
       GUITop();
       GUIMiddle();
       GUIBottom();
+      
+      //sets instance variables
+  		this.SetOpponentsView(player);
+  		this.UpdatePlayer(0);
+  		this.getDeck();
+      
       setVisible(true);
+      
     }
 
     public void GUITop(){

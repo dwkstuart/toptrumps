@@ -20,6 +20,7 @@ public class startGui extends JFrame implements ActionListener {
 	private JComboBox numberPlayers;
 	private JButton newGame, viewStats;
 
+	
 	/**creates start gui 
 	 * 
 	 */
@@ -63,7 +64,7 @@ public class startGui extends JFrame implements ActionListener {
 		//new game is created with that number of computer players
 		if (e.getSource() == newGame) {
 			int totalPlayers = (Integer) numberPlayers.getSelectedItem();
-			TempGameGui game = new TempGameGui(totalPlayers);
+			GameGUI run = new GameGUI(totalPlayers);
 			System.out.println(totalPlayers);
 		}
 
@@ -73,12 +74,8 @@ public class startGui extends JFrame implements ActionListener {
 			stats.DbConnect();
 			stats.getAvgDraws();
 		}
-	}
-
-	public static void main(String[] args) {
-		startGui test = new startGui();
 		
-
+		
 	}
 
 }
