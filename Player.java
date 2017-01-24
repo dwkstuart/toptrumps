@@ -63,16 +63,16 @@ public class Player {
 	// getCurrentCard - return the top card in their hand; at 0 in the array
 	public Card getCurrentCard() {
 		
-		return playerCards[0];
+		return hand[0];
 	}
 	// 
-	Card; -add a card to the back of their hand, first null value.
+	//Card; -add a card to the back of their hand, first null value.
 	public void addCardToHand(Card cardToAdd) {
 	
 	int i=0;	// index in card array
 	while (i<40) {
-		if(playerCards[i]==null) {
-			playerCards[i]=cardToAdd;
+		if(hand[i]==null) {
+			hand[i]=cardToAdd;
 			break;
 		}
 		i++;

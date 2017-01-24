@@ -5,6 +5,7 @@ public class Card {
 	private String description = "";
 	private int height, weight, length, ferocity, intelligence;
 	private String[] values = new String[6];
+	private int[] characteristicvalues;
 	/**@param String details, string passed in with description and values 
 	*	from text file
 	*sets the instance variables
@@ -59,6 +60,30 @@ public class Card {
 		return weight;
 	}
 
+	/**Method to return the maximum value of a card
+	 * used in round
+	 * 
+	 * @return highest vale of card
+	 */
+			
+	public int getMaxCharacteristic()
+	{ int max =0;
+		
+	characteristicvalues[0]=height;
+	characteristicvalues[1]=weight;
+	characteristicvalues[2]=length;
+	characteristicvalues[3]=ferocity;
+	characteristicvalues[4]=intelligence;
+	
+	for(int i=0; i<characteristicvalues.length; i++)
+		{if (characteristicvalues[i]>max)
+		max=characteristicvalues[i];
+		}
+		
+		
+		return max;
+		
+	}
 	/*@return  return the card description with values
 	*/
 	public String toString()
@@ -82,5 +107,11 @@ public class Card {
 		
 		String out = build.toString();
 		return out;
+	}
+
+	//returns characteristic at specific index
+	public int getCharacteristicValueAt(int characteristic) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
