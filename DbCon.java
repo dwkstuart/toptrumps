@@ -11,7 +11,8 @@ import javax.swing.JOptionPane;
 
 public class DbCon {
 	
-private Connection connection = null;
+	private int primaryKey; //used to store the next sequential primary key
+	private Connection connection = null;
 	
 	/**
 	 * default constructor
@@ -26,9 +27,9 @@ private Connection connection = null;
 	 */
 	public void DbConnect()
 	{
-		String DBName = "";
-		String DBUser = "";
-		String DBPassword = "";
+		String DBName = "TopTrumps";
+		String DBUser = "postgres";
+		String DBPassword = "2196440o";
 		
 		try
 		{
@@ -76,6 +77,7 @@ private Connection connection = null;
 			System.err.println("error executing query " + numGamesQuery);
 		}
 		
+		primaryKey = numGames+1; //set primary key to the next number in the sequence
 		return numGames;
 		
 	}
@@ -199,6 +201,11 @@ private Connection connection = null;
 		return largestNumRounds;
 	}
 	
+	public int getPK()
+	{
+		return primaryKey;
+	}
+	
 	/**
 	 * Posts relevant game statistics to the database at the end of a game 
 	 * if the user chooses to do so 
@@ -217,8 +224,8 @@ private Connection connection = null;
 	{
 		Statement stmt = null;
 		
-		String postQuery = "INSERT INTO game (winner, numdraws, numroundsplayed, playerroundswon,"
-				+ " cpu1roundswon, cpu2roundswon, cpu3roundswon, cpu4roundswon) VALUES ('" + winner 
+		String postQuery = "INSERT INTO game (gameid, winner, numdraws, numroundsplayed, playerroundswon,"
+				+ " cpu1roundswon, cpu2roundswon, cpu3roundswon, cpu4roundswon) VALUES ('" + primaryKey+ "','" + winner 
 				+ "', '" + numDraws + "', '" + numRounds + "', '" + p1RoundsWon + "', '" + cpu1RoundsWon + "', '" + 
 				cpu2RoundsWon + "', '" + cpu3RoundsWon + "', '" + cpu4RoundsWon + "');";
 		
