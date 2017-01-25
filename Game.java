@@ -114,11 +114,17 @@ public class Game {
 		roundCount++;
 		playerPointer++;
 	}
-
+/**
+ * 
+ * @param chosenCharacteristic index of characteristic that is chosen by the player or default
+ * 
+ * sets player pointer
+ * @return the method that works out the winner of the round
+ */
 	public int playRound(int chosenCharacteristic) {
 		int value = chosenCharacteristic;
 
-		if (value == 0) // 0 is default, when not human turn
+		if (value == -1) // -1 is default, when not human turn
 		{
 			value = setCharacteristic(playerPointer);
 		}
@@ -126,6 +132,11 @@ public class Game {
 		return getOutcome(value);
 	}
 
+	/**
+	 * 
+	 * @param playerPointer
+	 * @return the index of the CPUs chosen characteristic
+	 */
 	private int setCharacteristic(int playerPointer) {
 		Card currentCard = activePlayers[playerPointer].getCurrentCard();
 		int currentCharacteristic = currentCard.getMaxCharacteristic();
@@ -134,7 +145,7 @@ public class Game {
 
 	/**
 	 * 
-	 * @param characteristic
+	 * @param characteristic index of  value array 
 	 * @return the winner of the round
 	 */
 	public int getOutcome(int characteristic) {

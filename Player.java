@@ -12,7 +12,7 @@ public class Player {
 	private Card[] hand = new Card[40];
 	private Card currentCard;
 	private int numCards;
-	private boolean active=true;
+	private boolean status=true;
 
 	// constructor
 	public Player(int player_ID) {
@@ -46,19 +46,9 @@ public class Player {
 	
 	// Boolean active - if a player is still in the game or not ?not sure if
 	// this is needed, could count number of cards in hand if =0 then out the game
-	public void setActive(boolean ingame){
-	active=ingame;
-	
-	if(active)
-
-	{
-		System.out.println("I'm in the game");
-	}
-
-	active=false;if(!active)
-	{
-		System.out.println("I'm out of the game");
-	}
+	public void setStatus(){
+		if(numCards==0)
+		status=false;
 	}
 	
 	// getCurrentCard - return the top card in their hand; at 0 in the array
@@ -94,12 +84,10 @@ public class Player {
 		return playerID;
 	}
 
-	// getStatus - return boolean if they are an active player or not
-	//called at end of round
+	// getStatus - return boolean if they are an active player
 	public boolean getStatus() {
-		if(numCards==0)
-		active=false;
-		return active;}
+	
+		return status;}
 
 
 }

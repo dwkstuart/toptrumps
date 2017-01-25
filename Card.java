@@ -2,8 +2,7 @@
  * Class that holds the decriptions and values of a single top trump card
  */
 public class Card {
-	private String[] category = new String[] { "description", "height", "weight", "length", "ferocity",
-			"intelligence" };
+	private String[] category;
 	private String description = "";
 	private int height, weight, length, ferocity, intelligence;
 	private String[] input = new String[6];
@@ -15,6 +14,7 @@ public class Card {
 	 *            text file sets the instance variables
 	 */
 	public Card(String details) {
+	
 		String info = details;
 		input = info.split(" +");
 		
@@ -111,7 +111,7 @@ public class Card {
 	}
 
 	/*
-	 * @return return the card description with valuesn in columns
+	 * @return return the card description with values in columns
 	 */
 	public String displayCard() {
 		String display = null;

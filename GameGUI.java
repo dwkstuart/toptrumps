@@ -180,6 +180,7 @@ public class GameGUI extends JFrame {
       JComboBox trumpCategories = new JComboBox(getCategories());
       JPanel row1 = new JPanel();
       row1.add(trumpCategories);
+    
 
       JButton chooseCategories = new JButton("SELECT");
       JPanel row2 = new JPanel();
