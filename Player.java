@@ -6,18 +6,16 @@
 
 public class Player {
 
-	// Instance variables- player id, an int between 0 and 4
-	private int playerID;
-	private int playerNum;
-	private Card[] hand = new Card[40];
+	private final int  HANDSIZE = 40;
+	private int playerNum;	
+	private Card[] hand;
 	private Card currentCard;
 	private int numCards;
 	private boolean status=true;
 
 	// constructor
-	public Player(int player_ID) {
-		this.playerID = player_ID;
-		System.out.println(playerID);
+	public Player() {
+		hand = new Card[HANDSIZE];
 	}
 
 	// a method to check the correct player number is selected
@@ -44,8 +42,7 @@ public class Player {
 			}
   
 	
-	// Boolean active - if a player is still in the game or not ?not sure if
-	// this is needed, could count number of cards in hand if =0 then out the game
+	// Boolean status - if a player is still in the game or not 
 	public void setStatus(){
 		if(numCards==0)
 		status=false;
@@ -70,24 +67,29 @@ public class Player {
 	}
 	}
 
+	public void setNumCards()
+	{
+		int cardCount = 0;
+		
+		while(hand[cardCount] != null)
+		{
+			cardCount++;
+		}
 
-	
+		numCards = cardCount;
+	}
+		
 
 	// getNumCards - return the number of card objects in the array
 	public int getNumCards() {
 		return numCards;
 	}
 
-	// getID
-
-	public int getPlayerID() {
-		return playerID;
-	}
-
+	
 	// getStatus - return boolean if they are an active player
 	public boolean getStatus() {
-	
-		return status;}
+		return status;
+	}
 
 
 }

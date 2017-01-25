@@ -3,6 +3,7 @@ import java.util.*;
 public class Game {
 	private int numPlayers;
 	private Player[] activePlayers; // array of all the current player objects
+	private Player communalPile;
 	private int playerPointer; // indicates which player's turn it is
 	private int roundCount; // number of rounds passed in current game
 	private Card[] deck; // array of all cards
@@ -14,6 +15,7 @@ public class Game {
 															// player during the
 															// game
 	private int winnerIndex;
+	
 
 	/**
 	 * Constructor for the Game object.
@@ -26,6 +28,7 @@ public class Game {
 	public Game(int numberOfPlayers) {
 		numPlayers = numberOfPlayers;
 		activePlayers = new Player[numberOfPlayers];
+		communalPile = new Player();
 
 		// create, shuffle and deal an array of card objects amongst all players
 		deck = new Card[deckSize];
@@ -114,17 +117,11 @@ public class Game {
 		roundCount++;
 		playerPointer++;
 	}
-/**
- * 
- * @param chosenCharacteristic index of characteristic that is chosen by the player or default
- * 
- * sets player pointer
- * @return the method that works out the winner of the round
- */
+
 	public int playRound(int chosenCharacteristic) {
 		int value = chosenCharacteristic;
 
-		if (value == -1) // -1 is default, when not human turn
+		if (value == 0) // 0 is default, when not human turn
 		{
 			value = setCharacteristic(playerPointer);
 		}
@@ -132,11 +129,6 @@ public class Game {
 		return getOutcome(value);
 	}
 
-	/**
-	 * 
-	 * @param playerPointer
-	 * @return the index of the CPUs chosen characteristic
-	 */
 	private int setCharacteristic(int playerPointer) {
 		Card currentCard = activePlayers[playerPointer].getCurrentCard();
 		int currentCharacteristic = currentCard.getMaxCharacteristic();
@@ -145,7 +137,7 @@ public class Game {
 
 	/**
 	 * 
-	 * @param characteristic index of  value array 
+	 * @param characteristic
 	 * @return the winner of the round
 	 */
 	public int getOutcome(int characteristic) {
