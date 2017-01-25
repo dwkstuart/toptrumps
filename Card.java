@@ -6,8 +6,8 @@ public class Card {
 			"intelligence" };
 	private String description = "";
 	private int height, weight, length, ferocity, intelligence;
-	private String[] values = new String[6];
-	private int[] characteristicvalues;
+	private String[] input = new String[6];
+	private int[] cardvalues =new int [5];
 
 	/**
 	 * @param String
@@ -16,15 +16,15 @@ public class Card {
 	 */
 	public Card(String details) {
 		String info = details;
-		values = info.split(" +");
-		// values[]= info.split(" ");
-
-		description = values[0];
-		height = Integer.parseInt(values[1]);
-		weight = Integer.parseInt(values[2]);
-		length = Integer.parseInt(values[3]);
-		ferocity = Integer.parseInt(values[4]);
-		intelligence = Integer.parseInt(values[5]);
+		input = info.split(" +");
+		
+		description = input[0];
+		
+		cardvalues[0] = Integer.parseInt(input[1]);
+		cardvalues[1] = Integer.parseInt(input[2]);
+		cardvalues[2] = Integer.parseInt(input[3]);
+		cardvalues[3] = Integer.parseInt(input[4]);
+		cardvalues[4] = Integer.parseInt(input[5]);
 
 	}
 
@@ -70,27 +70,29 @@ public class Card {
 		return weight;
 	}
 
+	
+	/**@param which index of which category vale to return
+	 * @return specific value from a card
+	 */
+	public int getValueatIndex(int index){
+		return cardvalues[index];
+	}
+
+	
 	/**
 	 * Method to return the index position of the maximum value in a card
 	 * 
 	 * @return index of highest characteristic
 	 */
-
 	public int getMaxCharacteristic() {
 		int max = 0;
 		int indexofValue = 0;
-		characteristicvalues[0] = height;
-		characteristicvalues[1] = weight;
-		characteristicvalues[2] = length;
-		characteristicvalues[3] = ferocity;
-		characteristicvalues[4] = intelligence;
-		
 
-		for (int i = 0; i < characteristicvalues.length; i++)
+		for (int i = 0; i < cardvalues.length; i++)
 
 		{
-			if (characteristicvalues[i] > max) {
-				max = characteristicvalues[i];
+			if (cardvalues[i] > max) {
+				max = cardvalues[i];
 				indexofValue = i;
 			}
 		}
@@ -104,7 +106,7 @@ public class Card {
 	 */
 	public String toString() {
 		String card = String.format("The %s has %d height, %d weight, %d length, %d ferocity and %d intelligence",
-				description, height, weight, length, ferocity, intelligence);
+				description,cardvalues[0], cardvalues[1], cardvalues[2], cardvalues[3], cardvalues[4]);
 		return card;
 	}
 
@@ -118,7 +120,7 @@ public class Card {
 		build.append(header);
 		build.append("\t" + description + "\n");
 		for (int i = 1; i < 6; i++) {
-			display = String.format("%-15s: %4s\n", category[i], values[i]);
+			display = String.format("%-15s: %4s\n", category[i], cardvalues[i]);
 			build.append(display);
 		}
 
