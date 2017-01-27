@@ -1,6 +1,8 @@
 import java.util.*;
 
 public class Game {
+	private Card [] roundCards;//cards in current round
+	private boolean lastRoundDraw = false; //boolean tracking if last round was a draw or not
 	private int numPlayers;
 	private Player[] activePlayers; // array of all the current player objects
 	private Player communalPile;
@@ -15,7 +17,10 @@ public class Game {
 															// player during the
 															// game
 	private int winnerIndex;
+<<<<<<< HEAD
 
+=======
+>>>>>>> b9c042f46ca6fb5610ff053696065b58617a8a7d
 
 	/**
 	 * Constructor for the Game object.
@@ -163,7 +168,7 @@ public class Game {
 			}
 
 		}
-		//when round is a draw
+		// when round is a draw
 		for (int i = 0; i < characteristicValues.length; i++) {
 			if (characteristicValues[i] == max) {
 				numMaxValue++;
@@ -173,6 +178,7 @@ public class Game {
 			}
 		}
 
+<<<<<<< HEAD
 		roundsWon[outcome]++; //adds
 		return outcome;//index of winning player in round
 	}
@@ -187,6 +193,39 @@ public class Game {
 		{playerPointer++;
 		while(activePlayers[playerPointer].getStatus()==false)
 			{playerPointer++;
+=======
+		roundsWon[outcome]++; // adds
+		return outcome;// index of winning player in round
+	}
+
+	/**passes the round card pile to the winning player
+	 * if previous round was a draw adds the communal pile to the winning players hand 
+	 */
+	private void passCardsToWinner(int index){
+		if (lastRoundDraw==true){
+			while(communalPile.getCurrentCard() != null){
+				activePlayers[index].addCardToHand(communalPile.getCurrentCard());
+				communalPile.removeCard();				
+			}
+			
+		}
+		for(int i=1; i<roundCards.length; i++){
+			activePlayers[index].addCardToHand(roundCards[i]);
+		}
+	}
+	
+	/**
+	 * sets who's turn it is
+	 * 
+	 */
+	private void setPlayerPointer() {
+		if (playerPointer == activePlayers.length - 1)
+			playerPointer = 0;
+		else {
+			playerPointer++;
+			while (activePlayers[playerPointer].getStatus() == false) {
+				playerPointer++;
+>>>>>>> b9c042f46ca6fb5610ff053696065b58617a8a7d
 
 			}
 		}

@@ -6,7 +6,7 @@ public class Card {
 	private String description = "";
 	private int height, weight, length, ferocity, intelligence;
 	private String[] input = new String[6];
-	private int[] cardvalues =new int [5];
+	private int[] cardvalues = new int[5];
 
 	/**
 	 * @param String
@@ -14,12 +14,12 @@ public class Card {
 	 *            text file sets the instance variables
 	 */
 	public Card(String details) {
-	
+
 		String info = details;
 		input = info.split(" +");
-		
+
 		description = input[0];
-		
+
 		cardvalues[0] = Integer.parseInt(input[1]);
 		cardvalues[1] = Integer.parseInt(input[2]);
 		cardvalues[2] = Integer.parseInt(input[3]);
@@ -28,57 +28,16 @@ public class Card {
 
 	}
 
-	/*
-	 * @return return the card description
-	 */
-	public String getDescription() {
-		return description;
-	}
 
-	/*
-	 * @return return the instance vairable intelligence
-	 */
-	public int getIntelligence() {
-		return intelligence;
-	}
-
-	/*
-	 * @return return the the instance variable ferocity
-	 */
-	public int getFerocity() {
-		return ferocity;
-	}
-
-	/*
-	 * @return return the instance variable length
-	 */
-	public int getLength() {
-		return length;
-	}
-
-	/*
-	 * @return return the instance variable height
-	 */
-	public int getHeight() {
-		return height;
-	}
-
-	/*
-	 * @return return the instance variable height
-	 */
-	public int getWeight() {
-		return weight;
-	}
-
-	
-	/**@param which index of which category vale to return
+	/**
+	 * @param which
+	 *            index of which category vale to return
 	 * @return specific value from a card
 	 */
-	public int getValueatIndex(int index){
+	public int getValueatIndex(int index) {
 		return cardvalues[index];
 	}
 
-	
 	/**
 	 * Method to return the index position of the maximum value in a card
 	 * 
@@ -106,20 +65,21 @@ public class Card {
 	 */
 	public String toString() {
 		String card = String.format("The %s has %d height, %d weight, %d length, %d ferocity and %d intelligence",
-				description,cardvalues[0], cardvalues[1], cardvalues[2], cardvalues[3], cardvalues[4]);
+				description, cardvalues[0], cardvalues[1], cardvalues[2], cardvalues[3], cardvalues[4]);
 		return card;
 	}
 
+	
 	/*
 	 * @return return the card description with values in columns
 	 */
-	public String displayCard() {
+	public String formatCardText() {
 		String display = null;
 		StringBuilder build = new StringBuilder();
 		String header = "DINO TOP TRUMPS!!!\n";
 		build.append(header);
 		build.append("\t" + description + "\n");
-		for (int i = 1; i < 6; i++) {
+		for (int i = 0; i < 5; i++) {
 			display = String.format("%-15s: %4s\n", category[i], cardvalues[i]);
 			build.append(display);
 		}
@@ -133,4 +93,6 @@ public class Card {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
 }
