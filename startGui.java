@@ -9,7 +9,7 @@ import javax.swing.*;
 /**
  * Class that creates the GUI which is used to begin a game or choose to view
  * previous statistics
- * 
+ *
  */
 
 public class startGui extends JFrame implements ActionListener {
@@ -20,9 +20,9 @@ public class startGui extends JFrame implements ActionListener {
 	private JComboBox numberPlayers;
 	private JButton newGame, viewStats;
 
-	
-	/**creates start gui 
-	 * 
+
+	/**creates start gui
+	 *
 	 */
 	public startGui() {
 
@@ -45,7 +45,7 @@ public class startGui extends JFrame implements ActionListener {
 		pan1.add(numberPlayers);
 		pan2.add(newGame);
 		pan3.add(viewStats);
-		
+
 		//add panels to JFrame
 		add(pan1);
 		add(pan2);
@@ -65,6 +65,8 @@ public class startGui extends JFrame implements ActionListener {
 		if (e.getSource() == newGame) {
 			int totalPlayers = (Integer) numberPlayers.getSelectedItem();
 			GameGUI run = new GameGUI(totalPlayers);
+			run.ResetGUI();
+			run.UpdatePlayer(3);
 			System.out.println(totalPlayers);
 		}
 
@@ -74,9 +76,9 @@ public class startGui extends JFrame implements ActionListener {
 			stats.DbConnect();
 			stats.getAvgDraws();
 		}
-		
-		
-		
+
+
+
 	}
 
 }

@@ -15,11 +15,11 @@ public class Game {
 															// player during the
 															// game
 	private int winnerIndex;
-	
+
 
 	/**
 	 * Constructor for the Game object.
-	 * 
+	 *
 	 * @param int
 	 *            numberOfPlayers Number of players at the start of the Game (as
 	 *            defined in startGui)
@@ -136,7 +136,7 @@ public class Game {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param characteristic
 	 * @return the winner of the round
 	 */
@@ -172,13 +172,13 @@ public class Game {
 				}
 			}
 		}
-		
-		roundsWon[outcome]++; //adds 
+
+		roundsWon[outcome]++; //adds
 		return outcome;//index of winning player in round
 	}
-	
-	/**sets who's turn it is 
-	 * 
+
+	/**sets who's turn it is
+	 *
 	 */
 	private void setPlayerPointer(){
 		if (playerPointer==activePlayers.length-1)
@@ -187,7 +187,7 @@ public class Game {
 		{playerPointer++;
 		while(activePlayers[playerPointer].getStatus()==false)
 			{playerPointer++;
-			
+
 			}
 		}
 	}
