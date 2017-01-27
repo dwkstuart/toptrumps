@@ -1,6 +1,8 @@
 import java.util.*;
 
 public class Game {
+	private Card [] roundCards;//cards in current round
+	private boolean lastRoundDraw = false; //boolean tracking if last round was a draw or not
 	private int numPlayers;
 	private Player[] activePlayers; // array of all the current player objects
 	private Player communalPile;
@@ -9,16 +11,16 @@ public class Game {
 	private Card[] deck; // array of all cards
 	private int currentCardIndex; // the index of the current card being read in
 	private int deckSize = 40; // total number of cards to store in the deck
+	private String category;
 	private int[] roundsWon = new int[] { 0, 0, 0, 0, 0 }; // number of rounds
 															// won by each
 															// player during the
 															// game
 	private int winnerIndex;
 
-
 	/**
 	 * Constructor for the Game object.
-	 *
+	 * 
 	 * @param int
 	 *            numberOfPlayers Number of players at the start of the Game (as
 	 *            defined in startGui)
@@ -94,6 +96,28 @@ public class Game {
 		}
 	}
 
+	/**
+	 * Method to instansiate a new round of Top Trumps, in which it is the
+	 * user's turn to select a category.
+	 */
+	public void createUserRound(String chosenCategory) {
+		// case that it is the user's turn to select a category.
+		Round currentRound = new Round(activePlayers, chosenCategory);
+		roundCount++;
+		playerPointer++;
+	}
+
+	/**
+	 * Method to instansiate a new round of Top Trumps, in which it is the
+	 * computer's turn to select a category.
+	 */
+	public void createCPURound() {
+		// case that it is a CPU player's turn to select a category.
+		// !! note the different call in the constructor for the Round object.
+		Round currentRound = new Round(activePlayers, playerPointer);
+		roundCount++;
+		playerPointer++;
+	}
 
 	public int playRound(int chosenCharacteristic) {
 		int value = chosenCharacteristic;
@@ -113,7 +137,7 @@ public class Game {
 	}
 
 	/**
-	 *
+	 * 
 	 * @param characteristic
 	 * @return the winner of the round
 	 */
@@ -140,7 +164,7 @@ public class Game {
 			}
 
 		}
-		//when round is a draw
+		// when round is a draw
 		for (int i = 0; i < characteristicValues.length; i++) {
 			if (characteristicValues[i] == max) {
 				numMaxValue++;
@@ -150,20 +174,37 @@ public class Game {
 			}
 		}
 
-		roundsWon[outcome]++; //adds
-		return outcome;//index of winning player in round
+		roundsWon[outcome]++; // adds
+		return outcome;// index of winning player in round
 	}
 
-	/**sets who's turn it is
-	 *
+	/**passes the round card pile to the winning player
+	 * if previous round was a draw adds the communal pile to the winning players hand 
 	 */
-	private void setPlayerPointer(){
-		if (playerPointer==activePlayers.length-1)
-		playerPointer=0;
-		else
-		{playerPointer++;
-		while(activePlayers[playerPointer].getStatus()==false)
-			{playerPointer++;
+	private void passCardsToWinner(int index){
+		if (lastRoundDraw==true){
+			while(communalPile.getCurrentCard() != null){
+				activePlayers[index].addCardToHand(communalPile.getCurrentCard());
+				communalPile.removeCard();				
+			}
+			
+		}
+		for(int i=1; i<roundCards.length; i++){
+			activePlayers[index].addCardToHand(roundCards[i]);
+		}
+	}
+	
+	/**
+	 * sets who's turn it is
+	 * 
+	 */
+	private void setPlayerPointer() {
+		if (playerPointer == activePlayers.length - 1)
+			playerPointer = 0;
+		else {
+			playerPointer++;
+			while (activePlayers[playerPointer].getStatus() == false) {
+				playerPointer++;
 
 			}
 		}
