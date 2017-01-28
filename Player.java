@@ -6,7 +6,7 @@
 
 public class Player {
 
-	private final int  HANDSIZE = 40;
+	private final int HANDSIZE = 40;
 	private int playerNum;	
 	private Card[] hand;
 	private Card currentCard;
@@ -27,18 +27,6 @@ public class Player {
 		}
 	}
 
-	/**Removes the first card in a players hand from the array and shifts array forward to fill space
-	 * @author David Stuart
-	 */
-	public void removeCard(){
-		int i=0;
-		while (hand[i]!=null){
-			hand[i]=hand[i+1]; 
-			i++;
-			}
-		}
-	
-		
 	// a method to get the number of players selected
 	public int getPlayerNum() {
 		return playerNum;
@@ -50,8 +38,9 @@ public class Player {
 			throw new IllegalArgumentException();
 			} 
 		else {
-			playerNum = newPlayerNum;}
+			playerNum = newPlayerNum;
 			}
+		}
   
 	
 	// Boolean status - if a player is still in the game or not 
@@ -65,7 +54,7 @@ public class Player {
 		
 		return hand[0];
 	}
-	// 
+	
 	//Card; -add a card to the back of their hand, first null value.
 	public void addCardToHand(Card cardToAdd) {
 	
@@ -79,17 +68,6 @@ public class Player {
 	}
 	}
 
-	/**Alternative Method to add a card to the back of the players hand,
-	 * the first null element in the array
-	 * @param Card object passed from Game class
-	 * 	
-	 */
-	private void winnersHand(Card a){
-		Card woncard = a;
-		this.setNumCards();
-		hand[numCards]=a;
-	}
-	
 	public void setNumCards()
 	{
 		int cardCount = 0;
