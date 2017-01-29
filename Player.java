@@ -92,5 +92,15 @@ public class Player {
 		return status;
 	}
 
-
+	/**Removes the first card in a players hand from the array and shifts array forward to fill space
+	 * @author David Stuart
+	 */
+	public void removeCard(){
+		int i=0;
+		while (hand[i]!=null){
+			hand[i]=hand[i+1]; 
+			i++;
+			}
+		}
+	
 }
