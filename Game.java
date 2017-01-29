@@ -18,7 +18,7 @@ public class Game {
 															// game
 	private int winnerIndex; //overall winner of the game
 	private int currentChosenCharacteristic; 
-
+	private int drawCount;
 
 	/**
 	 * Constructor for the Game object.
@@ -98,28 +98,6 @@ public class Game {
 		}
 	}
 
-	/**
-	 * Method to instantiate a new round of Top Trumps, in which it is the
-	 * user's turn to select a category.
-	 */
-//	public void createUserRound(String chosenCategory) {
-//		// case that it is the user's turn to select a category.
-//		Round currentRound = new Round(activePlayers, chosenCategory);
-//		roundCount++;
-//		playerPointer++;
-//	}
-
-	/**
-	 * Method to instantiate a new round of Top Trumps, in which it is the
-	 * computer's turn to select a category.
-	 */
-//	public void createCPURound() {
-//		// case that it is a CPU player's turn to select a category.
-//		// !! note the different call in the constructor for the Round object.
-//		Round currentRound = new Round(activePlayers, playerPointer);
-//		roundCount++;
-//		playerPointer++;
-//	}
 
 	public int playRound(int chosenCharacteristic) {
 		currentChosenCharacteristic = chosenCharacteristic;
@@ -183,6 +161,8 @@ public class Game {
 			if (characteristicValues[i] == max) {
 				numMaxValue++;
 				if (numMaxValue > 1) {
+					lastRoundDraw = true; //sets instance variable that last round is a draw
+					drawCount++; //tracks number of draws in a game
 					return -1;
 				}
 			}
@@ -190,7 +170,7 @@ public class Game {
 		
 		//change whose turn it is if necessary
 		if(outcome != playerPointer)
-		{
+		{	lastRoundDraw = false;
 			setPlayerPointer();
 		}
 		
@@ -199,11 +179,17 @@ public class Game {
 	}
 
 
-	/**passes the round card pile to the winning player
+	/**@param index of winning player in array or -1 if result was a draw
+	 * passes the round card pile to the winning player
 	 * if previous round was a draw adds the communal pile to the winning players hand 
 	 */
 	private void passCardsToWinner(int index){
-		if (lastRoundDraw==true){
+		//if round was a draw cards are passed to communalPile Player instance
+		if (index == -1){
+			for(int i=1; i<roundCards.length; i++){
+				communalPile.addCardToHand(roundCards[i]);}
+		}
+		else if (lastRoundDraw==true){
 			while(communalPile.getCurrentCard() != null){
 				activePlayers[index].addCardToHand(communalPile.getCurrentCard());
 				communalPile.removeCard();				

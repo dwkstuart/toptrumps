@@ -65,8 +65,8 @@ public class startGui extends JFrame implements ActionListener {
 		if (e.getSource() == newGame) {
 			int totalPlayers = (Integer) numberPlayers.getSelectedItem();
 			GameGUI run = new GameGUI(totalPlayers);
-			run.ResetGUI();
-			run.UpdatePlayer(3);
+			//run.ResetGUI();
+			//run.UpdatePlayer(0);
 			System.out.println(totalPlayers);
 		}
 
@@ -76,8 +76,9 @@ public class startGui extends JFrame implements ActionListener {
 			stats.DbConnect();
 			stats.getAvgDraws();
 		}
-
-
+		
+		//make GUI disappear after initial choice has been made
+		this.setVisible(false);
 
 	}
 

@@ -1,5 +1,5 @@
 /**
- * Class that holds the decriptions and values of a single top trump card
+ * Class that holds the descriptions and values of a single top trump card
  */
 public class Card {
 	private String[] category;
@@ -14,8 +14,9 @@ public class Card {
 	 *            text file sets the instance variables
 	 */
 	public Card(String details) {
-
+		
 		String info = details;
+		info = info.substring(0, (info.length()-1));//removes the trailing carriage return 
 		input = info.split(" +");
 
 		description = input[0];
@@ -64,8 +65,8 @@ public class Card {
 	 * @return return the card description with values
 	 */
 	public String toString() {
-		String card = String.format("The %s has %d height, %d weight, %d length, %d ferocity and %d intelligence",
-				description, cardvalues[0], cardvalues[1], cardvalues[2], cardvalues[3], cardvalues[4]);
+		String card = String.format("The %s has %d height, %d weight, %d length, %d ferocity and %d intelligence",//remove hard coding once 
+				description, cardvalues[0], cardvalues[1], cardvalues[2], cardvalues[3], cardvalues[4]);//method for importing category list is decided
 		return card;
 	}
 
