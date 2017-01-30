@@ -330,8 +330,7 @@ public class GameGUI extends JFrame implements ActionListener{
                input=trumpCategories.getSelectedIndex();
             }
             startGame.playRound(input);
-            // TEMP!!!
-            startGame.setPlayerPointer();
+
          }
 
       }
