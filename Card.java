@@ -13,14 +13,14 @@ public class Card {
 	 *            details, string passed in with description and values from
 	 *            text file sets the instance variables
 	 */
-	public Card(String details) {
-		
+	public Card(String[] categories, String details) {
+		this.category = categories;
 		String info = details;
-		info = info.substring(0, (info.length()-1));//removes the trailing carriage return 
+		System.out.println("String info = " + info);
+		// info = info.substring(0, (info.length()));//removes the trailing carriage return
 		input = info.split(" +");
 
 		description = input[0];
-
 		cardvalues[0] = Integer.parseInt(input[1]);
 		cardvalues[1] = Integer.parseInt(input[2]);
 		cardvalues[2] = Integer.parseInt(input[3]);
@@ -41,7 +41,7 @@ public class Card {
 
 	/**
 	 * Method to return the index position of the maximum value in a card
-	 * 
+	 *
 	 * @return index of highest characteristic
 	 */
 	public int getMaxCharacteristic() {
@@ -65,21 +65,21 @@ public class Card {
 	 * @return return the card description with values
 	 */
 	public String toString() {
-		String card = String.format("The %s has %d height, %d weight, %d length, %d ferocity and %d intelligence",//remove hard coding once 
+		String card = String.format("The %s has %d height, %d weight, %d length, %d ferocity and %d intelligence",//remove hard coding once
 				description, cardvalues[0], cardvalues[1], cardvalues[2], cardvalues[3], cardvalues[4]);//method for importing category list is decided
 		return card;
 	}
 
-	
+
 	/*
 	 * @return return the card description with values in columns
 	 */
 	public String formatCardText() {
 		String display = null;
 		StringBuilder build = new StringBuilder();
-		String header = "DINO TOP TRUMPS!!!\n";
+		String header = " ~ Dino Trop Trumps ~\n\n";
 		build.append(header);
-		build.append("\t" + description + "\n");
+		build.append(description + "\n\n");
 		for (int i = 0; i < 5; i++) {
 			display = String.format("%-15s: %4s\n", category[i], cardvalues[i]);
 			build.append(display);

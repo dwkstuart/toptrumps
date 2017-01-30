@@ -6,18 +6,19 @@ public class Game {
 	private boolean lastRoundDraw = false; //boolean tracking if last round was a draw or not
 	private int numPlayers;
 	private Player[] activePlayers; // array of all the current player objects
-	private Player communalPile; 
+	private Player communalPile;
 	private int playerPointer; // indicates which player's turn it is
 	private int roundCount; // number of rounds passed in current game
 	private Card[] deck; // array of all cards
-	private int currentCardIndex; // the index of the current card being read in	
+	private String[] categories;
+	private int currentCardIndex; // the index of the current card being read in
 	//private String category;
 	private int[] roundsWon = new int[] { 0, 0, 0, 0, 0 }; // number of rounds
 															// won by each
 															// player during the
 															// game
 	private int winnerIndex; //overall winner of the game
-	private int currentChosenCharacteristic; 
+	private int currentChosenCharacteristic;
 	private int drawCount;
 
 	/**
@@ -28,7 +29,8 @@ public class Game {
 	 *            defined in startGui)
 	 * @return Game object
 	 */
-	public Game(int numberOfPlayers, String [] deckDetails) {
+	public Game(int numberOfPlayers, String[] categories, String [] deckDetails) {
+		this.categories = categories;
 		numPlayers = numberOfPlayers;
 		activePlayers = new Player[numberOfPlayers];
 		communalPile = new Player();
@@ -37,14 +39,14 @@ public class Game {
 		deck = new Card[DECKSIZE];
 		for (int i=0; i<DECKSIZE; i++)
 		{
-			deck[i]= new Card (deckDetails[i]);
+			deck[i]= new Card (categories, deckDetails[i]);
 		}
 		currentCardIndex = 0; // Initialize at 0 until cards are added to the
 								// array :)
 		for (int i=0; i<numberOfPlayers; i++){
 			activePlayers[i]= new Player();
 		}
-			
+
 		// IMPORTANT: These methods shouldn't be called here!
 		// Will need to shuffle / deal deck once it has been created...
 		// so we will have to call em from the GUI?
@@ -65,7 +67,7 @@ public class Game {
 	 *            lineFromInput
 	 */
 	public void addCardToDeck(String lineFromInput) {
-		deck[currentCardIndex] = new Card(lineFromInput);
+		deck[currentCardIndex] = new Card(categories, lineFromInput);
 		currentCardIndex++;
 	}
 
@@ -105,16 +107,16 @@ public class Game {
 		}
 	}
 	/**
-	 * 
-	 * @param chosenCharacteristic takes in the index of the characteristic that the player has chosen 
-	 * in the JComboBox or 0 if it is a user turn
+	 *
+	 * @param chosenCharacteristic takes in the index of the characteristic that the player has chosen
+	 * in the JComboBox or -1 if it is a user turn
 	 * @return outcome method that determines the highest scoring card
 	 */
 
 	public int playRound(int chosenCharacteristic) {
 		currentChosenCharacteristic = chosenCharacteristic;
 
-		if (currentChosenCharacteristic == 0) // 0 is default, when not human turn
+		if (currentChosenCharacteristic == -1) // -1 is default, when not human turn
 		{
 			currentChosenCharacteristic = setCharacteristic(playerPointer);
 		}
@@ -122,12 +124,12 @@ public class Game {
 		//test
 		System.out.println("chosen characteristic is " + chosenCharacteristic);
 		return getOutcome(currentChosenCharacteristic);
-		
-		
+
+
 	}
 
 	/**Method that returns the index of the player currently choosing the characteristic
-	 * 
+	 *
 	 * @return playerPointer
 	 */
 	public int getPlayerPointer() {
@@ -135,7 +137,7 @@ public class Game {
 	}
 
 	/**
-	 * Finds the characteristic of highest value from the 
+	 * Finds the characteristic of highest value from the
 	 * current card of the player whose turn it is
 	 * @param playerPointer
 	 * @return the index of the chosen characteristic
@@ -158,10 +160,10 @@ public class Game {
 		int max = 0;
 		int numMaxValue = 0;
 
-			
-		//sets the current characteristic for each player 
+
+		//sets the current characteristic for each player
 		for(int i = 0; i < activePlayers.length; i++) {
-			if (activePlayers[i].getStatus() == true) 											
+			if (activePlayers[i].getStatus() == true)
 			{
 				Card currentCard = activePlayers[i].getCurrentCard();
 				//test
@@ -181,7 +183,7 @@ public class Game {
 				outcome = i;
 			}
 		}
-		
+
 		//determine whether there has been a draw by checking
 		//if the max value appears more than once in the array
 		for(int i = 0; i < characteristicValues.length; i++) {
@@ -194,13 +196,13 @@ public class Game {
 				}
 			}
 		}
-		
+
 		//change whose turn it is if necessary
 		if(outcome != playerPointer)
 		{	lastRoundDraw = false;
 			setPlayerPointer();
 		}
-		
+
 		roundsWon[outcome]++; //increments the number of rounds won by the current winner
 		//test
 		System.out.println("Player index " + outcome + "  has the highest score");
@@ -210,7 +212,7 @@ public class Game {
 
 	/**@param index of winning player in array or -1 if result was a draw
 	 * passes the round card pile to the winning player
-	 * if previous round was a draw adds the communal pile to the winning players hand 
+	 * if previous round was a draw adds the communal pile to the winning players hand
 	 */
 	private void passCardsToWinner(int index){
 		//if round was a draw cards are passed to communalPile Player instance
@@ -221,18 +223,18 @@ public class Game {
 		else if (lastRoundDraw==true){
 			while(communalPile.getCurrentCard() != null){
 				activePlayers[index].addCardToHand(communalPile.getCurrentCard());
-				communalPile.removeCard();				
+				communalPile.removeCard();
 			}
-			
+
 		}
 		for(int i=1; i<roundCards.length; i++){
 			activePlayers[index].addCardToHand(roundCards[i]);
 		}
 	}
-	
+
 	/**
 	 * sets who's turn it is
-	 * 
+	 *
 	 */
 	private void setPlayerPointer() {
 		if (playerPointer == activePlayers.length - 1)
@@ -245,5 +247,9 @@ public class Game {
 
 			}
 		}
+	}
+
+	public Player getActivePlayer(int playerIndex) {
+		return activePlayers[playerIndex];
 	}
 }

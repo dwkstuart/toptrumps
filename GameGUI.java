@@ -10,66 +10,66 @@ import java.lang.reflect.Array;
 
 public class GameGUI extends JFrame implements ActionListener{
 
-  //card text file name
-  private final String title = "DINSAUR TOP TRUMPS!";
-  private final  String textFile = "cardText.txt";
+   //card text file name
+   private final String title = "DINSAUR TOP TRUMPS!";
+   private final  String textFile = "cardText.txt";
 
-  //integers representing the number of categories and the total number of cards in the deck
-  private final int numCat = 5;
-  private final int deckSize = 40;
+   //integers representing the number of categories and the total number of cards in the deck
+   private final int numCat = 5;
+   private final int deckSize = 40;
 
-  //String arrays to store categories and card details read in form the .txt file
-  private String[] categories;
-  private String[] deck;
-
-
-  //monospaced font in two sizes for use in all card display and message fields
-  private final Font theFont1 = new Font("Consolas", Font.BOLD, 6);
-  private final Font theFont2 = new Font("Consolas", Font.BOLD, 12);
+   //String arrays to store categories and card details read in form the .txt file
+   private String[] categories;
+   private String[] deck;
 
 
-  //main GUI sections
-  private JPanel top, middle, bottom;
+   //monospaced font in two sizes for use in all card display and message fields
+   private final Font theFont1 = new Font("Consolas", Font.BOLD, 6);
+   private final Font theFont2 = new Font("Consolas", Font.BOLD, 12);
 
-  //top panel instance variables
-  //panels for computer players
-  private  JPanel player1, player2, player3, player4;
-  //text areas for players' card details
-  private JTextArea comp1Card, comp2Card, comp3Card, comp4Card;
-  //labels to display each player's number of cards in hand
-  private JLabel comp1CardCount, comp2CardCount, comp3CardCount, comp4CardCount;
-  //
-  private final String cardInfo = "CARDS IN HAND: ";
-  private final String deckInfo = "CARDS LEFT IN DECK";
-  //ASCII pattern to display when players' card details need to be hidden
-  private final String dinoImage = "───────────████████\n──────────███▄███████\n──────────███████████\n──────────███████████\n──────────██████\n──────────█████████\n█───────███████\n██────████████████\n███──██████████──█\n███████████████\n███████████████\n─█████████████\n──███████████\n────████████\n─────███──██\n─────██────█\n─────█─────█\n─────██────██\n";
 
-  //middle panel instance variables
-  private JTextArea messageArea;
-  private JTextField humanTurn;
+   //main GUI sections
+   private JPanel top, middle, bottom;
 
-  //bottom panel instance variables
-  //text areas for the cards left over in deck, and the user's card details
-  private JTextArea drawPile, humanCard;
-  //labels to display number of cards in deck and number in user's hand
-  private JLabel drawCardCount, humanCardCount;
-  //the play button which the user will use to step through each round of the game
-  private JButton play;
-  //combo box user will use to select chosen category when it is their turn
-  private JComboBox trumpCategories;
+   //top panel instance variables
+   //panels for computer players
+   private  JPanel player1, player2, player3, player4;
+   //text areas for players' card details
+   private JTextArea comp1Card, comp2Card, comp3Card, comp4Card;
+   //labels to display each player's number of cards in hand
+   private JLabel comp1CardCount, comp2CardCount, comp3CardCount, comp4CardCount;
+   //
+   private final String cardInfo = "CARDS IN HAND: ";
+   private final String deckInfo = "CARDS LEFT IN DECK";
+   //ASCII pattern to display when players' card details need to be hidden
+   private final String dinoImage = "───────────████████\n──────────███▄███████\n──────────███████████\n──────────███████████\n──────────██████\n──────────█████████\n█───────███████\n██────████████████\n███──██████████──█\n███████████████\n███████████████\n─█████████████\n──███████████\n────████████\n─────███──██\n─────██────█\n─────█─────█\n─────██────██\n";
 
-  //borders deliniating to user what player is in play at any one time
-  // Border currentPlayer = BorderFactory.createMatteBorder(5,5,5,5, Color.green);
-  // private Border notCurrentPlayer =  BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black);
-  // private Border nonPlayer = BorderFactory.createMatteBorder(5, 5, 5, 5, Color.gray);
+   //middle panel instance variables
+   private JTextArea messageArea;
+   private JTextField humanTurn;
 
-  private Game startGame;
+   //bottom panel instance variables
+   //text areas for the cards left over in deck, and the user's card details
+   private JTextArea drawPile, humanCard;
+   //labels to display number of cards in deck and number in user's hand
+   private JLabel drawCardCount, humanCardCount;
+   //the play button which the user will use to step through each round of the game
+   private JButton play;
+   //combo box user will use to select chosen category when it is their turn
+   private JComboBox trumpCategories;
 
-    /**
-    *Creates an instance of the Game GUI, based on how many opponents the user has selected
-    *@param player the number of opponents the user has selected for their game in the StartGUI
-    **/
-    public GameGUI(int player){
+   //borders deliniating to user what player is in play at any one time
+   // Border currentPlayer = BorderFactory.createMatteBorder(5,5,5,5, Color.green);
+   // private Border notCurrentPlayer =  BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black);
+   // private Border nonPlayer = BorderFactory.createMatteBorder(5, 5, 5, 5, Color.gray);
+
+   private Game startGame;
+
+   /**
+   *Creates an instance of the Game GUI, based on how many opponents the user has selected
+   *@param player the number of opponents the user has selected for their game in the StartGUI
+   **/
+   public GameGUI(int player){
 
       setLayout(new GridLayout(3,1));
       setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -80,19 +80,20 @@ public class GameGUI extends JFrame implements ActionListener{
       GUIMiddle();
       GUIBottom();
 
-      //sets instance variables
-  		this.SetOpponentsView(player);
-  		this.UpdatePlayer(0);
-  		
-  		startGame = new Game(player, this.getDeck());
-      setVisible(true);
-    }
+      startGame = new Game(player, getCategories(), this.getDeck());
 
-    /**
-    *creates the top third of the GAMEGUI
-    *@author Lauren
-    **/
-    public void GUITop(){
+      //sets instance variables
+      this.SetOpponentsView(player);
+      this.UpdatePlayer(0);
+
+      setVisible(true);
+   }
+
+   /**
+   *creates the top third of the GAMEGUI
+   *@author Lauren
+   **/
+   public void GUITop(){
 
       final GridLayout topGrid = new GridLayout(1,4);
 
@@ -153,13 +154,13 @@ public class GameGUI extends JFrame implements ActionListener{
       top.add(player4);
 
       add(top);
-    }
+   }
 
-    /**
-    *creates the middle third of the GAMEGUI
-    *@author Lauren
-    **/
-    public void GUIMiddle(){
+   /**
+   *creates the middle third of the GAMEGUI
+   *@author Lauren
+   **/
+   public void GUIMiddle(){
 
       middle = new JPanel();
       final GridLayout middleGrid = new GridLayout(2,1);
@@ -185,13 +186,13 @@ public class GameGUI extends JFrame implements ActionListener{
       middle.add(row2);
 
       add(middle);
-    }
+   }
 
-    /**
-    *creates the bottom third of the GAMEGUI
-    *@author Lauren
-    **/
-    public void GUIBottom(){
+   /**
+   *creates the bottom third of the GAMEGUI
+   *@author Lauren
+   **/
+   public void GUIBottom(){
       bottom = new JPanel();
       GridLayout bottomGrid = new GridLayout(1,3);
       bottom.setLayout(bottomGrid);
@@ -208,8 +209,9 @@ public class GameGUI extends JFrame implements ActionListener{
       left.add(drawCardCount);
 
       JPanel center = new JPanel();
-      humanCard = new JTextArea(dinoImage, 4, 12);
-      humanCard.setFont(theFont1);
+      // humanCard = new JTextArea(dinoImage, 4, 12);
+      humanCard = new JTextArea(4, 12);
+      humanCard.setFont(theFont2);
       humanCard.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.gray));
       humanCardCount = new JLabel(cardInfo);
       center.add(humanCard);
@@ -233,64 +235,66 @@ public class GameGUI extends JFrame implements ActionListener{
       bottom.add(right);
 
       add(bottom);
-    }
+   }
 
-    /**
-    *Method sets the game gui to show the correct number of opponents at the begining of gameplay
-    *@author Lauren
-    **/
-    public void SetOpponentsView(int opponents){
+   /**
+   *Method sets the game gui to show the correct number of opponents at the begining of gameplay
+   *@author Lauren
+   **/
+   public void SetOpponentsView(int opponents){
       if(opponents == 4){}
-      if(opponents <= 3){ player4.setVisible(false); }
-      if(opponents <= 2){player3.setVisible(false);}
-      if(opponents<=1){player2.setVisible(false);}
-    }
+         if(opponents <= 3){ player4.setVisible(false); }
+         if(opponents <= 2){player3.setVisible(false);}
+         if(opponents<=1){player2.setVisible(false);}
+      }
 
-    /**
-    *Method to update gui display to reflect the current player
-    *@param playerNumber the player whose turn it is
-    *@author Lauren
-    **/
-    public void UpdatePlayer(int playerNumber){
-      if (playerNumber == 0){
-        humanTurn.setText("IT'S YOUR TURN! Pick a category!");
-        humanTurn.setBackground(Color.GREEN);
-        humanTurn.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
-        humanCard.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
-        trumpCategories.setEnabled(true);
+      /**
+      *Method to update gui display to reflect the current player
+      *@param playerNumber the player whose turn it is
+      *@author Lauren
+      **/
+      public void UpdatePlayer(int playerNumber){
+         if (playerNumber == 0){
+            Player user = startGame.getActivePlayer(0);
+            humanTurn.setText("IT'S YOUR TURN! Pick a category!");
+            humanTurn.setBackground(Color.GREEN);
+            humanTurn.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
+            humanCard.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
+            humanCard.setText(user.returnCurrentCardStr());
+            trumpCategories.setEnabled(true);
 
+         }
+         if(playerNumber==1){
+            comp1Card.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
+            trumpCategories.setEnabled(false);
+         }
+         if(playerNumber==2){
+            comp2Card.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
+            trumpCategories.setEnabled(false);
+         }
+         if(playerNumber==3){
+            comp3Card.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
+            trumpCategories.setEnabled(false);
+         }
+         if(playerNumber==4){
+            comp4Card.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
+            trumpCategories.setEnabled(false);
+         }
       }
-      if(playerNumber==1){
-        comp1Card.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
-          trumpCategories.setEnabled(false);
-      }
-      if(playerNumber==2){
-        comp2Card.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
-        trumpCategories.setEnabled(false);
-      }
-      if(playerNumber==3){
-        comp3Card.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
-          trumpCategories.setEnabled(false);
-      }
-      if(playerNumber==4){
-        comp4Card.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
-        trumpCategories.setEnabled(false);
-      }
-    }
-    /**
-    *Method to reset theGUI to default between player turns
-    *@author Lauren
-    **/
-    public void ResetGUI(){
-        trumpCategories.setEnabled(false);
-        humanTurn.setText("it's not your turn!");
-        humanTurn.setBackground(Color.gray);
-        humanTurn.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
-        humanCard.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
-        comp1Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
-        comp2Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
-        comp3Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
-        comp4Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
+      /**
+      *Method to reset theGUI to default between player turns
+      *@author Lauren
+      **/
+      public void ResetGUI(){
+         trumpCategories.setEnabled(false);
+         humanTurn.setText("it's not your turn!");
+         humanTurn.setBackground(Color.gray);
+         humanTurn.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
+         humanCard.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
+         comp1Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
+         comp2Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
+         comp3Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
+         comp4Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
 
 
       }
@@ -300,15 +304,15 @@ public class GameGUI extends JFrame implements ActionListener{
       *@author Lauren
       **/
       public void actionPerformed(ActionEvent e){
-        System.err.println("yep");
-      int input =0;
-        if (e.getSource()==play)
-        	   	if(startGame.getPlayerPointer()==0){
-        		input=trumpCategories.getSelectedIndex();
-        	}
-        	startGame.playRound(input);
-        	this.UpdatePlayer(2);
-        	
+         System.err.println("yep");
+         int input =-1;
+         if (e.getSource()==play) {
+            if(startGame.getPlayerPointer()==0){
+               input=trumpCategories.getSelectedIndex();
+            }
+            startGame.playRound(input);
+         }
+
       }
 
       /**
@@ -317,43 +321,43 @@ public class GameGUI extends JFrame implements ActionListener{
       @return an array of Strings detailing the top trumps categories
       **/
       public String[] getCategories(){
-        try{
-         FileReader readCategories = new FileReader(textFile);
-         Scanner scan = new Scanner(readCategories);
-         scan.next();
-         categories = new String[numCat];
-         System.err.println("TOP TRUMPS CATEGORIES \n-------------------------");
-         for(int i=0; i<numCat;i++){
-         categories[i]=scan.next();
-         System.err.println(i + " " + categories[i]);
-        }
-       }
-       catch(FileNotFoundException e){System.err.println("file not found exception in GetCategories()");}
-       return categories;
-    }
+         try{
+            FileReader readCategories = new FileReader(textFile);
+            Scanner scan = new Scanner(readCategories);
+            scan.next();
+            categories = new String[numCat];
+            System.err.println("TOP TRUMPS CATEGORIES \n-------------------------");
+            for(int i=0; i<numCat;i++){
+               categories[i]=scan.next();
+               System.err.println(i + " " + categories[i]);
+            }
+         }
+         catch(FileNotFoundException e){System.err.println("file not found exception in GetCategories()");}
+         return categories;
+      }
 
-    /**
-    *method to get a Strings for each of the top trumps card
-    *@author Lauren
-    *@return an array of Strings of card details
-    **/
-    public String[] getDeck(){
-      try{
-        FileReader readDeck = new FileReader(textFile);
-        Scanner scan = new Scanner(readDeck);
-        scan.useDelimiter("\n");
-        scan.next(); //scan first line to skip over categories
-        deck = new String[deckSize];
-        System.err.println("TOP TRUMPS CARD DETAILS \n-------------------------");
-        for(int i =0; i<deckSize; i++){
-          deck[i]=scan.next();
-          System.err.println(i + " " + deck[i]);
-        }
-    }
-      catch(FileNotFoundException e){System.err.println("file not found exception in getDeck()");}
-      return deck;
-    }
+      /**
+      *method to get a Strings for each of the top trumps card
+      *@author Lauren
+      *@return an array of Strings of card details
+      **/
+      public String[] getDeck(){
+         try{
+            FileReader readDeck = new FileReader(textFile);
+            Scanner scan = new Scanner(readDeck);
+            scan.useDelimiter("\n");
+            scan.next(); //scan first line to skip over categories
+            deck = new String[deckSize];
+            System.err.println("TOP TRUMPS CARD DETAILS \n-------------------------");
+            for(int i =0; i<deckSize; i++){
+               deck[i]=scan.next();
+               System.err.println(i + " " + deck[i]);
+            }
+         }
+         catch(FileNotFoundException e){System.err.println("file not found exception in getDeck()");}
+         return deck;
+      }
 
 
 
-}
+   }

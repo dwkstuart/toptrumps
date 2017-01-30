@@ -7,7 +7,7 @@
 public class Player {
 
 	private final int HANDSIZE = 40;
-	private int playerNum;	
+	private int playerNum;
 	private Card[] hand;
 	private Card currentCard;
 	private int numCards;
@@ -36,28 +36,28 @@ public class Player {
 //	public void setPlayerNum(int newPlayerNum) {
 //		if (newPlayerNum < 0 || newPlayerNum > 100) {
 //			throw new IllegalArgumentException();
-//			} 
+//			}
 //		else {
 //			playerNum = newPlayerNum;
 //			}
 //		}
-  
-	
-	// Boolean status - if a player is still in the game or not 
+
+
+	// Boolean status - if a player is still in the game or not
 	public void setStatus(){
 		if(numCards==0)
 		status=false;
 	}
-	
+
 	// getCurrentCard - return the top card in their hand; at 0 in the array
 	public Card getCurrentCard() {
-		
+
 		return hand[0];
 	}
-	
+
 	//Card; -add a card to the back of their hand, first null value.
 	public void addCardToHand(Card cardToAdd) {
-	
+
 	int i=0;	// index in card array
 	while (i<40) {
 		if(hand[i]==null) {
@@ -71,7 +71,7 @@ public class Player {
 	public void setNumCards()
 	{
 		int cardCount = 0;
-		
+
 		while(hand[cardCount] != null)
 		{
 			cardCount++;
@@ -79,17 +79,22 @@ public class Player {
 
 		numCards = cardCount;
 	}
-		
+
 
 	// getNumCards - return the number of card objects in the array
 	public int getNumCards() {
 		return numCards;
 	}
 
-	
+
 	// getStatus - return boolean if they are an active player
 	public boolean getStatus() {
 		return status;
+	}
+
+	public String returnCurrentCardStr() {
+		Card cardToBeFormatted = this.getCurrentCard();
+		return cardToBeFormatted.formatCardText();
 	}
 
 	/**Removes the first card in a players hand from the array and shifts array forward to fill space
@@ -98,9 +103,9 @@ public class Player {
 	public void removeCard(){
 		int i=0;
 		while (hand[i]!=null){
-			hand[i]=hand[i+1]; 
+			hand[i]=hand[i+1];
 			i++;
 			}
 		}
-	
+
 }
