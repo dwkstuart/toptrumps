@@ -254,6 +254,23 @@ public class GameGUI extends JFrame implements ActionListener{
       *@author Lauren
       **/
       public void UpdatePlayer(int playerNumber){
+         // set all borders to default (black)
+         humanCard.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.gray));
+         comp1Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.gray));
+         comp2Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.gray));
+         comp3Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.gray));
+         comp4Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.gray));
+
+         // set all computer cards to dinos at the start of a round
+         comp1Card.setFont(theFont1);
+         comp1Card.setText(dinoImage);
+         comp2Card.setFont(theFont1);
+         comp2Card.setText(dinoImage);
+         comp3Card.setFont(theFont1);
+         comp3Card.setText(dinoImage);
+         comp4Card.setFont(theFont1);
+         comp4Card.setText(dinoImage);
+
          if (playerNumber == 0){
             Player user = startGame.getActivePlayer(0);
             humanTurn.setText("IT'S YOUR TURN! Pick a category!");
@@ -265,6 +282,9 @@ public class GameGUI extends JFrame implements ActionListener{
 
          }
          if(playerNumber==1){
+            // RISKY: THIS CODE NEEDS REVIEWING
+            Player currentPlayer = startGame.getActivePlayer(1);
+            comp1Card.setText(currentPlayer.returnCurrentCardStr());
             comp1Card.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
             trumpCategories.setEnabled(false);
          }
@@ -304,13 +324,14 @@ public class GameGUI extends JFrame implements ActionListener{
       *@author Lauren
       **/
       public void actionPerformed(ActionEvent e){
-         System.err.println("yep");
          int input =-1;
          if (e.getSource()==play) {
             if(startGame.getPlayerPointer()==0){
                input=trumpCategories.getSelectedIndex();
             }
             startGame.playRound(input);
+            // TEMP!!!
+            startGame.setPlayerPointer();
          }
 
       }
