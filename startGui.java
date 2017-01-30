@@ -60,7 +60,7 @@ public class startGui extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		//player selects number of oppoents in drop down
+		//player selects number of opponents in drop down
 		//new game is created with that number of computer players
 		if (e.getSource() == newGame) {
 			int totalPlayers = (Integer) numberPlayers.getSelectedItem();

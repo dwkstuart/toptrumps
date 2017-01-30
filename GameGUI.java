@@ -63,7 +63,7 @@ public class GameGUI extends JFrame implements ActionListener{
   // private Border notCurrentPlayer =  BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black);
   // private Border nonPlayer = BorderFactory.createMatteBorder(5, 5, 5, 5, Color.gray);
 
-
+  private Game startGame;
 
     /**
     *Creates an instance of the Game GUI, based on how many opponents the user has selected
@@ -83,8 +83,8 @@ public class GameGUI extends JFrame implements ActionListener{
       //sets instance variables
   		this.SetOpponentsView(player);
   		this.UpdatePlayer(0);
-  		this.getDeck();
-
+  		
+  		startGame = new Game(player, this.getDeck());
       setVisible(true);
     }
 
@@ -301,6 +301,14 @@ public class GameGUI extends JFrame implements ActionListener{
       **/
       public void actionPerformed(ActionEvent e){
         System.err.println("yep");
+      int input =0;
+        if (e.getSource()==play)
+        	   	if(startGame.getPlayerPointer()==0){
+        		input=trumpCategories.getSelectedIndex();
+        	}
+        	startGame.playRound(input);
+        	this.UpdatePlayer(2);
+        	
       }
 
       /**

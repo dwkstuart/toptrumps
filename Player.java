@@ -32,15 +32,15 @@ public class Player {
 		return playerNum;
 	}
 
-	// a method to store the number of players selected by the user
-	public void setPlayerNum(int newPlayerNum) {
-		if (newPlayerNum < 0 || newPlayerNum > 100) {
-			throw new IllegalArgumentException();
-			} 
-		else {
-			playerNum = newPlayerNum;
-			}
-		}
+//	// a method to store the number of players selected by the user
+//	public void setPlayerNum(int newPlayerNum) {
+//		if (newPlayerNum < 0 || newPlayerNum > 100) {
+//			throw new IllegalArgumentException();
+//			} 
+//		else {
+//			playerNum = newPlayerNum;
+//			}
+//		}
   
 	
 	// Boolean status - if a player is still in the game or not 
