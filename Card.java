@@ -17,7 +17,7 @@ public class Card {
 		this.category = categories;
 		String info = details;
 		System.out.println("String info = " + info);
-		// info = info.substring(0, (info.length()));//removes the trailing carriage return
+		 info = info.substring(0, (info.length()-1));//removes the trailing carriage return
 		input = info.split(" +");
 
 		description = input[0];
@@ -91,8 +91,9 @@ public class Card {
 
 	// returns characteristic at specific index
 	public int getCharacteristicValueAt(int characteristic) {
-		// TODO Auto-generated method stub
-		return 0;
+	
+		int charValue =cardvalues[characteristic];
+		return charValue;
 	}
 
 

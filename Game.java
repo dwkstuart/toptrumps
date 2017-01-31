@@ -31,8 +31,8 @@ public class Game {
 	 */
 	public Game(int numberOfPlayers, String[] categories, String [] deckDetails) {
 		this.categories = categories;
-		numPlayers = numberOfPlayers;
-		activePlayers = new Player[numberOfPlayers];
+		numPlayers = numberOfPlayers +1;
+		activePlayers = new Player[numPlayers];
 		communalPile = new Player();
 
 		// create, shuffle and deal an array of card objects amongst all players
@@ -43,16 +43,10 @@ public class Game {
 		}
 		currentCardIndex = 0; // Initialize at 0 until cards are added to the
 								// array :)
-		for (int i=0; i<numberOfPlayers; i++){
+		for (int i=0; i<numPlayers; i++){
 			activePlayers[i]= new Player();
 		}
 
-		// IMPORTANT: These methods shouldn't be called here!
-		// Will need to shuffle / deal deck once it has been created...
-		// so we will have to call em from the GUI?
-		// or maybe I am overthinking it...
-		// can test proper once the GUI is up and running
-		// -Niall x
 		deck = shuffleDeck(deck);
 		dealCards(deck);
 
@@ -123,6 +117,7 @@ public class Game {
 		roundCount++;
 		//test
 		System.out.println("chosen characteristic is " + chosenCharacteristic);
+		this.getPlayerPointer();
 		return getOutcome(currentChosenCharacteristic);
 
 
@@ -133,6 +128,7 @@ public class Game {
 	 * @return playerPointer
 	 */
 	public int getPlayerPointer() {
+		System.err.println("Player pointer is " + playerPointer);
 		return playerPointer;
 	}
 
@@ -147,7 +143,18 @@ public class Game {
 		int currentCharacteristic = currentCard.getMaxCharacteristic();
 		return currentCharacteristic;
 	}
-
+	/**Method for creating array of current of cards in the round
+	 * 
+	 */
+	public void populateRoundCards(){
+		roundCards=new Card[activePlayers.length];
+		for (int i=0; i<activePlayers.length; i++)
+		{
+		if (activePlayers[i].getStatus()==true)
+			roundCards[i]=activePlayers[i].getCurrentCard();
+		}
+	}
+	
 	/**
 	 *
 	 * @param characteristic
@@ -155,7 +162,7 @@ public class Game {
 	 */
 	public int getOutcome(int characteristic) {
 		int[] characteristicValues = new int[activePlayers.length];
-
+		
 		int outcome = 0;
 		int max = 0;
 		int numMaxValue = 0;
@@ -187,11 +194,15 @@ public class Game {
 		//determine whether there has been a draw by checking
 		//if the max value appears more than once in the array
 		for(int i = 0; i < characteristicValues.length; i++) {
+			System.err.println("Characteristic values array " + characteristicValues[i]);
 			if (characteristicValues[i] == max) {
+				
 				numMaxValue++;
 				if (numMaxValue > 1) {
+					System.err.println("Get here");
 					lastRoundDraw = true; //sets instance variable that last round is a draw
 					drawCount++; //tracks number of draws in a game
+					this.removeCardsFromHands();
 					return -1;
 				}
 			}
@@ -203,24 +214,40 @@ public class Game {
 			setPlayerPointer();
 		}
 
+		this.removeCardsFromHands();
 		roundsWon[outcome]++; //increments the number of rounds won by the current winner
+		
+	
 		//test
 		System.out.println("Player index " + outcome + "  has the highest score");
 		return outcome;//index of winning player in round
 	}
 
-
+	/**Removes cards from players hands
+	 * 
+	 */
+	public void removeCardsFromHands()
+	{
+		for (int i=0; i<activePlayers.length; i++)
+		{
+		if (activePlayers[i].getStatus()==true)
+			System.err.println("Remove cards");
+			activePlayers[i].removeCard();
+		}
+	}
+	
 	/**@param index of winning player in array or -1 if result was a draw
 	 * passes the round card pile to the winning player
 	 * if previous round was a draw adds the communal pile to the winning players hand
 	 */
 	private void passCardsToWinner(int index){
 		//if round was a draw cards are passed to communalPile Player instance
-		if (index == -1){
+		if (index == -1){//current round is a draw
 			for(int i=1; i<roundCards.length; i++){
-				communalPile.addCardToHand(roundCards[i]);}
+				communalPile.addCardToHand(roundCards[i]);
+				break;}
 		}
-		else if (lastRoundDraw==true){
+		if (communalPile.getCurrentCard()!=null){
 			while(communalPile.getCurrentCard() != null){
 				activePlayers[index].addCardToHand(communalPile.getCurrentCard());
 				communalPile.removeCard();
@@ -248,7 +275,11 @@ public class Game {
 			}
 		}
 	}
-
+	/**
+	 * 
+	 * @param playerIndex
+	 * @return a player object
+	 */
 	public Player getActivePlayer(int playerIndex) {
 		return activePlayers[playerIndex];
 	}

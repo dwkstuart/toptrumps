@@ -65,9 +65,7 @@ public class startGui extends JFrame implements ActionListener {
 		if (e.getSource() == newGame) {
 			int totalPlayers = (Integer) numberPlayers.getSelectedItem();
 			GameGUI run = new GameGUI(totalPlayers);
-			//run.ResetGUI();
-			//run.UpdatePlayer(0);
-			System.out.println(totalPlayers);
+
 		}
 
 		else {

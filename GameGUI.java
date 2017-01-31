@@ -79,7 +79,7 @@ public class GameGUI extends JFrame implements ActionListener{
       GUITop();
       GUIMiddle();
       GUIBottom();
-
+      //int totalPlayers = player++;//adds user to number of opponents selected
       startGame = new Game(player, getCategories(), this.getDeck());
 
       //sets instance variables
@@ -104,7 +104,7 @@ public class GameGUI extends JFrame implements ActionListener{
       player3 = new JPanel();
       player4 = new JPanel();
 
-      JLabel title1 = new JLabel("PLAYER ONE");
+      JLabel title1 = new JLabel("PLAYER ONE" );
       JLabel title2 = new JLabel("PLAYER TWO");
       JLabel title3 = new JLabel("PLAYER THREE");
       JLabel title4 = new JLabel ("PLAYER FOUR");
@@ -330,6 +330,7 @@ public class GameGUI extends JFrame implements ActionListener{
                input=trumpCategories.getSelectedIndex();
             }
             startGame.playRound(input);
+            this.UpdatePlayer(startGame.getPlayerPointer());
 
          }
 
