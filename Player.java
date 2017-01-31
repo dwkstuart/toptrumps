@@ -1,8 +1,8 @@
 /**
- * Class to store and update the current hand of cards held by a TopTrumps
- * player. Also used to get the player's current card, for the purpose of
- * knowing which card to play next.
- */
+* Class to store and update the current hand of cards held by a TopTrumps
+* player. Also used to get the player's current card, for the purpose of
+* knowing which card to play next.
+*/
 
 public class Player {
 
@@ -42,15 +42,15 @@ public class Player {
 
 	//Card; -add a card to the back of their hand, first null value.
 	public void addCardToHand(Card cardToAdd) {
+		int i=0;	// index in card array
 
-	int i=0;	// index in card array
-	while (i<40) {
-		if(hand[i]==null) {
-			hand[i]=cardToAdd;
-			break;
+		while (i<40) {
+			if(hand[i]==null) {
+				hand[i]=cardToAdd;
+				break;
+			}
+			i++;
 		}
-		i++;
-	}
 	}
 
 	public void setNumCards()
@@ -79,18 +79,22 @@ public class Player {
 
 	public String returnCurrentCardStr() {
 		Card cardToBeFormatted = this.getCurrentCard();
-		return cardToBeFormatted.formatCardText();
+		if (cardToBeFormatted == null) {
+			return "RIP my dude";
+		} else {
+			return cardToBeFormatted.formatCardText();
+		}
 	}
 
 	/**Removes the first card in a players hand from the array and shifts array forward to fill space
-	 * @author David Stuart
-	 */
+	* @author David Stuart
+	*/
 	public void removeCard(){
 		int i=0;
 		while (hand[i]!=null){
 			hand[i]=hand[i+1];
 			i++;
-			}
 		}
+	}
 
 }

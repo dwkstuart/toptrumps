@@ -16,8 +16,8 @@ public class Card {
 	public Card(String[] categories, String details) {
 		this.category = categories;
 		String info = details;
-		System.out.println("String info = " + info);
-		 info = info.substring(0, (info.length()-1));//removes the trailing carriage return
+		// commented out bcos mac carriage rtrn different from windows
+		//  info = info.substring(0, (info.length()-1));//removes the trailing carriage return
 		input = info.split(" +");
 
 		description = input[0];
@@ -91,7 +91,7 @@ public class Card {
 
 	// returns characteristic at specific index
 	public int getCharacteristicValueAt(int characteristic) {
-	
+
 		int charValue =cardvalues[characteristic];
 		return charValue;
 	}

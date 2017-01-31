@@ -271,32 +271,44 @@ public class GameGUI extends JFrame implements ActionListener{
          comp4Card.setFont(theFont1);
          comp4Card.setText(dinoImage);
 
+         Player user = startGame.getActivePlayer(0);
+         humanCard.setText(user.returnCurrentCardStr());
+
+         // case it is the user's turn to select a cateory
          if (playerNumber == 0){
-            Player user = startGame.getActivePlayer(0);
             humanTurn.setText("IT'S YOUR TURN! Pick a category!");
             humanTurn.setBackground(Color.GREEN);
             humanTurn.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
             humanCard.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
-            humanCard.setText(user.returnCurrentCardStr());
             trumpCategories.setEnabled(true);
-
          }
+
+
          if(playerNumber==1){
-            // RISKY: THIS CODE NEEDS REVIEWING
             Player currentPlayer = startGame.getActivePlayer(1);
+            comp1Card.setFont(theFont2);
             comp1Card.setText(currentPlayer.returnCurrentCardStr());
             comp1Card.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
             trumpCategories.setEnabled(false);
          }
          if(playerNumber==2){
+            Player currentPlayer = startGame.getActivePlayer(2);
+            comp2Card.setFont(theFont2);
+            comp2Card.setText(currentPlayer.returnCurrentCardStr());
             comp2Card.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
             trumpCategories.setEnabled(false);
          }
          if(playerNumber==3){
+            Player currentPlayer = startGame.getActivePlayer(3);
+            comp3Card.setFont(theFont2);
+            comp3Card.setText(currentPlayer.returnCurrentCardStr());
             comp3Card.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
             trumpCategories.setEnabled(false);
          }
          if(playerNumber==4){
+            Player currentPlayer = startGame.getActivePlayer(4);
+            comp4Card.setFont(theFont2);
+            comp4Card.setText(currentPlayer.returnCurrentCardStr());
             comp4Card.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
             trumpCategories.setEnabled(false);
          }
@@ -334,6 +346,22 @@ public class GameGUI extends JFrame implements ActionListener{
 
          }
 
+         Player user = startGame.getActivePlayer(0);
+         user.setNumCards();
+         System.out.println("User card count = " + user.getNumCards());
+         Player c1 = startGame.getActivePlayer(1);
+         c1.setNumCards();
+         System.out.println("cpu1 card count = " + c1.getNumCards());
+         Player c2 = startGame.getActivePlayer(2);
+         c2.setNumCards();
+         System.out.println("cpu2 card count = " + c2.getNumCards());
+         Player c3 = startGame.getActivePlayer(3);
+         c3.setNumCards();
+         System.out.println("cpu3 card count = " + c3.getNumCards());
+         Player c4 = startGame.getActivePlayer(4);
+         c4.setNumCards();
+         System.out.println("cpu4 card count = " + c4.getNumCards());
+
       }
 
       /**
@@ -347,10 +375,10 @@ public class GameGUI extends JFrame implements ActionListener{
             Scanner scan = new Scanner(readCategories);
             scan.next();
             categories = new String[numCat];
-            System.err.println("TOP TRUMPS CATEGORIES \n-------------------------");
+            // System.err.println("TOP TRUMPS CATEGORIES \n-------------------------");
             for(int i=0; i<numCat;i++){
                categories[i]=scan.next();
-               System.err.println(i + " " + categories[i]);
+               // System.err.println(i + " " + categories[i]);
             }
          }
          catch(FileNotFoundException e){System.err.println("file not found exception in GetCategories()");}
@@ -369,10 +397,10 @@ public class GameGUI extends JFrame implements ActionListener{
             scan.useDelimiter("\n");
             scan.next(); //scan first line to skip over categories
             deck = new String[deckSize];
-            System.err.println("TOP TRUMPS CARD DETAILS \n-------------------------");
+            // System.err.println("TOP TRUMPS CARD DETAILS \n-------------------------");
             for(int i =0; i<deckSize; i++){
                deck[i]=scan.next();
-               System.err.println(i + " " + deck[i]);
+               // System.err.println(i + " " + deck[i]);
             }
          }
          catch(FileNotFoundException e){System.err.println("file not found exception in getDeck()");}
