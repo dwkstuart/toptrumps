@@ -30,6 +30,7 @@ public class Player {
 
 	// Boolean status - if a player is still in the game or not
 	public void setStatus(){
+		this.setNumCards();
 		if(numCards==0)
 		status=false;
 	}
@@ -56,11 +57,15 @@ public class Player {
 	public void setNumCards()
 	{
 		int cardCount = 0;
-
+	try{
 		while(hand[cardCount] != null)
 		{
 			cardCount++;
 		}
+	}catch(ArrayIndexOutOfBoundsException e)
+	{
+		System.out.println("Player has 40 cards and wins");
+	}
 
 		numCards = cardCount;
 	}
