@@ -33,7 +33,7 @@ public class GameOverStats extends JFrame implements ActionListener{
 	{
 		JPanel topPanel = new JPanel(new FlowLayout());
 		topPanel.setPreferredSize(new Dimension(100, 50));
-		JLabel winnerLabel = new JLabel("The winner is: " + /*lastGame.getWinner()*/  "!!!");
+		JLabel winnerLabel = new JLabel("The winner is: " + winner +  "!!!");
 		winnerLabel.setFont(new Font("Courier", Font.BOLD, 24));
 		topPanel.add(winnerLabel);
 		add(topPanel, "North");
@@ -54,7 +54,7 @@ public class GameOverStats extends JFrame implements ActionListener{
 	
 	private void setWinnerName()
 	{
-		int winnerInt = lastGame.getWinner();
+		int winnerInt = lastGame.getWinnerIndex();
 		switch(winnerInt)
 		{
 		case 0: winner = "Player 1";
@@ -73,7 +73,8 @@ public class GameOverStats extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent ae) 
 	{
 	    if(ae.getSource() == exitBut)
-	    {
+	    {	
+	    	System.exit(0);
 	    	setVisible(false);
 	    }
 	    

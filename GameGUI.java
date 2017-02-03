@@ -11,8 +11,9 @@ import java.lang.reflect.Array;
 public class GameGUI extends JFrame implements ActionListener{
 
    //card text file name
-   private final String title = "DINSAUR TOP TRUMPS!";
+   private final String title = "DINOSAUR TOP TRUMPS!";
    private final  String textFile = "cardText.txt";
+ //  private final  String textFile = "DrawDeck.txt";
 
    //integers representing the number of categories and the total number of cards in the deck
    private final int numCat = 5;
@@ -46,7 +47,7 @@ public class GameGUI extends JFrame implements ActionListener{
 
    //middle panel instance variables
    private JTextArea messageArea;
-   private JTextField humanTurn;
+   private JTextField humanTurn, userCardCount, cardCount1, cardCount2, cardCount3, cardCount4;
 
    //bottom panel instance variables
    //text areas for the cards left over in deck, and the user's card details
@@ -54,10 +55,12 @@ public class GameGUI extends JFrame implements ActionListener{
    //labels to display number of cards in deck and number in user's hand
    private JLabel drawCardCount, humanCardCount;
    //the play button which the user will use to step through each round of the game
-   private JButton play;
+   private JButton play,nextRound;
    //combo box user will use to select chosen category when it is their turn
    private JComboBox trumpCategories;
 
+   //number of players in a game
+   private int numPlayers;
    //borders deliniating to user what player is in play at any one time
    // Border currentPlayer = BorderFactory.createMatteBorder(5,5,5,5, Color.green);
    // private Border notCurrentPlayer =  BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black);
@@ -70,7 +73,7 @@ public class GameGUI extends JFrame implements ActionListener{
    *@param player the number of opponents the user has selected for their game in the StartGUI
    **/
    public GameGUI(int player){
-
+	   numPlayers = player +1;
       setLayout(new GridLayout(3,1));
       setDefaultCloseOperation(EXIT_ON_CLOSE);
       setTitle(title);
@@ -84,8 +87,8 @@ public class GameGUI extends JFrame implements ActionListener{
 
       //sets instance variables
       this.SetOpponentsView(player);
-      this.UpdatePlayer(0);
-
+      //this.UpdatePlayer(startGame.getPlayerPointer());
+      this.ResetGUI();
       setVisible(true);
    }
 
@@ -134,19 +137,28 @@ public class GameGUI extends JFrame implements ActionListener{
       comp2CardCount = new JLabel(cardInfo);
       comp3CardCount = new JLabel(cardInfo);
       comp4CardCount = new JLabel(cardInfo);
+      
+      cardCount1 = new JTextField("  ");
+      cardCount2 = new JTextField("  ");
+      cardCount3 = new JTextField("  ");
+      cardCount4 = new JTextField("  ");
 
       player1.add(title1);
       player1.add(comp1Card);
       player1.add(comp1CardCount);
+      player1.add(cardCount1);
       player2.add(title2);
       player2.add(comp2Card);
       player2.add(comp2CardCount);
+      player2.add(cardCount2);
       player3.add(title3);
       player3.add(comp3Card);
       player3.add(comp3CardCount);
+      player3.add(cardCount3);
       player4.add(title4);
       player4.add(comp4Card);
       player4.add(comp4CardCount);
+      player4.add(cardCount4);
 
       top.add(player1);
       top.add(player2);
@@ -214,17 +226,22 @@ public class GameGUI extends JFrame implements ActionListener{
       humanCard.setFont(theFont2);
       humanCard.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.gray));
       humanCardCount = new JLabel(cardInfo);
+      userCardCount = new JTextField(" ");
       center.add(humanCard);
       center.add(humanCardCount);
+      center.add(userCardCount);
 
       JPanel right = new JPanel();
       trumpCategories = new JComboBox(getCategories());
       JPanel row1 = new JPanel();
       row1.add(trumpCategories);
-
+      
+      nextRound= new JButton ("Next Round!");
+      nextRound.addActionListener(this);
       play = new JButton("PLAY");
       play.addActionListener(this);
       JPanel row2 = new JPanel();
+      row2.add(nextRound);
       row2.add(play);
 
       right.add(row1);
@@ -248,6 +265,28 @@ public class GameGUI extends JFrame implements ActionListener{
          if(opponents<=1){player2.setVisible(false);}
       }
 
+   /**Update Card count
+    * Method that updates the current card count on the GUI for each player
+    * 
+    */
+   public void UpdateCardCount(){
+	   //makes initial array of 5(maximum possible players, initialized at 0
+	   int [] cardsInHand = new int []{0,0,0,0,0};
+	   //populates array according to numof players in a particular game
+	   for (int i=0; i<numPlayers; i++){
+		    Player player= startGame.getActivePlayer(i);
+		   player.setNumCards();
+		   cardsInHand[i]= player.getNumCards();}
+		
+	   userCardCount.setText("" + cardsInHand[0]);
+	   cardCount1.setText("" + cardsInHand[1]);
+	   cardCount2.setText("" + cardsInHand[2]);
+	   cardCount3.setText("" + cardsInHand[3]);
+	   cardCount4.setText("" + cardsInHand[4]);
+	   
+	   
+	   
+   }
       /**
       *Method to update gui display to reflect the current player
       *@param playerNumber the player whose turn it is
@@ -261,18 +300,18 @@ public class GameGUI extends JFrame implements ActionListener{
          comp3Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.gray));
          comp4Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.gray));
 
-         // set all computer cards to dinos at the start of a round
-         comp1Card.setFont(theFont1);
-         comp1Card.setText(dinoImage);
-         comp2Card.setFont(theFont1);
-         comp2Card.setText(dinoImage);
-         comp3Card.setFont(theFont1);
-         comp3Card.setText(dinoImage);
-         comp4Card.setFont(theFont1);
-         comp4Card.setText(dinoImage);
+//         // set all computer cards to dinos at the start of a round
+//         comp1Card.setFont(theFont1);
+//         comp1Card.setText(dinoImage);
+//         comp2Card.setFont(theFont1);
+//         comp2Card.setText(dinoImage);
+//         comp3Card.setFont(theFont1);
+//         comp3Card.setText(dinoImage);
+//         comp4Card.setFont(theFont1);
+//         comp4Card.setText(dinoImage);
 
          Player user = startGame.getActivePlayer(0);
-         humanCard.setText(user.returnCurrentCardStr());
+        // humanCard.setText(user.returnCurrentCardStr());
 
          // case it is the user's turn to select a cateory
          if (playerNumber == 0){
@@ -283,32 +322,37 @@ public class GameGUI extends JFrame implements ActionListener{
             trumpCategories.setEnabled(true);
          }
 
+         Player player1 = startGame.getActivePlayer(1);
+         comp1Card.setFont(theFont2);
+         comp1Card.setText(player1.returnCurrentCardStr());
 
+         
+         
          if(playerNumber==1){
             Player currentPlayer = startGame.getActivePlayer(1);
-            comp1Card.setFont(theFont2);
-            comp1Card.setText(currentPlayer.returnCurrentCardStr());
+ //           comp1Card.setFont(theFont2);
+ //           comp1Card.setText(currentPlayer.returnCurrentCardStr());
             comp1Card.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
             trumpCategories.setEnabled(false);
          }
          if(playerNumber==2){
             Player currentPlayer = startGame.getActivePlayer(2);
-            comp2Card.setFont(theFont2);
-            comp2Card.setText(currentPlayer.returnCurrentCardStr());
+//            comp2Card.setFont(theFont2);
+//            comp2Card.setText(currentPlayer.returnCurrentCardStr());
             comp2Card.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
             trumpCategories.setEnabled(false);
          }
          if(playerNumber==3){
             Player currentPlayer = startGame.getActivePlayer(3);
-            comp3Card.setFont(theFont2);
-            comp3Card.setText(currentPlayer.returnCurrentCardStr());
+//            comp3Card.setFont(theFont2);
+//            comp3Card.setText(currentPlayer.returnCurrentCardStr());
             comp3Card.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
             trumpCategories.setEnabled(false);
          }
          if(playerNumber==4){
             Player currentPlayer = startGame.getActivePlayer(4);
-            comp4Card.setFont(theFont2);
-            comp4Card.setText(currentPlayer.returnCurrentCardStr());
+//            comp4Card.setFont(theFont2);
+//            comp4Card.setText(currentPlayer.returnCurrentCardStr());
             comp4Card.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
             trumpCategories.setEnabled(false);
          }
@@ -318,6 +362,9 @@ public class GameGUI extends JFrame implements ActionListener{
       *@author Lauren
       **/
       public void ResetGUI(){
+    	  
+    	 Player user = startGame.getActivePlayer(0);
+         humanCard.setText(user.returnCurrentCardStr());
          trumpCategories.setEnabled(false);
          humanTurn.setText("it's not your turn!");
          humanTurn.setBackground(Color.gray);
@@ -328,6 +375,15 @@ public class GameGUI extends JFrame implements ActionListener{
          comp3Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
          comp4Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
 
+         // set all computer cards to dinos at the start of a round
+         comp1Card.setFont(theFont1);
+         comp1Card.setText(dinoImage);
+         comp2Card.setFont(theFont1);
+         comp2Card.setText(dinoImage);
+         comp3Card.setFont(theFont1);
+         comp3Card.setText(dinoImage);
+         comp4Card.setFont(theFont1);
+         comp4Card.setText(dinoImage);
 
       }
 
@@ -337,12 +393,23 @@ public class GameGUI extends JFrame implements ActionListener{
       **/
       public void actionPerformed(ActionEvent e){
          int input =-1;
+         if (e.getSource()==nextRound){
+        	 if (startGame.getGameOver()){
+             	new GameOverStats(startGame);}
+        	 this.ResetGUI();
+         }
          if (e.getSource()==play) {
+        	 if (startGame.getGameOver()){
+              	new GameOverStats(startGame);
+            }
             if(startGame.getPlayerPointer()==0){
                input=trumpCategories.getSelectedIndex();
             }
             startGame.playRound(input);
             this.UpdatePlayer(startGame.getPlayerPointer());
+            this.UpdateCardCount();
+            ;
+            
 
          }
 
@@ -351,16 +418,22 @@ public class GameGUI extends JFrame implements ActionListener{
          System.out.println("User card count = " + user.getNumCards());
          Player c1 = startGame.getActivePlayer(1);
          c1.setNumCards();
+        
+         cardCount1.setText("" +  c1.getNumCards());
          System.out.println("cpu1 card count = " + c1.getNumCards());
-         Player c2 = startGame.getActivePlayer(2);
-         c2.setNumCards();
-         System.out.println("cpu2 card count = " + c2.getNumCards());
+         
+         if (numPlayers>=3){
+        	 Player c2 = startGame.getActivePlayer(2);
+        	 c2.setNumCards();        
+         System.out.println("cpu2 card count = " + c2.getNumCards());}
+         if (numPlayers>=4){
          Player c3 = startGame.getActivePlayer(3);
          c3.setNumCards();
-         System.out.println("cpu3 card count = " + c3.getNumCards());
+         System.out.println("cpu3 card count = " + c3.getNumCards());}
+         if(numPlayers==5){
          Player c4 = startGame.getActivePlayer(4);
          c4.setNumCards();
-         System.out.println("cpu4 card count = " + c4.getNumCards());
+         System.out.println("cpu4 card count = " + c4.getNumCards());}
 
       }
 
