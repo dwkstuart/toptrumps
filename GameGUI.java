@@ -13,7 +13,7 @@ public class GameGUI extends JFrame implements ActionListener{
    //card text file name
    private final String title = "DINOSAUR TOP TRUMPS!";
    private final  String textFile = "cardText.txt";
- //  private final  String textFile = "DrawDeck.txt";
+   //  private final  String textFile = "DrawDeck.txt";
 
    //integers representing the number of categories and the total number of cards in the deck
    private final int numCat = 5;
@@ -39,6 +39,7 @@ public class GameGUI extends JFrame implements ActionListener{
    private JTextArea comp1Card, comp2Card, comp3Card, comp4Card;
    //labels to display each player's number of cards in hand
    private JLabel comp1CardCount, comp2CardCount, comp3CardCount, comp4CardCount;
+   private JTextField userCardCount, cardCount1, cardCount2, cardCount3, cardCount4;
    //
    private final String cardInfo = "CARDS IN HAND: ";
    private final String deckInfo = "CARDS LEFT IN DECK";
@@ -47,7 +48,7 @@ public class GameGUI extends JFrame implements ActionListener{
 
    //middle panel instance variables
    private JTextArea messageArea;
-   private JTextField humanTurn, userCardCount, cardCount1, cardCount2, cardCount3, cardCount4;
+   private JTextField humanTurn;
 
    //bottom panel instance variables
    //text areas for the cards left over in deck, and the user's card details
@@ -73,7 +74,7 @@ public class GameGUI extends JFrame implements ActionListener{
    *@param player the number of opponents the user has selected for their game in the StartGUI
    **/
    public GameGUI(int player){
-	   numPlayers = player +1;
+      numPlayers = player +1;
       setLayout(new GridLayout(3,1));
       setDefaultCloseOperation(EXIT_ON_CLOSE);
       setTitle(title);
@@ -89,6 +90,7 @@ public class GameGUI extends JFrame implements ActionListener{
       this.SetOpponentsView(player);
       //this.UpdatePlayer(startGame.getPlayerPointer());
       this.ResetGUI();
+      this.UpdateCardCount();
       setVisible(true);
    }
 
@@ -137,11 +139,17 @@ public class GameGUI extends JFrame implements ActionListener{
       comp2CardCount = new JLabel(cardInfo);
       comp3CardCount = new JLabel(cardInfo);
       comp4CardCount = new JLabel(cardInfo);
-      
+
       cardCount1 = new JTextField("  ");
       cardCount2 = new JTextField("  ");
       cardCount3 = new JTextField("  ");
       cardCount4 = new JTextField("  ");
+
+      cardCount1.setEditable(false);
+      cardCount2.setEditable(false);
+      cardCount3.setEditable(false);
+      cardCount4.setEditable(false);
+
 
       player1.add(title1);
       player1.add(comp1Card);
@@ -227,6 +235,7 @@ public class GameGUI extends JFrame implements ActionListener{
       humanCard.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.gray));
       humanCardCount = new JLabel(cardInfo);
       userCardCount = new JTextField(" ");
+      userCardCount.setEditable(false);
       center.add(humanCard);
       center.add(humanCardCount);
       center.add(userCardCount);
@@ -235,10 +244,12 @@ public class GameGUI extends JFrame implements ActionListener{
       trumpCategories = new JComboBox(getCategories());
       JPanel row1 = new JPanel();
       row1.add(trumpCategories);
-      
+
       nextRound= new JButton ("Next Round!");
+      nextRound.setEnabled(false);
       nextRound.addActionListener(this);
       play = new JButton("PLAY");
+      play.setEnabled(true);
       play.addActionListener(this);
       JPanel row2 = new JPanel();
       row2.add(nextRound);
@@ -265,221 +276,209 @@ public class GameGUI extends JFrame implements ActionListener{
          if(opponents<=1){player2.setVisible(false);}
       }
 
-   /**Update Card count
-    * Method that updates the current card count on the GUI for each player
-    * 
-    */
-   public void UpdateCardCount(){
-	   //makes initial array of 5(maximum possible players, initialized at 0
-	   int [] cardsInHand = new int []{0,0,0,0,0};
-	   //populates array according to numof players in a particular game
-	   for (int i=0; i<numPlayers; i++){
-		    Player player= startGame.getActivePlayer(i);
-		   player.setNumCards();
-		   cardsInHand[i]= player.getNumCards();}
-		
-	   userCardCount.setText("" + cardsInHand[0]);
-	   cardCount1.setText("" + cardsInHand[1]);
-	   cardCount2.setText("" + cardsInHand[2]);
-	   cardCount3.setText("" + cardsInHand[3]);
-	   cardCount4.setText("" + cardsInHand[4]);
-	   
-	   
-	   
-   }
-      /**
-      *Method to update gui display to reflect the current player
-      *@param playerNumber the player whose turn it is
-      *@author Lauren
-      **/
-      public void UpdatePlayer(int playerNumber){
-         // set all borders to default (black)
-         humanCard.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.gray));
-         comp1Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.gray));
-         comp2Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.gray));
-         comp3Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.gray));
-         comp4Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.gray));
+      /**Update Card count
+      * Method that updates the current card count on the GUI for each player
+      *
+      */
+      public void UpdateCardCount(){
+         //makes initial array of 5(maximum possible players, initialized at 0
+         int [] cardsInHand = new int []{0,0,0,0,0};
+         //populates array according to numof players in a particular game
+         for (int i=0; i<numPlayers; i++){
+            Player player= startGame.getActivePlayer(i);
+            player.setNumCards();
+            cardsInHand[i]= player.getNumCards();}
 
-//         // set all computer cards to dinos at the start of a round
-//         comp1Card.setFont(theFont1);
-//         comp1Card.setText(dinoImage);
-//         comp2Card.setFont(theFont1);
-//         comp2Card.setText(dinoImage);
-//         comp3Card.setFont(theFont1);
-//         comp3Card.setText(dinoImage);
-//         comp4Card.setFont(theFont1);
-//         comp4Card.setText(dinoImage);
+            userCardCount.setText("" + cardsInHand[0]);
+            cardCount1.setText("" + cardsInHand[1]);
+            cardCount2.setText("" + cardsInHand[2]);
+            cardCount3.setText("" + cardsInHand[3]);
+            cardCount4.setText("" + cardsInHand[4]);
 
-         Player user = startGame.getActivePlayer(0);
-        // humanCard.setText(user.returnCurrentCardStr());
 
-         // case it is the user's turn to select a cateory
-         if (playerNumber == 0){
-            humanTurn.setText("IT'S YOUR TURN! Pick a category!");
-            humanTurn.setBackground(Color.GREEN);
-            humanTurn.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
-            humanCard.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
-            trumpCategories.setEnabled(true);
+
          }
+         /**
+         *Method to update gui display to reflect the current player
+         *@param playerNumber the player whose turn it is
+         *@author Lauren
+         **/
+         public void UpdatePlayer(int playerNumber){
 
-         Player player1 = startGame.getActivePlayer(1);
-         comp1Card.setFont(theFont2);
-         comp1Card.setText(player1.returnCurrentCardStr());
+            // set all borders to default (black)
+            humanCard.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.gray));
+            comp1Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.gray));
+            comp2Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.gray));
+            comp3Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.gray));
+            comp4Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.gray));
 
-         
-         
-         if(playerNumber==1){
-            Player currentPlayer = startGame.getActivePlayer(1);
- //           comp1Card.setFont(theFont2);
- //           comp1Card.setText(currentPlayer.returnCurrentCardStr());
-            comp1Card.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
-            trumpCategories.setEnabled(false);
-         }
-         if(playerNumber==2){
-            Player currentPlayer = startGame.getActivePlayer(2);
-//            comp2Card.setFont(theFont2);
-//            comp2Card.setText(currentPlayer.returnCurrentCardStr());
-            comp2Card.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
-            trumpCategories.setEnabled(false);
-         }
-         if(playerNumber==3){
-            Player currentPlayer = startGame.getActivePlayer(3);
-//            comp3Card.setFont(theFont2);
-//            comp3Card.setText(currentPlayer.returnCurrentCardStr());
-            comp3Card.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
-            trumpCategories.setEnabled(false);
-         }
-         if(playerNumber==4){
-            Player currentPlayer = startGame.getActivePlayer(4);
-//            comp4Card.setFont(theFont2);
-//            comp4Card.setText(currentPlayer.returnCurrentCardStr());
-            comp4Card.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
-            trumpCategories.setEnabled(false);
-         }
-      }
-      /**
-      *Method to reset theGUI to default between player turns
-      *@author Lauren
-      **/
-      public void ResetGUI(){
-    	  
-    	 Player user = startGame.getActivePlayer(0);
-         humanCard.setText(user.returnCurrentCardStr());
-         trumpCategories.setEnabled(false);
-         humanTurn.setText("it's not your turn!");
-         humanTurn.setBackground(Color.gray);
-         humanTurn.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
-         humanCard.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
-         comp1Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
-         comp2Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
-         comp3Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
-         comp4Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
+            Player user = startGame.getActivePlayer(0);
+            // humanCard.setText(user.returnCurrentCardStr());
 
-         // set all computer cards to dinos at the start of a round
-         comp1Card.setFont(theFont1);
-         comp1Card.setText(dinoImage);
-         comp2Card.setFont(theFont1);
-         comp2Card.setText(dinoImage);
-         comp3Card.setFont(theFont1);
-         comp3Card.setText(dinoImage);
-         comp4Card.setFont(theFont1);
-         comp4Card.setText(dinoImage);
-
-      }
-
-      /**
-      *method to handle user actions on GUI, in this case just user pressing 'play'
-      *@author Lauren
-      **/
-      public void actionPerformed(ActionEvent e){
-         int input =-1;
-         if (e.getSource()==nextRound){
-        	 if (startGame.getGameOver()){
-             	new GameOverStats(startGame);}
-        	 this.ResetGUI();
-         }
-         if (e.getSource()==play) {
-        	 if (startGame.getGameOver()){
-              	new GameOverStats(startGame);
+            // case it is the user's turn to select a cateory
+            if (playerNumber == 0){
+               humanTurn.setText("IT'S YOUR TURN! Pick a category!");
+               humanTurn.setBackground(Color.GREEN);
+               humanTurn.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
+               humanCard.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
+               trumpCategories.setEnabled(true);
+               // set buttons to correct states
+               play.setEnabled(true);
+               nextRound.setEnabled(false);
             }
-            if(startGame.getPlayerPointer()==0){
-               input=trumpCategories.getSelectedIndex();
+
+            // shows all opponents cards at the end of a round
+            Player p1 = startGame.getActivePlayer(1);
+            comp1Card.setFont(theFont2);
+            comp1Card.setText(p1.returnCurrentCardStr());
+            Player p2 = startGame.getActivePlayer(2);
+            comp2Card.setFont(theFont2);
+            comp2Card.setText(p2.returnCurrentCardStr());
+            Player p3 = startGame.getActivePlayer(3);
+            comp3Card.setFont(theFont2);
+            comp3Card.setText(p3.returnCurrentCardStr());
+            Player p4 = startGame.getActivePlayer(4);
+            comp4Card.setFont(theFont2);
+            comp4Card.setText(p4.returnCurrentCardStr());
+
+
+
+            if(playerNumber==1){
+               Player currentPlayer = startGame.getActivePlayer(1);
+               comp1Card.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
+               trumpCategories.setEnabled(false);
             }
-            startGame.playRound(input);
-            this.UpdatePlayer(startGame.getPlayerPointer());
+            if(playerNumber==2){
+               Player currentPlayer = startGame.getActivePlayer(2);
+               comp2Card.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
+               trumpCategories.setEnabled(false);
+            }
+            if(playerNumber==3){
+               Player currentPlayer = startGame.getActivePlayer(3);
+               comp3Card.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
+               trumpCategories.setEnabled(false);
+            }
+            if(playerNumber==4){
+               Player currentPlayer = startGame.getActivePlayer(4);
+               comp4Card.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
+               trumpCategories.setEnabled(false);
+            }
+         }
+         /**
+         *Method to reset theGUI to default between player turns
+         *@author Lauren
+         **/
+         public void ResetGUI(){
+            Player user = startGame.getActivePlayer(0);
+            humanCard.setText(user.returnCurrentCardStr());
+            trumpCategories.setEnabled(false);
+            humanTurn.setText("it's not your turn!");
+            humanTurn.setBackground(Color.gray);
+            humanTurn.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
+            humanCard.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
+            comp1Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
+            comp2Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
+            comp3Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
+            comp4Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
+
+            // set all computer cards to dinos at the start of a round
+            comp1Card.setFont(theFont1);
+            comp1Card.setText(dinoImage);
+            comp2Card.setFont(theFont1);
+            comp2Card.setText(dinoImage);
+            comp3Card.setFont(theFont1);
+            comp3Card.setText(dinoImage);
+            comp4Card.setFont(theFont1);
+            comp4Card.setText(dinoImage);
+
+         }
+
+         /**
+         *method to handle user actions on GUI, in this case just user pressing 'play'
+         *@author Lauren
+         **/
+         public void actionPerformed(ActionEvent e){
+            int input =-1;
+            if (e.getSource()==nextRound){
+               // set buttons to correct states
+               nextRound.setEnabled(false);
+               play.setEnabled(true);
+
+               if (startGame.getGameOver()){
+                  new GameOverStats(startGame);
+               }
+               this.ResetGUI();
+
+            }
+            if (e.getSource()==play) {
+               // set buttons to correct states
+               nextRound.setEnabled(true);
+               play.setEnabled(false);
+
+               if (startGame.getGameOver()){
+                  new GameOverStats(startGame);
+               }
+               if(startGame.getPlayerPointer()==0){
+                  input=trumpCategories.getSelectedIndex();
+               }
+               startGame.playRound(input);
+               this.UpdatePlayer(startGame.getPlayerPointer());
+               this.UpdateCardCount();
+
+            }
+
+            Player user = startGame.getActivePlayer(0);
+            user.setNumCards();
+            System.out.println("User card count = " + user.getNumCards());
+            Player c1 = startGame.getActivePlayer(1);
+            c1.setNumCards();
+
             this.UpdateCardCount();
-            ;
-            
-
          }
 
-         Player user = startGame.getActivePlayer(0);
-         user.setNumCards();
-         System.out.println("User card count = " + user.getNumCards());
-         Player c1 = startGame.getActivePlayer(1);
-         c1.setNumCards();
-        
-         cardCount1.setText("" +  c1.getNumCards());
-         System.out.println("cpu1 card count = " + c1.getNumCards());
-         
-         if (numPlayers>=3){
-        	 Player c2 = startGame.getActivePlayer(2);
-        	 c2.setNumCards();        
-         System.out.println("cpu2 card count = " + c2.getNumCards());}
-         if (numPlayers>=4){
-         Player c3 = startGame.getActivePlayer(3);
-         c3.setNumCards();
-         System.out.println("cpu3 card count = " + c3.getNumCards());}
-         if(numPlayers==5){
-         Player c4 = startGame.getActivePlayer(4);
-         c4.setNumCards();
-         System.out.println("cpu4 card count = " + c4.getNumCards());}
-
-      }
-
-      /**
-      *method to get the top trumps categories from the .txt file
-      *@author Lauren
-      @return an array of Strings detailing the top trumps categories
-      **/
-      public String[] getCategories(){
-         try{
-            FileReader readCategories = new FileReader(textFile);
-            Scanner scan = new Scanner(readCategories);
-            scan.next();
-            categories = new String[numCat];
-            // System.err.println("TOP TRUMPS CATEGORIES \n-------------------------");
-            for(int i=0; i<numCat;i++){
-               categories[i]=scan.next();
-               // System.err.println(i + " " + categories[i]);
+         /**
+         *method to get the top trumps categories from the .txt file
+         *@author Lauren
+         @return an array of Strings detailing the top trumps categories
+         **/
+         public String[] getCategories(){
+            try{
+               FileReader readCategories = new FileReader(textFile);
+               Scanner scan = new Scanner(readCategories);
+               scan.next();
+               categories = new String[numCat];
+               // System.err.println("TOP TRUMPS CATEGORIES \n-------------------------");
+               for(int i=0; i<numCat;i++){
+                  categories[i]=scan.next();
+                  // System.err.println(i + " " + categories[i]);
+               }
             }
+            catch(FileNotFoundException e){System.err.println("file not found exception in GetCategories()");}
+            return categories;
          }
-         catch(FileNotFoundException e){System.err.println("file not found exception in GetCategories()");}
-         return categories;
-      }
 
-      /**
-      *method to get a Strings for each of the top trumps card
-      *@author Lauren
-      *@return an array of Strings of card details
-      **/
-      public String[] getDeck(){
-         try{
-            FileReader readDeck = new FileReader(textFile);
-            Scanner scan = new Scanner(readDeck);
-            scan.useDelimiter("\n");
-            scan.next(); //scan first line to skip over categories
-            deck = new String[deckSize];
-            // System.err.println("TOP TRUMPS CARD DETAILS \n-------------------------");
-            for(int i =0; i<deckSize; i++){
-               deck[i]=scan.next();
-               // System.err.println(i + " " + deck[i]);
+         /**
+         *method to get a Strings for each of the top trumps card
+         *@author Lauren
+         *@return an array of Strings of card details
+         **/
+         public String[] getDeck(){
+            try{
+               FileReader readDeck = new FileReader(textFile);
+               Scanner scan = new Scanner(readDeck);
+               // scan.useDelimiter("\n");
+               scan.nextLine(); //scan first line to skip over categories
+               deck = new String[deckSize];
+               // System.err.println("TOP TRUMPS CARD DETAILS \n-------------------------");
+               for(int i =0; i<deckSize; i++) {
+                  deck[i]=scan.nextLine();
+                  // System.err.println(i + " " + deck[i]);
+               }
             }
+            catch(FileNotFoundException e){System.err.println("file not found exception in getDeck()");}
+            return deck;
          }
-         catch(FileNotFoundException e){System.err.println("file not found exception in getDeck()");}
-         return deck;
+
+
+
       }
-
-
-
-   }
