@@ -313,34 +313,46 @@ public class GameGUI extends JFrame implements ActionListener{
             comp4Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.gray));
 
             Player user = startGame.getActivePlayer(0);
-            // humanCard.setText(user.returnCurrentCardStr());
+            //humanCard.setText(user.returnCurrentCardStr());
 
             // case it is the user's turn to select a cateory
             if (playerNumber == 0){
-               humanTurn.setText("IT'S YOUR TURN! Pick a category!");
+               //humanTurn.setText("IT'S YOUR TURN! Pick a category!");
+               humanTurn.setText("YOU WON THAT ROUND!");
                humanTurn.setBackground(Color.GREEN);
                humanTurn.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
                humanCard.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
-               trumpCategories.setEnabled(true);
+               trumpCategories.setEnabled(false);
                // set buttons to correct states
-               play.setEnabled(true);
-               nextRound.setEnabled(false);
+//               play.setEnabled(true);
+//               nextRound.setEnabled(false);
             }
-
+            Card [] lastRound=startGame.getRoundCards();
             // shows all opponents cards at the end of a round
-            Player p1 = startGame.getActivePlayer(1);
-            comp1Card.setFont(theFont2);
-            comp1Card.setText(p1.returnCurrentCardStr());
-            Player p2 = startGame.getActivePlayer(2);
-            comp2Card.setFont(theFont2);
-            comp2Card.setText(p2.returnCurrentCardStr());
-            Player p3 = startGame.getActivePlayer(3);
-            comp3Card.setFont(theFont2);
-            comp3Card.setText(p3.returnCurrentCardStr());
-            Player p4 = startGame.getActivePlayer(4);
-            comp4Card.setFont(theFont2);
-            comp4Card.setText(p4.returnCurrentCardStr());
-
+           // Player p1 = startGame.getActivePlayer(1);
+            
+           // Player p2 = startGame.getActivePlayer(2);
+            
+            //Player p3 = startGame.getActivePlayer(3);
+            
+            //Player p4 = startGame.getActivePlayer(4);
+            
+            if(numPlayers>1){
+             comp1Card.setFont(theFont2);
+            comp1Card.setText(lastRound[1].formatCardText());
+             }
+             if(numPlayers>2){
+             comp2Card.setFont(theFont2);
+            comp2Card.setText(lastRound[2].formatCardText());  
+             }
+             if(numPlayers>3){
+            	 comp3Card.setFont(theFont2);
+                 comp3Card.setText(lastRound[3].formatCardText());
+             }
+             if(numPlayers>4){
+            	 comp4Card.setFont(theFont2);
+                 comp4Card.setText(lastRound[4].formatCardText());
+             }
 
 
             if(playerNumber==1){
@@ -372,6 +384,7 @@ public class GameGUI extends JFrame implements ActionListener{
             Player user = startGame.getActivePlayer(0);
             humanCard.setText(user.returnCurrentCardStr());
             trumpCategories.setEnabled(false);
+                
             humanTurn.setText("it's not your turn!");
             humanTurn.setBackground(Color.gray);
             humanTurn.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
@@ -381,6 +394,15 @@ public class GameGUI extends JFrame implements ActionListener{
             comp3Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
             comp4Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
 
+            //Doesn't set drop down box to disabled if it is players turn when GUI is reset
+            if (startGame.getPlayerPointer()== 0){
+            	humanTurn.setText("IT'S YOUR TURN! Pick a category!");
+            	humanTurn.setBackground(Color.GREEN);
+            	humanTurn.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
+            	humanCard.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
+            	trumpCategories.setEnabled(true);}
+            
+            
             // set all computer cards to dinos at the start of a round
             comp1Card.setFont(theFont1);
             comp1Card.setText(dinoImage);
@@ -398,7 +420,7 @@ public class GameGUI extends JFrame implements ActionListener{
          *@author Lauren
          **/
          public void actionPerformed(ActionEvent e){
-            int input =-1;
+           
             if (e.getSource()==nextRound){
                // set buttons to correct states
                nextRound.setEnabled(false);
@@ -411,20 +433,27 @@ public class GameGUI extends JFrame implements ActionListener{
 
             }
             if (e.getSource()==play) {
-               // set buttons to correct states
-               nextRound.setEnabled(true);
-               play.setEnabled(false);
+                //default unless changed by human player
+            	int input =-1;
+            	// set buttons to correct states
+                nextRound.setEnabled(true);
+                play.setEnabled(false);
+                trumpCategories.setEnabled(false);
+                System.out.println("Get here too");
 
                if (startGame.getGameOver()){
                   new GameOverStats(startGame);
                }
                if(startGame.getPlayerPointer()==0){
                   input=trumpCategories.getSelectedIndex();
+                  
                }
                startGame.playRound(input);
                this.UpdatePlayer(startGame.getPlayerPointer());
-               this.UpdateCardCount();
-
+               this.UpdateCardCount(); 
+               System.out.println("Get here");
+                //!!THIS IS CAUSING PROBLEMS ON PLAYER CHOOSING!!!
+               
             }
 
             Player user = startGame.getActivePlayer(0);

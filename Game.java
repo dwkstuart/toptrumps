@@ -7,6 +7,10 @@ public class Game {
 	// cards in current round
 	private Card[] roundCards;
 
+	public Card[] getRoundCards() {
+		return roundCards;
+	}
+
 	// number of players at the start of the game
 	private int numPlayers;
 
@@ -233,7 +237,7 @@ public class Game {
 			if (activePlayers[i].getStatus() == true) {
 				roundCards[i] = activePlayers[i].getCurrentCard();
 				// test
-				// System.err.println("populate round cards :" + roundCards[i]);
+				 System.err.println("populate round cards :" + roundCards[i]);
 			}
 		}
 	}
