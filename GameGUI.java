@@ -13,6 +13,7 @@ public class GameGUI extends JFrame implements ActionListener{
    //card text file name
    private final String title = "DINOSAUR TOP TRUMPS!";
    private final  String textFile = "cardText.txt";
+ //  private final  String textFile = "DrawDeck.txt";
 
    //integers representing the number of categories and the total number of cards in the deck
    private final int numCat = 5;
@@ -415,7 +416,7 @@ public class GameGUI extends JFrame implements ActionListener{
 
                     }
 
-                     }
+                     
 
                      /**
                      *method to handle user actions on GUI, in this case just user pressing 'play'
@@ -454,6 +455,7 @@ public class GameGUI extends JFrame implements ActionListener{
                            startGame.playRound(input);
                            this.UpdatePlayer(startGame.getPlayerPointer());
                            this.UpdateCardCount();
+                           this.GUIMessage();
 
 
 
@@ -508,10 +510,19 @@ public class GameGUI extends JFrame implements ActionListener{
                      }
 
 
-                     public static void GUIMessage(){
-
-                        //  messageArea.setText("Round was won by player " +  +"They played the" + dinosaur  +"'s "  +category + "which had a value of"+int);
-                        //
+                     public  void GUIMessage(){
+                    	int winner = this.startGame.getPlayerPointer();
+                    	Card winningCard =startGame.getRoundCards()[winner];
+                    	String dinosaur = winningCard.getDescription();
+                    	int choosenCharIndex = startGame.getCurrentChosenCharacteristic();
+                    	int winValue =  winningCard.getCharacteristicValueAt(choosenCharIndex);
+                    	String characteristic = categories[choosenCharIndex];
+                    	
+                    	String roundresult="Round was won by player " + winner  +" They played the " + dinosaur  +"'s \n"  +characteristic + " which had a value of "+winValue;
+                        System.out.println(roundresult);  
+                    	
+                        messageArea.setText(roundresult);
+                        
                         //  messageArea.setText("The Game is complete! The winner is player " +);
                         //
                         //  messageArea.setText("YOU won contgratulations!");

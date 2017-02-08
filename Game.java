@@ -63,13 +63,19 @@ public class Game {
 
 		// create, shuffle and deal an array of card objects amongst all players
 		deck = new Card[DECKSIZE];
+		//TESTING PRINT OUT
+		System.out.println("CONTENTS OF UNSHUFFLED DECK");
+		System.out.println("-------------------------------------------------");
 		for (int i = 0; i < DECKSIZE; i++) {
 			deck[i] = new Card(categories, deckDetails[i]);
+			//Testing Print Out
+			System.out.println(deck[i]);
+			
 		}
-
+		System.out.println("-------------------------------------------------");
 		// Initialize at 0 until cards are added to the array :)
 		currentCardIndex = 0;
-
+		System.out.println("CONTENTS OF SHUFFLED DECK");
 		for (int i = 0; i < numPlayers; i++) {
 			activePlayers[i] = new Player();
 		}
@@ -105,11 +111,13 @@ public class Game {
 		// cycle thru each card
 		for (int i = 0; i < deck.length; i++) {
 			int shuffledIndex = rand.nextInt(40);
-			Card tempCardRef = deck[i]; // ?? will this be ok or will it have to
-			// be 'new' ??
+			Card tempCardRef = deck[i]; 
 			deck[i] = deck[shuffledIndex];
 			deck[shuffledIndex] = tempCardRef;
+			//TESTING PRINT OUT
+			System.out.println(deck[i]);
 		}
+		System.out.println("-------------------------------------------------");
 		return deck;
 	}
 
@@ -361,4 +369,11 @@ public class Game {
 		return winnerIndex;
 
 	}
+
+
+	public int getCurrentChosenCharacteristic() {
+		return currentChosenCharacteristic;
+	}
+
+	
 }

@@ -89,6 +89,11 @@ public class Card {
 		return out;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+
 	// returns characteristic at specific index
 	public int getCharacteristicValueAt(int characteristic) {
 
