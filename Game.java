@@ -132,7 +132,7 @@ public class Game {
 	/**
 	 * takes in the index of the characteristic that the player has chosen in
 	 * the JComboBox or -1 if it is a user turn
-	 * 
+	 *
 	 * @param chosenCharacteristic
 	 * @return outcome method that determines the highest scoring card
 	 */
@@ -146,10 +146,6 @@ public class Game {
 			currentChosenCharacteristic = setCharacteristic(playerPointer);
 		}
 		roundCount++;
-
-		// test
-		System.out.println("chosen characteristic is " + chosenCharacteristic);
-		System.out.println(this.getPlayerPointer());
 		this.getOutcome(currentChosenCharacteristic);
 
 	}
@@ -162,12 +158,9 @@ public class Game {
 	 */
 	private void passCardsToWinner(int index) {
 		// if round was a draw cards are passed to communalPile Player instance
-		System.out.println("WINNER INDEX!!! : " + index);
-		System.out.println("pass cards to winner : " + index);
 
 		if (communalPile.getNumCards() > 0) {
 			while (communalPile.getCurrentCard() != null) {
-				System.err.println("Passes cards from communal pile to winner");
 				activePlayers[index].addCardToHand(communalPile.getCurrentCard());
 				communalPile.removeCard();
 			}
@@ -176,23 +169,20 @@ public class Game {
 
 		for (int i = 0; i < roundCards.length; i++) {
 			activePlayers[index].addCardToHand(roundCards[i]);
-			System.out.println(roundCards[i]);
 		}
 
 	}
 
 	/**
 	 * Method to pass the current rounds card to the communal pile
-	 * 
+	 *
 	 */
 	private void passCardsToCommunalPile() {
 
 		for (int i = 0; i < roundCards.length; i++) {
 			communalPile.addCardToHand(roundCards[i]);
-			System.out.println(roundCards[i]);
 		}
 		communalPile.setNumCards();
-		System.out.println("Communal Pile cards: " + communalPile.getNumCards());
 		// this.removeCardsFromHands();
 
 	}
@@ -200,7 +190,7 @@ public class Game {
 	/**
 	 * Finds the characteristic of highest value from the current card of the
 	 * player whose turn it is
-	 * 
+	 *
 	 * @param playerPointer
 	 * @return the index of the chosen characteristic
 	 */
@@ -251,8 +241,6 @@ public class Game {
 			activePlayers[i].setStatus();
 			if (activePlayers[i].getStatus() == true) {
 				Card currentCard = activePlayers[i].getCurrentCard();
-				// test
-				// System.out.println(currentCard);
 				characteristicValues[i] = currentCard.getCharacteristicValueAt(characteristic);
 			} else {
 				characteristicValues[i] = 0;
@@ -293,8 +281,6 @@ public class Game {
 		roundsWon[outcome]++;
 
 		if (draw == false) {
-			// test
-			System.out.println("Player index " + outcome + " has the highest score");
 			this.passCardsToWinner(outcome);
 		}
 		this.getGameOver();
@@ -314,7 +300,7 @@ public class Game {
 
 	/**
 	 * Returns the card at an index of the round cards array
-	 * 
+	 *
 	 * @param i
 	 * @return
 	 */
@@ -324,7 +310,7 @@ public class Game {
 
 	/**
 	 * Method to check if someone has won
-	 * 
+	 *
 	 */
 
 	public void gameOver() {
@@ -338,17 +324,22 @@ public class Game {
 				}
 		}
 	}
-	/**Method to return the array of cards 
-	 * 
+	/**Method to return the array of cards
+	 *
 	 * @return the array of cards from the round
 	 */
 	public Card[] getRoundCards() {
 		return roundCards;
 	}
 
+	public int getCommunalCount() {
+		communalPile.setNumCards();
+		int commCount = communalPile.getNumCards();
+		return commCount;
+	}
+
 	public boolean getGameOver(){
 		this.gameOver();
-		System.out.println("Is game over" + isGameOver);
 		return isGameOver;
 	}
 
