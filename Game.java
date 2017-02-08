@@ -195,8 +195,6 @@ public class Game {
 	 * @return the index of the chosen characteristic
 	 */
 	private int setCharacteristic(int playerPointer) {
-		// test
-		System.err.println("Player Pointer = " + playerPointer);
 		Card currentCard = activePlayers[playerPointer].getCurrentCard();
 		int currentCharacteristic = currentCard.getMaxCharacteristic();
 		return currentCharacteristic;
@@ -209,8 +207,6 @@ public class Game {
 	 * @return playerPointer
 	 */
 	public int getPlayerPointer() {
-		// test
-		// System.err.println("Player pointer is " + playerPointer);
 		return playerPointer;
 	}
 
@@ -222,8 +218,6 @@ public class Game {
 		for (int i = 0; i < activePlayers.length; i++) {
 			if (activePlayers[i].getStatus() == true) {
 				roundCards[i] = activePlayers[i].getCurrentCard();
-				// test
-				 System.err.println("populate round cards :" + roundCards[i]);
 			}
 		}
 	}
@@ -258,8 +252,6 @@ public class Game {
 		// loops through the characteristics to determine whether the
 		// highest one appears more than once
 		for (int i = 0; i < characteristicValues.length; i++) {
-			// System.err.println("Characteristic values array " +
-			// characteristicValues[i]);
 			if (characteristicValues[i] == max) {
 				numMaxValue++;
 			}

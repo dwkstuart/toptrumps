@@ -12,8 +12,7 @@ public class GameGUI extends JFrame implements ActionListener{
 
    //card text file name
    private final String title = "DINOSAUR TOP TRUMPS!";
-   // private final  String textFile = "cardText.txt";
-    private final  String textFile = "DrawDeck.txt";
+   private final  String textFile = "cardText.txt";
 
    //integers representing the number of categories and the total number of cards in the deck
    private final int numCat = 5;
@@ -471,10 +470,8 @@ public class GameGUI extends JFrame implements ActionListener{
                            Scanner scan = new Scanner(readCategories);
                            scan.next();
                            categories = new String[numCat];
-                           // System.err.println("TOP TRUMPS CATEGORIES \n-------------------------");
                            for(int i=0; i<numCat;i++){
                               categories[i]=scan.next();
-                              // System.err.println(i + " " + categories[i]);
                            }
                         }
                         catch(FileNotFoundException e){System.err.println("file not found exception in GetCategories()");}
@@ -492,10 +489,10 @@ public class GameGUI extends JFrame implements ActionListener{
                            // scan.useDelimiter("\n");
                            scan.nextLine(); //scan first line to skip over categories
                            deck = new String[deckSize];
-                           // System.err.println("TOP TRUMPS CARD DETAILS \n-------------------------");
+
                            for(int i =0; i<deckSize; i++) {
                               deck[i]=scan.nextLine();
-                              // System.err.println(i + " " + deck[i]);
+
                            }
                         }
                         catch(FileNotFoundException e){System.err.println("file not found exception in getDeck()");}

@@ -29,6 +29,7 @@ public class startGui extends JFrame implements ActionListener {
 		setTitle("Top Trumps");
 		setSize(350, 200);
 		setLocation(400, 200);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLayout(new GridLayout(3, 1));
 
 		JLabel choosePlayers = new JLabel("Choose number of opponents");
@@ -74,11 +75,11 @@ public class startGui extends JFrame implements ActionListener {
 			stats.DbConnect();
 			stats.getAvgDraws();
 		}
-		
+
 		//make GUI disappear after initial choice has been made
 		this.setVisible(false);
 
-	
+
 	}
 
 }
