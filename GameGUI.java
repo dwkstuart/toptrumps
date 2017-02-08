@@ -327,8 +327,10 @@ public class GameGUI extends JFrame implements ActionListener{
 //               play.setEnabled(true);
 //               nextRound.setEnabled(false);
             }
+            
+             // shows all opponents cards at the end of a round
             Card [] lastRound=startGame.getRoundCards();
-            // shows all opponents cards at the end of a round
+           
            // Player p1 = startGame.getActivePlayer(1);
             
            // Player p2 = startGame.getActivePlayer(2);
@@ -425,7 +427,8 @@ public class GameGUI extends JFrame implements ActionListener{
                // set buttons to correct states
                nextRound.setEnabled(false);
                play.setEnabled(true);
-
+               
+               //checks if game is over when a player has 40 cards
                if (startGame.getGameOver()){
                   new GameOverStats(startGame);
                }
@@ -439,7 +442,7 @@ public class GameGUI extends JFrame implements ActionListener{
                 nextRound.setEnabled(true);
                 play.setEnabled(false);
                 trumpCategories.setEnabled(false);
-                System.out.println("Get here too");
+               
 
                if (startGame.getGameOver()){
                   new GameOverStats(startGame);
@@ -451,8 +454,8 @@ public class GameGUI extends JFrame implements ActionListener{
                startGame.playRound(input);
                this.UpdatePlayer(startGame.getPlayerPointer());
                this.UpdateCardCount(); 
-               System.out.println("Get here");
-                //!!THIS IS CAUSING PROBLEMS ON PLAYER CHOOSING!!!
+               
+                
                
             }
 

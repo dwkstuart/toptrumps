@@ -7,10 +7,6 @@ public class Game {
 	// cards in current round
 	private Card[] roundCards;
 
-	public Card[] getRoundCards() {
-		return roundCards;
-	}
-
 	// number of players at the start of the game
 	private int numPlayers;
 
@@ -342,37 +338,19 @@ public class Game {
 				}
 		}
 	}
-	
+	/**Method to return the array of cards 
+	 * 
+	 * @return the array of cards from the round
+	 */
+	public Card[] getRoundCards() {
+		return roundCards;
+	}
+
 	public boolean getGameOver(){
 		this.gameOver();
 		System.out.println("Is game over" + isGameOver);
 		return isGameOver;
 	}
-	// /**
-	// * sets whose turn it is
-	// *
-	// */
-	// private void setPlayerPointer() {
-	// // test
-	// System.err.println("Start of method: pp = " + playerPointer);
-	// playerPointer++;
-	// if (playerPointer >= activePlayers.length) {
-	// playerPointer = 0;
-	// if (activePlayers[playerPointer].getStatus() == false) {
-	// setPlayerPointer();
-	// }
-	// }
-	// // test
-	// System.err.println("After incremenent: pp = " + playerPointer);
-	// activePlayers[playerPointer].setStatus();
-	// if (activePlayers[playerPointer].getStatus() == false) {
-	// // test
-	// System.err.println("found dead player: pp = " + playerPointer);
-	// setPlayerPointer();
-	// }
-	//
-	// }
-	//
 
 	/**
 	 *
