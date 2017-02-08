@@ -65,6 +65,7 @@ public class Player {
 	}catch(ArrayIndexOutOfBoundsException e)
 	{
 		System.out.println("Player has 40 cards and wins");
+		
 	}
 
 		numCards = cardCount;
