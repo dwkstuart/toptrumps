@@ -78,6 +78,7 @@ public class startGui extends JFrame implements ActionListener {
 		//make GUI disappear after initial choice has been made
 		this.setVisible(false);
 
+	
 	}
 
 }

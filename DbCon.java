@@ -28,8 +28,8 @@ public class DbCon {
 	public void DbConnect()
 	{
 		String DBName = "TopTrumps";
-		String DBUser = "postgres";
-		String DBPassword = "2196440o";
+		String DBUser = "m_16_0207805s";
+		String DBPassword = "0207805s";
 		
 		try
 		{
