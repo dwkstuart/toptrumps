@@ -306,9 +306,6 @@ public class GameGUI extends JFrame implements ActionListener{
             humanTurn.setBackground(Color.GREEN);
             humanCard.setBackground(Color.GREEN);
             trumpCategories.setEnabled(false);
-            // set buttons to correct states
-            //               play.setEnabled(true);
-            //               nextRound.setEnabled(false);
          }
 
          // shows all opponents cards at the end of a round
@@ -387,25 +384,36 @@ public class GameGUI extends JFrame implements ActionListener{
                      comp3Card.setBackground(Color.WHITE);
                      comp4Card.setBackground(Color.WHITE);
 
+                     // set current players card to green to denote whose turn it is
                      //Doesn't set drop down box to disabled if it is players turn when GUI is reset
                      if (startGame.getPlayerPointer()== 0){
                         humanTurn.setText("IT'S YOUR TURN! Pick a category!");
                         humanTurn.setBackground(Color.GREEN);
                         humanCard.setBackground(Color.GREEN);
                         trumpCategories.setEnabled(true);}
+                        else if (startGame.getPlayerPointer()==1){
+                        comp1Card.setBackground(Color.GREEN);}
+                        else if(startGame.getPlayerPointer()==2){
+                        comp2Card.setBackground(Color.GREEN);}
+                        else if(startGame.getPlayerPointer()==3){
+                        comp3Card.setBackground(Color.GREEN);}
+                        else if(startGame.getPlayerPointer()==4){
+                        comp4Card.setBackground(Color.GREEN);}
 
+                    // set all computer cards to dinos between rounds
+                    comp1Card.setFont(theFont1);
+                    comp1Card.setText(dinoImage);
+                    comp2Card.setFont(theFont1);
+                    comp2Card.setText(dinoImage);
+                    comp3Card.setFont(theFont1);
+                    comp3Card.setText(dinoImage);
+                    comp4Card.setFont(theFont1);
+                    comp4Card.setText(dinoImage);
 
-                        // set all computer cards to dinos at the start of a round
-                        comp1Card.setFont(theFont1);
-                        comp1Card.setText(dinoImage);
-                        comp2Card.setFont(theFont1);
-                        comp2Card.setText(dinoImage);
-                        comp3Card.setFont(theFont1);
-                        comp3Card.setText(dinoImage);
-                        comp4Card.setFont(theFont1);
-                        comp4Card.setText(dinoImage);
+                    //if a player is dead display this between rounds
+                    
 
-                        //set central message area blank
+                    }
 
                      }
 
