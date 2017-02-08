@@ -62,10 +62,6 @@ public class GameGUI extends JFrame implements ActionListener{
 
    //number of players in a game
    private int numPlayers;
-   //borders deliniating to user what player is in play at any one time
-   // Border currentPlayer = BorderFactory.createMatteBorder(5,5,5,5, Color.green);
-   // private Border notCurrentPlayer =  BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black);
-   // private Border nonPlayer = BorderFactory.createMatteBorder(5, 5, 5, 5, Color.gray);
 
    private Game startGame;
 
@@ -96,7 +92,6 @@ public class GameGUI extends JFrame implements ActionListener{
 
    /**
    *creates the top third of the GAMEGUI
-   *@author Lauren
    **/
    public void GUITop(){
 
@@ -123,12 +118,6 @@ public class GameGUI extends JFrame implements ActionListener{
       comp2Card.setFont(theFont1);
       comp3Card.setFont(theFont1);
       comp4Card.setFont(theFont1);
-
-      comp1Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
-      comp2Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
-      comp3Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
-      comp4Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
-
 
       comp1Card.setEditable(false);
       comp2Card.setEditable(false);
@@ -196,7 +185,6 @@ public class GameGUI extends JFrame implements ActionListener{
 
       humanTurn = new JTextField("it's not your turn!");
       humanTurn.setBackground(Color.GRAY);
-      humanTurn.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
       humanTurn.setEditable(false);
 
       row1.add(messageArea);
@@ -222,7 +210,6 @@ public class GameGUI extends JFrame implements ActionListener{
       JPanel left = new JPanel();
 
       drawPile = new JTextArea(dinoImage, 4, 12);
-      drawPile.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.gray));
       drawPile.setFont(theFont1);
       drawCardCount = new JLabel(deckInfo);
       left.add(drawPile);
@@ -232,7 +219,6 @@ public class GameGUI extends JFrame implements ActionListener{
       // humanCard = new JTextArea(dinoImage, 4, 12);
       humanCard = new JTextArea(4, 12);
       humanCard.setFont(theFont2);
-      humanCard.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.gray));
       humanCardCount = new JLabel(cardInfo);
       userCardCount = new JTextField(" ");
       userCardCount.setEditable(false);
@@ -301,16 +287,8 @@ public class GameGUI extends JFrame implements ActionListener{
          /**
          *Method to update gui display to reflect the current player
          *@param playerNumber the player whose turn it is
-         *@author Lauren
          **/
          public void UpdatePlayer(int playerNumber){
-
-            // set all borders to default (black)
-            humanCard.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.gray));
-            comp1Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.gray));
-            comp2Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.gray));
-            comp3Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.gray));
-            comp4Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.gray));
 
             Player user = startGame.getActivePlayer(0);
             //humanCard.setText(user.returnCurrentCardStr());
@@ -320,61 +298,68 @@ public class GameGUI extends JFrame implements ActionListener{
                //humanTurn.setText("IT'S YOUR TURN! Pick a category!");
                humanTurn.setText("YOU WON THAT ROUND!");
                humanTurn.setBackground(Color.GREEN);
-               humanTurn.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
-               humanCard.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
+               humanCard.setBackground(Color.GREEN);
                trumpCategories.setEnabled(false);
                // set buttons to correct states
 //               play.setEnabled(true);
 //               nextRound.setEnabled(false);
             }
-            
+
              // shows all opponents cards at the end of a round
             Card [] lastRound=startGame.getRoundCards();
-           
+
            // Player p1 = startGame.getActivePlayer(1);
-            
+
            // Player p2 = startGame.getActivePlayer(2);
-            
+
             //Player p3 = startGame.getActivePlayer(3);
-            
+
             //Player p4 = startGame.getActivePlayer(4);
-            
+
             if(numPlayers>1){
              comp1Card.setFont(theFont2);
-            comp1Card.setText(lastRound[1].formatCardText());
+             if (lastRound[1] != null){
+            comp1Card.setText(lastRound[1].formatCardText());}
+            else comp1Card.setText("I'm DEAD!");
              }
              if(numPlayers>2){
              comp2Card.setFont(theFont2);
-            comp2Card.setText(lastRound[2].formatCardText());  
+             if (lastRound[2] != null){
+             comp2Card.setText(lastRound[2].formatCardText());}
+             else comp2Card.setText("I'm DEAD!");
              }
              if(numPlayers>3){
             	 comp3Card.setFont(theFont2);
-                 comp3Card.setText(lastRound[3].formatCardText());
+                 if (lastRound[3] != null){
+                comp3Card.setText(lastRound[3].formatCardText());}
+                else comp3Card.setText("I'm DEAD!");
              }
              if(numPlayers>4){
             	 comp4Card.setFont(theFont2);
-                 comp4Card.setText(lastRound[4].formatCardText());
+                 if (lastRound[4] != null){
+                 comp4Card.setText(lastRound[4].formatCardText());}
+                 else comp4Card.setText("I'm DEAD!");
              }
 
 
             if(playerNumber==1){
                Player currentPlayer = startGame.getActivePlayer(1);
-               comp1Card.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
+               comp1Card.setBackground(Color.GREEN);
                trumpCategories.setEnabled(false);
             }
             if(playerNumber==2){
                Player currentPlayer = startGame.getActivePlayer(2);
-               comp2Card.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
+               comp2Card.setBackground(Color.GREEN);
                trumpCategories.setEnabled(false);
             }
             if(playerNumber==3){
                Player currentPlayer = startGame.getActivePlayer(3);
-               comp3Card.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
+               comp3Card.setBackground(Color.GREEN);
                trumpCategories.setEnabled(false);
             }
             if(playerNumber==4){
                Player currentPlayer = startGame.getActivePlayer(4);
-               comp4Card.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
+               comp4Card.setBackground(Color.GREEN);
                trumpCategories.setEnabled(false);
             }
          }
@@ -386,25 +371,24 @@ public class GameGUI extends JFrame implements ActionListener{
             Player user = startGame.getActivePlayer(0);
             humanCard.setText(user.returnCurrentCardStr());
             trumpCategories.setEnabled(false);
-                
+
             humanTurn.setText("it's not your turn!");
             humanTurn.setBackground(Color.gray);
-            humanTurn.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
-            humanCard.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
-            comp1Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
-            comp2Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
-            comp3Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
-            comp4Card.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
+            humanTurn.setBackground(Color.WHITE);
+            humanCard.setBackground(Color.WHITE);
+            comp1Card.setBackground(Color.WHITE);
+            comp2Card.setBackground(Color.WHITE);
+            comp3Card.setBackground(Color.WHITE);
+            comp4Card.setBackground(Color.WHITE);
 
             //Doesn't set drop down box to disabled if it is players turn when GUI is reset
             if (startGame.getPlayerPointer()== 0){
             	humanTurn.setText("IT'S YOUR TURN! Pick a category!");
             	humanTurn.setBackground(Color.GREEN);
-            	humanTurn.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
-            	humanCard.setBorder(BorderFactory.createMatteBorder(5,5,5,5, Color.green));
+            	humanCard.setBackground(Color.GREEN);
             	trumpCategories.setEnabled(true);}
-            
-            
+
+
             // set all computer cards to dinos at the start of a round
             comp1Card.setFont(theFont1);
             comp1Card.setText(dinoImage);
@@ -415,6 +399,8 @@ public class GameGUI extends JFrame implements ActionListener{
             comp4Card.setFont(theFont1);
             comp4Card.setText(dinoImage);
 
+            //set central message area blank
+
          }
 
          /**
@@ -422,12 +408,12 @@ public class GameGUI extends JFrame implements ActionListener{
          *@author Lauren
          **/
          public void actionPerformed(ActionEvent e){
-           
+
             if (e.getSource()==nextRound){
                // set buttons to correct states
                nextRound.setEnabled(false);
                play.setEnabled(true);
-               
+
                //checks if game is over when a player has 40 cards
                if (startGame.getGameOver()){
                   new GameOverStats(startGame);
@@ -442,21 +428,21 @@ public class GameGUI extends JFrame implements ActionListener{
                 nextRound.setEnabled(true);
                 play.setEnabled(false);
                 trumpCategories.setEnabled(false);
-               
+
 
                if (startGame.getGameOver()){
                   new GameOverStats(startGame);
                }
                if(startGame.getPlayerPointer()==0){
                   input=trumpCategories.getSelectedIndex();
-                  
+
                }
                startGame.playRound(input);
                this.UpdatePlayer(startGame.getPlayerPointer());
-               this.UpdateCardCount(); 
-               
-                
-               
+               this.UpdateCardCount();
+
+
+
             }
 
             Player user = startGame.getActivePlayer(0);
@@ -491,7 +477,6 @@ public class GameGUI extends JFrame implements ActionListener{
 
          /**
          *method to get a Strings for each of the top trumps card
-         *@author Lauren
          *@return an array of Strings of card details
          **/
          public String[] getDeck(){
@@ -510,6 +495,21 @@ public class GameGUI extends JFrame implements ActionListener{
             catch(FileNotFoundException e){System.err.println("file not found exception in getDeck()");}
             return deck;
          }
+
+
+         public static void GUIMessage(){
+
+            //  messageArea.setText("Round was won by player " +  +"They played the" + dinosaur  +"'s "  +category + "which had a value of"+int);
+             //
+            //  messageArea.setText("The Game is complete! The winner is player " +);
+             //
+            //  messageArea.setText("YOU won contgratulations!");
+
+
+
+
+         }
+
 
 
 
