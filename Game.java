@@ -63,13 +63,19 @@ public class Game {
 
 		// create, shuffle and deal an array of card objects amongst all players
 		deck = new Card[DECKSIZE];
+		//TESTING PRINT OUT
+		System.out.println("CONTENTS OF UNSHUFFLED DECK");
+		System.out.println("-------------------------------------------------");
 		for (int i = 0; i < DECKSIZE; i++) {
 			deck[i] = new Card(categories, deckDetails[i]);
+			//Testing Print Out
+			System.out.println(deck[i]);
+			
 		}
-
+		System.out.println("-------------------------------------------------");
 		// Initialize at 0 until cards are added to the array :)
 		currentCardIndex = 0;
-
+		System.out.println("CONTENTS OF SHUFFLED DECK");
 		for (int i = 0; i < numPlayers; i++) {
 			activePlayers[i] = new Player();
 		}
@@ -81,6 +87,7 @@ public class Game {
 		playerPointer = (int) (Math.random() * numPlayers); // randomise who
 															// starts
 	}
+
 
 	/**
 	 * @author Niall Method to create a card object from each line of text
@@ -104,11 +111,13 @@ public class Game {
 		// cycle thru each card
 		for (int i = 0; i < deck.length; i++) {
 			int shuffledIndex = rand.nextInt(40);
-			Card tempCardRef = deck[i]; // ?? will this be ok or will it have to
-			// be 'new' ??
+			Card tempCardRef = deck[i]; 
 			deck[i] = deck[shuffledIndex];
 			deck[shuffledIndex] = tempCardRef;
+			//TESTING PRINT OUT
+			System.out.println(deck[i]);
 		}
+		System.out.println("-------------------------------------------------");
 		return deck;
 	}
 
@@ -132,7 +141,7 @@ public class Game {
 	/**
 	 * takes in the index of the characteristic that the player has chosen in
 	 * the JComboBox or -1 if it is a user turn
-	 * 
+	 *
 	 * @param chosenCharacteristic
 	 * @return outcome method that determines the highest scoring card
 	 */
@@ -146,10 +155,6 @@ public class Game {
 			currentChosenCharacteristic = setCharacteristic(playerPointer);
 		}
 		roundCount++;
-
-		// test
-		System.out.println("chosen characteristic is " + chosenCharacteristic);
-		System.out.println(this.getPlayerPointer());
 		this.getOutcome(currentChosenCharacteristic);
 
 	}
@@ -162,12 +167,9 @@ public class Game {
 	 */
 	private void passCardsToWinner(int index) {
 		// if round was a draw cards are passed to communalPile Player instance
-		System.out.println("WINNER INDEX!!! : " + index);
-		System.out.println("pass cards to winner : " + index);
 
 		if (communalPile.getNumCards() > 0) {
 			while (communalPile.getCurrentCard() != null) {
-				System.err.println("Passes cards from communal pile to winner");
 				activePlayers[index].addCardToHand(communalPile.getCurrentCard());
 				communalPile.removeCard();
 			}
@@ -176,23 +178,20 @@ public class Game {
 
 		for (int i = 0; i < roundCards.length; i++) {
 			activePlayers[index].addCardToHand(roundCards[i]);
-			System.out.println(roundCards[i]);
 		}
 
 	}
 
 	/**
 	 * Method to pass the current rounds card to the communal pile
-	 * 
+	 *
 	 */
 	private void passCardsToCommunalPile() {
 
 		for (int i = 0; i < roundCards.length; i++) {
 			communalPile.addCardToHand(roundCards[i]);
-			System.out.println(roundCards[i]);
 		}
 		communalPile.setNumCards();
-		System.out.println("Communal Pile cards: " + communalPile.getNumCards());
 		// this.removeCardsFromHands();
 
 	}
@@ -200,13 +199,11 @@ public class Game {
 	/**
 	 * Finds the characteristic of highest value from the current card of the
 	 * player whose turn it is
-	 * 
+	 *
 	 * @param playerPointer
 	 * @return the index of the chosen characteristic
 	 */
 	private int setCharacteristic(int playerPointer) {
-		// test
-		System.err.println("Player Pointer = " + playerPointer);
 		Card currentCard = activePlayers[playerPointer].getCurrentCard();
 		int currentCharacteristic = currentCard.getMaxCharacteristic();
 		return currentCharacteristic;
@@ -219,8 +216,6 @@ public class Game {
 	 * @return playerPointer
 	 */
 	public int getPlayerPointer() {
-		// test
-		// System.err.println("Player pointer is " + playerPointer);
 		return playerPointer;
 	}
 
@@ -232,8 +227,6 @@ public class Game {
 		for (int i = 0; i < activePlayers.length; i++) {
 			if (activePlayers[i].getStatus() == true) {
 				roundCards[i] = activePlayers[i].getCurrentCard();
-				// test
-				 System.err.println("populate round cards :" + roundCards[i]);
 			}
 		}
 	}
@@ -251,8 +244,6 @@ public class Game {
 			activePlayers[i].setStatus();
 			if (activePlayers[i].getStatus() == true) {
 				Card currentCard = activePlayers[i].getCurrentCard();
-				// test
-				// System.out.println(currentCard);
 				characteristicValues[i] = currentCard.getCharacteristicValueAt(characteristic);
 			} else {
 				characteristicValues[i] = 0;
@@ -270,8 +261,6 @@ public class Game {
 		// loops through the characteristics to determine whether the
 		// highest one appears more than once
 		for (int i = 0; i < characteristicValues.length; i++) {
-			// System.err.println("Characteristic values array " +
-			// characteristicValues[i]);
 			if (characteristicValues[i] == max) {
 				numMaxValue++;
 			}
@@ -293,8 +282,6 @@ public class Game {
 		roundsWon[outcome]++;
 
 		if (draw == false) {
-			// test
-			System.out.println("Player index " + outcome + " has the highest score");
 			this.passCardsToWinner(outcome);
 		}
 		this.getGameOver();
@@ -314,7 +301,7 @@ public class Game {
 
 	/**
 	 * Returns the card at an index of the round cards array
-	 * 
+	 *
 	 * @param i
 	 * @return
 	 */
@@ -324,7 +311,7 @@ public class Game {
 
 	/**
 	 * Method to check if someone has won
-	 * 
+	 *
 	 */
 
 	public void gameOver() {
@@ -338,17 +325,22 @@ public class Game {
 				}
 		}
 	}
-	/**Method to return the array of cards 
-	 * 
+	/**Method to return the array of cards
+	 *
 	 * @return the array of cards from the round
 	 */
 	public Card[] getRoundCards() {
 		return roundCards;
 	}
 
+	public int getCommunalCount() {
+		communalPile.setNumCards();
+		int commCount = communalPile.getNumCards();
+		return commCount;
+	}
+
 	public boolean getGameOver(){
 		this.gameOver();
-		System.out.println("Is game over" + isGameOver);
 		return isGameOver;
 	}
 
@@ -377,4 +369,11 @@ public class Game {
 		return winnerIndex;
 
 	}
+
+
+	public int getCurrentChosenCharacteristic() {
+		return currentChosenCharacteristic;
+	}
+
+	
 }

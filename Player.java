@@ -54,20 +54,15 @@ public class Player {
 		}
 	}
 
-	public void setNumCards()
-	{
+	public void setNumCards() {
 		int cardCount = 0;
-	try{
-		while(hand[cardCount] != null)
-		{
-			cardCount++;
+		try{
+			while(hand[cardCount] != null){
+				cardCount++;
+			}
+		} catch(ArrayIndexOutOfBoundsException e) {
+			System.out.println("Player has 40 cards and wins");
 		}
-	}catch(ArrayIndexOutOfBoundsException e)
-	{
-		System.out.println("Player has 40 cards and wins");
-		
-	}
-
 		numCards = cardCount;
 	}
 
