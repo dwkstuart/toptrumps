@@ -16,8 +16,7 @@ public class Card {
 	public Card(String[] categories, String details) {
 		this.category = categories;
 		String info = details;
-		// commented out bcos mac carriage rtrn different from windows
-		//   info = info.substring(0, (info.length()-1));//removes the trailing carriage return
+		
 		input = info.split(" +");
 
 		description = input[0];
@@ -77,7 +76,7 @@ public class Card {
 	public String formatCardText() {
 		String display = null;
 		StringBuilder build = new StringBuilder();
-		String header = " ~ Dino Trop Trumps ~\n\n";
+		String header = " ~ Dino Top Trumps ~\n\n";
 		build.append(header);
 		build.append(description + "\n\n");
 		for (int i = 0; i < 5; i++) {
