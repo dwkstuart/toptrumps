@@ -19,6 +19,8 @@ public class DbCon {
 	 */
 	public DbCon()
 	{
+		DbConnect();
+		primaryKey = getNumGames()+1; //set primary key to the next number in the sequence
 		
 	}
 	
@@ -28,8 +30,8 @@ public class DbCon {
 	public void DbConnect()
 	{
 		String DBName = "TopTrumps";
-		String DBUser = "m_16_0207805s";
-		String DBPassword = "0207805s";
+		String DBUser = "postgres";
+		String DBPassword = "2196440o";
 		
 		try
 		{
@@ -68,16 +70,14 @@ public class DbCon {
 			while(rs.next())
 			{
 				numGames = rs.getInt("gameCount");
-				System.out.println("Total number of games played: " + numGames);
 			}
 		}
 		catch(SQLException e)
 		{
 			e.printStackTrace();
-			System.err.println("error executing query " + numGamesQuery);
 		}
 		
-		primaryKey = numGames+1; //set primary key to the next number in the sequence
+		
 		return numGames;
 		
 	}
@@ -100,7 +100,6 @@ public class DbCon {
 			while(rs.next())
 			{
 				numPlayerWins = rs.getInt("playerWinCount");
-				System.out.println("Total number of games won by Player: " + numPlayerWins);
 			}
 		}
 		catch(SQLException e)
@@ -118,8 +117,8 @@ public class DbCon {
 	public int getCPUWins()
 	{
 		Statement stmt = null;
-		String CPUWinsQuery = "SELECT COUNT(Winner) AS cpuWinCount FROM Game WHERE Game.Winner = 'CPU1'"
-				+ " OR Game.Winner = 'CPU2' OR Game.Winner = 'CPU3' OR Game.Winner = 'CPU4'";
+		String CPUWinsQuery = "SELECT COUNT(Winner) AS cpuWinCount FROM Game WHERE Game.Winner = 'CPU 1'"
+				+ " OR Game.Winner = 'CPU 2' OR Game.Winner = 'CPU 3' OR Game.Winner = 'CPU 4'";
 		int numCpuWins = 0;
 		
 		try
@@ -130,7 +129,6 @@ public class DbCon {
 			while(rs.next())
 			{
 				numCpuWins = rs.getInt("cpuWinCount");
-				System.out.println("Total number of games won by CPU: " + numCpuWins);
 			}
 		}
 		catch(SQLException e)
@@ -159,7 +157,6 @@ public class DbCon {
 			while(rs.next())
 			{
 				avgDraws = rs.getDouble("avgDraws");
-				System.out.println("Average number of draws: " + avgDraws);
 			}
 		}
 		catch(SQLException e)
@@ -188,8 +185,6 @@ public class DbCon {
 			while(rs.next())
 			{
 				largestNumRounds = rs.getInt("largestNumRounds");
-				System.out.println("Largest number of rounds played in a single game:"
-						+ " " +largestNumRounds);
 			}
 		}
 		catch(SQLException e)
