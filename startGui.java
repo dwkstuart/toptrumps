@@ -71,10 +71,8 @@ public class startGui extends JFrame implements ActionListener {
 
 		else {
 			DbCon stats = new DbCon();
-			System.out.println("view Stats");
-			stats.DbConnect();
-			stats.getAvgDraws();
-			ViewStatsGUI view = new ViewStatsGUI(stats);
+			new ViewStatsGUI(stats);
+			
 		}
 
 		//make GUI disappear after initial choice has been made
