@@ -19,6 +19,10 @@ public class Game {
 	// indicates which player's turn it is
 	private int playerPointer;
 
+	// constant to indicate when it is not the human user's turn to Pick
+	// a category
+	private int notUser =-1;
+
 	// number of rounds passed in current game
 	private int roundCount;
 
@@ -152,7 +156,7 @@ public class Game {
 		currentChosenCharacteristic = chosenCharacteristic;
 
 		// -1 is default, when not human turn
-		if (currentChosenCharacteristic == -1) {
+		if (currentChosenCharacteristic == notUser) {
 			currentChosenCharacteristic = setCharacteristic(playerPointer);
 		}
 		roundCount++;
@@ -395,6 +399,21 @@ public class Game {
 	public boolean getGameOver() {
 		this.gameOver();
 		return isGameOver;
+	}
+
+	/**
+	 * In the case that the user player dies, this method plays through the
+	 * computer-only rounds to prevent a user having to click through each
+	 * game play.
+	 */
+	public void playToEnd() {
+		// while this game ISN'T over
+		while(!(this.getGameOver())) {
+			// -1 signals it is not user's turn
+			this.playRound(notUser);
+		}
+		new GameOverStats(this);
+
 	}
 
 	/**

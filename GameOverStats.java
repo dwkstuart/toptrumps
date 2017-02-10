@@ -67,8 +67,7 @@ public class GameOverStats extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent ae) {
 		if(ae.getSource() == exitBut) {
-			System.exit(0);
-			setVisible(false);
+			// fall thru
 		}
 
 		if(ae.getSource() == saveAndExitBut) {
@@ -76,9 +75,8 @@ public class GameOverStats extends JFrame implements ActionListener {
 			trumpsDb.postStats(winner, lastGame.getNumDraws(), lastGame.getNumRounds(),
 				lastGame.getRoundsWon(0), lastGame.getRoundsWon(1),lastGame.getRoundsWon(2),
 				lastGame.getRoundsWon(3), lastGame.getRoundsWon(4));
-			setVisible(false);
 		}
-
+		System.exit(0);
 	}
 
 }

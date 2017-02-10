@@ -46,19 +46,23 @@ public class GameGUI extends JFrame implements ActionListener{
    private JTextField communalCardCount;
    //ASCII pattern to display when players' card details need to be hidden
    private final String dinoImage = "───────────████████\n──────────███▄███████\n──────────███████████\n──────────███████████\n──────────██████\n──────────█████████\n█───────███████\n██────████████████\n███──██████████──█\n███████████████\n███████████████\n─█████████████\n──███████████\n────████████\n─────███──██\n─────██────█\n─────█─────█\n─────██────██\n";
+   //ASCII pattern to display when CPU player Dimension
+   private final String extinct = "              _______\n        _____/      \\_____\n       |  _     ___   _   ||\n       | | \\     |   | \\  ||\n       | |  |    |   |  | ||\n       | |_/     |   |_/  ||\n       | | \\     |   |    ||\n       | |  \\    |   |    ||\n       | |   \\. _|_. | .  ||\n       |                  ||\n       |  name goes here  ||\n       |                  ||\n       | *   **    * **   |**  \n   /.,//.,(//,,..,,/||(,,.,///, .";
 
-   //middle panel instance variables
+   // middle panel instance variables
    private JTextArea messageArea;
    private JTextField humanTurn;
 
-   //bottom panel instance variables
-   //text areas for the cards left over in deck, and the user's card details
+   // bottom panel instance variables
+   // text areas for the cards left over in deck, and the user's card details
    private JTextArea drawPile, humanCard;
-   //labels to display number of cards in deck and number in user's hand
-   private JLabel communalCount, humanCardCount;
-   //the play button which the user will use to step through each round of the game
+   // labels to display number of cards in deck, number in user's hand, and label to indicate
+   // user's hand
+   private JLabel userHandLabel, communalCount, humanCardCount;
+   // the play button which the user will use to step through each round of the game
    private JButton play,nextRound;
-   //combo box user will use to select chosen category when it is their turn
+   // combo box user will use to select chosen category when it is their turn
+   private JLabel comboLabel;
    private JComboBox trumpCategories;
 
    //number of players in a game
@@ -75,7 +79,7 @@ public class GameGUI extends JFrame implements ActionListener{
       setLayout(new GridLayout(3,1));
       setDefaultCloseOperation(EXIT_ON_CLOSE);
       setTitle(title);
-      setSize(750, 900);
+      setSize(650, 650);
 
       GUITop();
       GUIMiddle();
@@ -105,10 +109,10 @@ public class GameGUI extends JFrame implements ActionListener{
       player3 = new JPanel();
       player4 = new JPanel();
 
-      JLabel title1 = new JLabel("PLAYER ONE" );
-      JLabel title2 = new JLabel("PLAYER TWO");
-      JLabel title3 = new JLabel("PLAYER THREE");
-      JLabel title4 = new JLabel ("PLAYER FOUR");
+      JLabel title1 = new JLabel("CPU 1");
+      JLabel title2 = new JLabel("CPU 2");
+      JLabel title3 = new JLabel("CPU 3");
+      JLabel title4 = new JLabel("CPU 4");
 
       comp1Card = new JTextArea(dinoImage, 4,12);
       comp2Card = new JTextArea(dinoImage, 4,12);
@@ -221,6 +225,7 @@ public class GameGUI extends JFrame implements ActionListener{
       left.add(communalCardCount);
 
       JPanel center = new JPanel();
+      userHandLabel = new JLabel("YOUR HAND");
       // humanCard = new JTextArea(dinoImage, 4, 12);
       humanCard = new JTextArea(4, 12);
       humanCard.setFont(theFont2);
@@ -228,13 +233,16 @@ public class GameGUI extends JFrame implements ActionListener{
       humanCardCount = new JLabel(cardInfo);
       userCardCount = new JTextField(" ");
       userCardCount.setEditable(false);
+      center.add(userHandLabel);
       center.add(humanCard);
       center.add(humanCardCount);
       center.add(userCardCount);
 
       JPanel right = new JPanel();
+      comboLabel = new JLabel("Select a category: ");
       trumpCategories = new JComboBox(getCategories());
       JPanel row1 = new JPanel();
+      // row1.add(comboLabel);
       row1.add(trumpCategories);
 
       nextRound= new JButton ("Next Round!");
@@ -247,6 +255,7 @@ public class GameGUI extends JFrame implements ActionListener{
       row2.add(nextRound);
       row2.add(play);
 
+      right.add(comboLabel);
       right.add(row1);
       right.add(row2);
 
@@ -329,7 +338,9 @@ public class GameGUI extends JFrame implements ActionListener{
          if (lastRound[2] != null) {
             comp2Card.setText(lastRound[2].formatCardText());
          }
-         else comp2Card.setText("I'm DEAD!");
+         else {
+            comp2Card.setText("I'm DEAD!");
+         }
       }
       if(numPlayers>3) {
          comp3Card.setFont(theFont2);
@@ -379,6 +390,13 @@ public class GameGUI extends JFrame implements ActionListener{
    public void ResetGUI() {
       Player user = startGame.getActivePlayer(0);
       humanCard.setText(user.returnCurrentCardStr());
+
+      // check if user has died, and if so, play out the game without them
+      // (to prevent them clicking thru each and every play after they have died)
+      if (user.returnCurrentCardStr().equals("RIP my dude")) {
+         startGame.playToEnd();
+      }
+
       trumpCategories.setEnabled(false);
 
       humanTurn.setText("it's not your turn!");
@@ -412,14 +430,34 @@ public class GameGUI extends JFrame implements ActionListener{
       }
 
       // set all computer cards to dinos between rounds
-      comp1Card.setFont(theFont1);
-      comp1Card.setText(dinoImage);
-      comp2Card.setFont(theFont1);
-      comp2Card.setText(dinoImage);
-      comp3Card.setFont(theFont1);
-      comp3Card.setText(dinoImage);
-      comp4Card.setFont(theFont1);
-      comp4Card.setText(dinoImage);
+      // comp1Card.setFont(theFont1);
+      // comp1Card.setText(dinoImage);
+      // comp2Card.setFont(theFont1);
+      // comp2Card.setText(dinoImage);
+      // comp3Card.setFont(theFont1);
+      // comp3Card.setText(dinoImage);
+      // comp4Card.setFont(theFont1);
+      // comp4Card.setText(dinoImage);
+
+      // set all computer cards to dinos between rounds for all players
+      // who are not dead
+      Card[] lastRound = startGame.getRoundCards();
+      if (lastRound[1] != null) {
+         comp1Card.setFont(theFont1);
+         comp1Card.setText(dinoImage);
+      }
+      if (lastRound[2] != null) {
+         comp2Card.setFont(theFont1);
+         comp2Card.setText(dinoImage);
+      }
+      if (lastRound[3] != null) {
+         comp3Card.setFont(theFont1);
+         comp3Card.setText(dinoImage);
+      }
+      if (lastRound[4] != null) {
+         comp4Card.setFont(theFont1);
+         comp4Card.setText(dinoImage);
+      }
 
    }
 
@@ -439,6 +477,7 @@ public class GameGUI extends JFrame implements ActionListener{
          //checks if game is over when a player has 40 cards
          if (startGame.getGameOver()){
             new GameOverStats(startGame);
+            this.setVisible(false);
          }
          this.ResetGUI();
 
@@ -527,10 +566,14 @@ public class GameGUI extends JFrame implements ActionListener{
       if(startGame.roundWasDraw()) {
          roundresult = characteristic +" was choosen but the round was a draw, same player chooses again";
          System.out.println("\n" + roundresult);
+      } else if (winner == 0) {
+         roundresult="\n\tYou won that round!"
+            +".\n\tYou played the " + dinosaur  +"'s "  +characteristic + ", which had a value of " + winValue;
       } else {
-         roundresult="\nRound was won by player " + winner  +" They played the " + dinosaur  +"'s \n"  +characteristic + " which had a value of "+winValue;
-         System.out.println(roundresult);
+         roundresult="\n\tRound was won by player " + winner
+            +".\n \tThey played the " + dinosaur  +"'s "  +characteristic + ", which had a value of " + winValue;
       }
+      System.out.println(roundresult);
 
       messageArea.setText(roundresult);
 

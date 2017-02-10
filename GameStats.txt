@@ -1,0 +1,5 @@
+Number of games played overall: 1
+Number of times the computer has won: 1
+Number of times the human has won: 0
+Average number of draws: 0.00
+Largest number of rounds played in a single game: 46

@@ -38,6 +38,7 @@ public class ViewStatsGUI extends JFrame implements ActionListener{
 		add(panel, "South");
 
 		setVisible(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
 	/**
