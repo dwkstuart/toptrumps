@@ -13,16 +13,14 @@ import javax.swing.*;
  */
 
 public class startGui extends JFrame implements ActionListener {
-	/**
-	 * instance variables
-	 */
+	// instance variables
 	private Integer[] players = new Integer[] { 1, 2, 3, 4 };
 	private JComboBox numberPlayers;
 	private JButton newGame, viewStats;
 
 
-	/**creates start gui
-	 *
+	/**
+	 * creates start gui
 	 */
 	public startGui() {
 
@@ -66,19 +64,13 @@ public class startGui extends JFrame implements ActionListener {
 		if (e.getSource() == newGame) {
 			int totalPlayers = (Integer) numberPlayers.getSelectedItem();
 			GameGUI run = new GameGUI(totalPlayers);
-
-		}
-
-		else {
+		} else {
 			DbCon stats = new DbCon();
 			new ViewStatsGUI(stats);
-			
 		}
 
 		//make GUI disappear after initial choice has been made
 		this.setVisible(false);
-
-
 	}
 
 }

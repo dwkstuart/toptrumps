@@ -4,33 +4,31 @@ import javax.swing.*;
 import java.util.*;
 import java.io.*;
 
-public class GameOverStats extends JFrame implements ActionListener{
-	
+public class GameOverStats extends JFrame implements ActionListener {
+
 	private JButton saveAndExitBut; // button to optionally save the stats from the game that just ended
 	private JButton exitBut; // button to exit without saving
 	private String statsString; //formatted string that represents the stats from the game that just ended
 	private String winner;
-	
+
 	private Game lastGame; // game object
 	private DbCon trumpsDb;
-	
-	public GameOverStats(Game game)
-	{
+
+	public GameOverStats(Game game) {
 		lastGame = game;
 		setWinnerName();
 		trumpsDb = new DbCon();
-		
+
 		//layout GUI components
 		setTitle("GAME OVER");
-		setSize(400, 150);		
+		setSize(400, 150);
 		layoutTextArea();
 		layoutButtonArea();
-		
-		setVisible(true);			
+
+		setVisible(true);
 	}
-	
-	private void layoutTextArea()
-	{
+
+	private void layoutTextArea() {
 		JPanel topPanel = new JPanel(new FlowLayout());
 		topPanel.setPreferredSize(new Dimension(100, 50));
 		JLabel winnerLabel = new JLabel("The winner is: " + winner +  "!!!");
@@ -38,9 +36,8 @@ public class GameOverStats extends JFrame implements ActionListener{
 		topPanel.add(winnerLabel);
 		add(topPanel, "North");
 	}
-	
-	private void layoutButtonArea()
-	{
+
+	private void layoutButtonArea() {
 		JPanel bottomPanel = new JPanel(new FlowLayout());
 		bottomPanel.setPreferredSize(new Dimension(100, 50));
 		saveAndExitBut = new JButton("Save & Exit");
@@ -48,45 +45,40 @@ public class GameOverStats extends JFrame implements ActionListener{
 		exitBut = new JButton("Exit");
 		exitBut.addActionListener(this);
 		bottomPanel.add(exitBut);
-		bottomPanel.add(saveAndExitBut);		
+		bottomPanel.add(saveAndExitBut);
 		add(bottomPanel, "South");
 	}
-	
-	private void setWinnerName()
-	{
+
+	private void setWinnerName() {
 		int winnerInt = lastGame.getWinnerIndex();
-		switch(winnerInt)
-		{
-		case 0: winner = "Player 1";
-				break;
-		case 1: winner = "CPU 1";
-				break;
-		case 2: winner = "CPU 2";
-				break;
-		case 3: winner = "CPU 3";
-				break;
-		case 4: winner = "CPU 4";
-				break;
+		switch(winnerInt) {
+			case 0: winner = "Player 1";
+			break;
+			case 1: winner = "CPU 1";
+			break;
+			case 2: winner = "CPU 2";
+			break;
+			case 3: winner = "CPU 3";
+			break;
+			case 4: winner = "CPU 4";
+			break;
 		}
 	}
-	
-	public void actionPerformed(ActionEvent ae) 
-	{
-	    if(ae.getSource() == exitBut)
-	    {	
-	    	System.exit(0);
-	    	setVisible(false);
-	    }
-	    
-	    if(ae.getSource() == saveAndExitBut)
-	    {
-	    	trumpsDb.DbConnect();
-	    	trumpsDb.postStats(winner, lastGame.getNumDraws(), lastGame.getNumRounds(), 
-	    			lastGame.getRoundsWon(0), lastGame.getRoundsWon(1),lastGame.getRoundsWon(2), 
-	    			lastGame.getRoundsWon(3), lastGame.getRoundsWon(4));
-	    	setVisible(false);
-	    }
-	    
+
+	public void actionPerformed(ActionEvent ae) {
+		if(ae.getSource() == exitBut) {
+			System.exit(0);
+			setVisible(false);
+		}
+
+		if(ae.getSource() == saveAndExitBut) {
+			trumpsDb.DbConnect();
+			trumpsDb.postStats(winner, lastGame.getNumDraws(), lastGame.getNumRounds(),
+				lastGame.getRoundsWon(0), lastGame.getRoundsWon(1),lastGame.getRoundsWon(2),
+				lastGame.getRoundsWon(3), lastGame.getRoundsWon(4));
+			setVisible(false);
+		}
+
 	}
-	
+
 }

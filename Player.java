@@ -37,19 +37,18 @@ public class Player {
 
 	// getCurrentCard - return the top card in their hand; at 0 in the array
 	public Card getCurrentCard() {
-
 		return hand[0];
 	}
-	
+
 	// getCurrentCard - returns an array of strings representing the cards in a players hand used in testing
-		public String[] displayPlayerHand() {
-			this.setNumCards();
-			String handList[]=new String[numCards];
-				for(int i=0; i<numCards; i++){
-				handList[i]=hand[i].toString();
-				}
-			return handList;
+	public String[] displayPlayerHand() {
+		this.setNumCards();
+		String handList[]=new String[numCards];
+		for(int i=0; i<numCards; i++){
+			handList[i]=hand[i].toString();
 		}
+		return handList;
+	}
 
 
 	//Card; -add a card to the back of their hand, first null value.
@@ -67,12 +66,12 @@ public class Player {
 
 	public void setNumCards() {
 		int cardCount = 0;
-		try{
-			while(hand[cardCount] != null){
+		try {
+			while(hand[cardCount] != null) {
 				cardCount++;
 			}
 		} catch(ArrayIndexOutOfBoundsException e) {
-			System.out.println("Player has 40 cards and wins");
+			System.out.println("END OF GAME!");
 		}
 		numCards = cardCount;
 	}

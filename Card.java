@@ -1,6 +1,6 @@
 /**
- * Class that holds the descriptions and values of a single top trump card
- */
+* Class that holds the descriptions and values of a single top trump card
+*/
 public class Card {
 	private String[] category;
 	private String description = "";
@@ -9,14 +9,14 @@ public class Card {
 	private int[] cardvalues = new int[5];
 
 	/**
-	 * @param String
-	 *            details, string passed in with description and values from
-	 *            text file sets the instance variables
-	 */
+	* @param String
+	*            details, string passed in with description and values from
+	*            text file sets the instance variables
+	*/
 	public Card(String[] categories, String details) {
 		this.category = categories;
 		String info = details;
-		
+
 		input = info.split(" +");
 
 		description = input[0];
@@ -30,26 +30,24 @@ public class Card {
 
 
 	/**
-	 * @param which
-	 *            index of which category vale to return
-	 * @return specific value from a card
-	 */
+	* @param which
+	*            index of which category vale to return
+	* @return specific value from a card
+	*/
 	public int getValueatIndex(int index) {
 		return cardvalues[index];
 	}
 
 	/**
-	 * Method to return the index position of the maximum value in a card
-	 *
-	 * @return index of highest characteristic
-	 */
+	* Method to return the index position of the maximum value in a card
+	*
+	* @return index of highest characteristic
+	*/
 	public int getMaxCharacteristic() {
 		int max = 0;
 		int indexofValue = 0;
 
-		for (int i = 0; i < cardvalues.length; i++)
-
-		{
+		for (int i = 0; i < cardvalues.length; i++) {
 			if (cardvalues[i] > max) {
 				max = cardvalues[i];
 				indexofValue = i;
@@ -57,22 +55,21 @@ public class Card {
 		}
 
 		return indexofValue;
-
 	}
 
 	/*
-	 * @return return the card description with values
-	 */
+	* @return return the card description with values
+	*/
 	public String toString() {
 		String card = String.format("%-20s %s: %2d  %s: %2d %s; %2d :%s %2d %s: %2d ",
-				description, category[0], cardvalues[0], category[1], cardvalues[1], category[2], cardvalues[2], category[3], cardvalues[3], category[4], cardvalues[4]);//method for importing category list is decided
-			return card;
+		description, category[0], cardvalues[0], category[1], cardvalues[1], category[2], cardvalues[2], category[3], cardvalues[3], category[4], cardvalues[4]);//method for importing category list is decided
+		return card;
 	}
 
 
 	/*
-	 * @return return the card description with values in columns
-	 */
+	* @return return the card description with values in columns
+	*/
 	public String formatCardText() {
 		String display = null;
 		StringBuilder build = new StringBuilder();
