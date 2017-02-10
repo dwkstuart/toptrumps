@@ -26,6 +26,7 @@ public class GameOverStats extends JFrame implements ActionListener {
 		layoutButtonArea();
 
 		setVisible(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
 	private void layoutTextArea() {

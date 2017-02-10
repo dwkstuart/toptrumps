@@ -25,13 +25,16 @@ public class DbCon {
 	/**
 	* database connection method
 	*/
+	
+	
+
 	public void DbConnect(){
-		String DBName = "TopTrumps";
-		String DBUser = "postgres";
-		String DBPassword = "1005926";
+		String DBName = "m_16_0207805s";
+		String DBUser = "m_16_0207805s";
+		String DBPassword = "0207805s";
 
 		try {
-			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/" + DBName,DBUser, DBPassword);
+			connection = DriverManager.getConnection("jdbc:postgresql://yacata.dcs.gla.ac.uk:5432/" + DBName,DBUser, DBPassword);
 		}
 		catch (SQLException e) {
 			System.err.println("Connection Failed!");

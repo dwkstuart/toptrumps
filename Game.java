@@ -301,11 +301,14 @@ public class Game {
 		}
 
 		this.removeCardsFromHands();
-		// increment the number of rounds won by the current winner
-		roundsWon[outcome]++;
+		
+		
+				
 
 		if (draw == false) {
 			this.passCardsToWinner(outcome);
+			// increment the number of rounds won by the current winner
+			roundsWon[outcome]++;
 		}
 		this.getGameOver();
 
