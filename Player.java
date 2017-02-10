@@ -71,7 +71,7 @@ public class Player {
 				cardCount++;
 			}
 		} catch(ArrayIndexOutOfBoundsException e) {
-			System.out.println("END OF GAME!");
+			//Exception thrown when a player has 40 cards and has won the game
 		}
 		numCards = cardCount;
 	}

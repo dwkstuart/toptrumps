@@ -90,8 +90,7 @@ public class Game {
 		dealCards(deck);
 
 		roundCount = 0;
-		playerPointer = (int) (Math.random() * numPlayers); // randomise who
-		// starts
+		playerPointer = (int) (Math.random() * numPlayers); // randomise who starts
 	}
 
 	/**
@@ -412,7 +411,7 @@ public class Game {
 	public void playToEnd() {
 		// while this game ISN'T over
 		while(!(this.getGameOver())) {
-			// -1 signals it is not user's turn
+			// notUser signals it is not user's turn
 			this.playRound(notUser);
 		}
 		new GameOverStats(this);

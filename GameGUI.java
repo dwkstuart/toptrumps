@@ -11,7 +11,7 @@ public class GameGUI extends JFrame implements ActionListener {
 
 	// card text file name
 	private final String title = "DINOSAUR TOP TRUMPS!";
-	private final String textFile = "cardText.txt";
+	private final String textFile = "deck.txt";
 	// private final String textFile = "DrawDeck.txt";
 
 	// integers representing the number of categories and the total number of
@@ -299,7 +299,7 @@ public class GameGUI extends JFrame implements ActionListener {
 	public void UpdateCardCount() {
 		// makes initial array of 5(maximum possible players, initialized at 0
 		int[] cardsInHand = new int[] { 0, 0, 0, 0, 0 };
-		// populates array according to numof players in a particular game
+		// populates array according to number of players in a particular game
 		for (int i = 0; i < numPlayers; i++) {
 			Player player = startGame.getActivePlayer(i);
 			player.setNumCards();
@@ -311,8 +311,14 @@ public class GameGUI extends JFrame implements ActionListener {
 		cardCount2.setText("" + cardsInHand[2]);
 		cardCount3.setText("" + cardsInHand[3]);
 		cardCount4.setText("" + cardsInHand[4]);
-
+	
 		communalCardCount.setText("" + startGame.getCommunalCount());
+		
+		// changes the label on the nextRound button after the user has lost
+		if(cardsInHand[0] == 0)
+		{
+			nextRound.setText("Finish Game!");
+		}
 	}
 
 	/**
@@ -406,6 +412,11 @@ public class GameGUI extends JFrame implements ActionListener {
 		if (user.returnCurrentCardStr().equals("RIP my dude")) {
 			startGame.playToEnd();
 		}
+		
+		if (startGame.getGameOver()) {
+			this.setVisible(false);
+			new GameOverStats(startGame);
+		}
 
 		trumpCategories.setEnabled(false);
 
@@ -492,11 +503,10 @@ public class GameGUI extends JFrame implements ActionListener {
 			play.setEnabled(true);
 
 			// checks if game is over when a player has 40 cards
-			if (startGame.getGameOver()) {
+		/*	if (startGame.getGameOver()) {
 				this.setVisible(false);
 				new GameOverStats(startGame);
-				
-			}
+			}*/
 			this.ResetGUI();
 
 		}
@@ -508,9 +518,10 @@ public class GameGUI extends JFrame implements ActionListener {
 			play.setEnabled(false);
 			trumpCategories.setEnabled(false);
 
-			if (startGame.getGameOver()) {
-				new GameOverStats(startGame);
-			}
+			/*if (startGame.getGameOver()) {
+				this.setVisible(false);
+				new GameOverStats(startGame);				
+			}*/
 			if (startGame.getPlayerPointer() == 0) {
 				input = trumpCategories.getSelectedIndex();
 			}
@@ -527,6 +538,7 @@ public class GameGUI extends JFrame implements ActionListener {
 		c1.setNumCards();
 
 		this.UpdateCardCount();
+		
 	}
 
 	/**
