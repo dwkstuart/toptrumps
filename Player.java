@@ -40,6 +40,17 @@ public class Player {
 
 		return hand[0];
 	}
+	
+	// getCurrentCard - returns an array of strings representing the cards in a players hand used in testing
+		public String[] displayPlayerHand() {
+			this.setNumCards();
+			String handList[]=new String[numCards];
+				for(int i=0; i<numCards; i++){
+				handList[i]=hand[i].toString();
+				}
+			return handList;
+		}
+
 
 	//Card; -add a card to the back of their hand, first null value.
 	public void addCardToHand(Card cardToAdd) {

@@ -46,6 +46,9 @@ public class Game {
 	// Checks if Game has been won
 	private boolean isGameOver = false;
 
+	// if round was a draw
+	private boolean draw;
+
 	/**
 	 * Constructor for the Game object.
 	 *
@@ -63,14 +66,14 @@ public class Game {
 
 		// create, shuffle and deal an array of card objects amongst all players
 		deck = new Card[DECKSIZE];
-		//TESTING PRINT OUT
+		// TESTING PRINT OUT
 		System.out.println("CONTENTS OF UNSHUFFLED DECK");
 		System.out.println("-------------------------------------------------");
 		for (int i = 0; i < DECKSIZE; i++) {
 			deck[i] = new Card(categories, deckDetails[i]);
-			//Testing Print Out
+			// Testing Print Out
 			System.out.println(deck[i]);
-			
+
 		}
 		System.out.println("-------------------------------------------------");
 		// Initialize at 0 until cards are added to the array :)
@@ -87,7 +90,6 @@ public class Game {
 		playerPointer = (int) (Math.random() * numPlayers); // randomise who
 															// starts
 	}
-
 
 	/**
 	 * @author Niall Method to create a card object from each line of text
@@ -111,10 +113,10 @@ public class Game {
 		// cycle thru each card
 		for (int i = 0; i < deck.length; i++) {
 			int shuffledIndex = rand.nextInt(40);
-			Card tempCardRef = deck[i]; 
+			Card tempCardRef = deck[i];
 			deck[i] = deck[shuffledIndex];
 			deck[shuffledIndex] = tempCardRef;
-			//TESTING PRINT OUT
+			// TESTING PRINT OUT
 			System.out.println(deck[i]);
 		}
 		System.out.println("-------------------------------------------------");
@@ -166,12 +168,14 @@ public class Game {
 	 *            was a draw adds the communal pile to the winning players hand
 	 */
 	private void passCardsToWinner(int index) {
+
 		// if round was a draw cards are passed to communalPile Player instance
 
 		if (communalPile.getNumCards() > 0) {
 			while (communalPile.getCurrentCard() != null) {
 				activePlayers[index].addCardToHand(communalPile.getCurrentCard());
 				communalPile.removeCard();
+
 			}
 
 		}
@@ -192,7 +196,11 @@ public class Game {
 			communalPile.addCardToHand(roundCards[i]);
 		}
 		communalPile.setNumCards();
-		// this.removeCardsFromHands();
+
+		// Testing system out
+		System.out.println("\nCards in Communal Pile");
+		// passes -1 as variable to indicate it is the communal pile
+		this.printHand(-1);
 
 	}
 
@@ -224,9 +232,13 @@ public class Game {
 	 *
 	 */
 	public void populateRoundCards() {
+		System.out.println("-----------------------------");
+		System.out.println("Cards in current round");
 		for (int i = 0; i < activePlayers.length; i++) {
 			if (activePlayers[i].getStatus() == true) {
 				roundCards[i] = activePlayers[i].getCurrentCard();
+				// Testing
+				System.out.println(roundCards[i]);
 			}
 		}
 	}
@@ -237,8 +249,10 @@ public class Game {
 		int outcome = this.getPlayerPointer();
 		int max = 0;
 		int numMaxValue = 0;
-		boolean draw = false;
-
+		draw = false;
+		
+		//TESTING SYSTEM OUT
+		System.out.println("\n The choosen characteristic for the round was " + this.categories[characteristic]);
 		// sets the current characteristic for each player
 		for (int i = 0; i < activePlayers.length; i++) {
 			activePlayers[i].setStatus();
@@ -252,9 +266,14 @@ public class Game {
 
 		// find the player whose card had the characteristic of greatest value
 		for (int i = 0; i < characteristicValues.length; i++) {
-			if (characteristicValues[i] > max) {
+			
+			//TESTING OUT
+				System.out.println("\n Player " + i + " value for choosen characteristic was " +characteristicValues[i]);
+				
+				if (characteristicValues[i] > max) {
 				max = characteristicValues[i];
 				outcome = i;
+				
 			}
 		}
 
@@ -270,6 +289,7 @@ public class Game {
 			numDraws++;
 			draw = true;
 			this.passCardsToCommunalPile();
+
 		}
 
 		// change whose turn it is if necessary
@@ -283,6 +303,8 @@ public class Game {
 
 		if (draw == false) {
 			this.passCardsToWinner(outcome);
+			// set isDraw instance variable to false
+			
 		}
 		this.getGameOver();
 
@@ -293,10 +315,40 @@ public class Game {
 	 *
 	 */
 	public void removeCardsFromHands() {
+		// Testing printouts
+		System.out.println("-----------------------------");
+		System.out.println("Player Decks after round");
 		for (int i = 0; i < activePlayers.length; i++) {
-			if (activePlayers[i].getStatus() == true)
+			if (activePlayers[i].getStatus() == true) {
 				activePlayers[i].removeCard();
+			}
+			// Testing Print out
+			System.out.println("\nPlayer's " + i + " Deck is ");
+			this.printHand(i);
+
 		}
+
+	}
+
+	/**
+	 * Method to print out the cards in a players hand
+	 * 
+	 * @param index
+	 *            of player in activePLayer array or -1 when communalPile
+	 */
+	private void printHand(int playerIndex) {
+		String displayHand[];
+		if (playerIndex == -1) {
+			displayHand = communalPile.displayPlayerHand();
+
+		} else {
+			displayHand = activePlayers[playerIndex].displayPlayerHand();
+		}
+
+		for (int k = 0; k < displayHand.length; k++) {
+			System.out.println(displayHand[k]);
+		}
+
 	}
 
 	/**
@@ -320,12 +372,16 @@ public class Game {
 			activePlayers[i].setNumCards();
 			total = activePlayers[i].getNumCards();
 			if (total == 40) {
-				winnerIndex=i;
+				winnerIndex = i;
 				isGameOver = true;
-				}
+				//Testing System Out
+				System.out.println("The WINNER IS " + "Player " + winnerIndex);
+			}
 		}
 	}
-	/**Method to return the array of cards
+
+	/**
+	 * Method to return the array of cards
 	 *
 	 * @return the array of cards from the round
 	 */
@@ -339,7 +395,7 @@ public class Game {
 		return commCount;
 	}
 
-	public boolean getGameOver(){
+	public boolean getGameOver() {
 		this.gameOver();
 		return isGameOver;
 	}
@@ -370,10 +426,12 @@ public class Game {
 
 	}
 
-
 	public int getCurrentChosenCharacteristic() {
 		return currentChosenCharacteristic;
 	}
 
-	
+	public boolean roundWasDraw() {
+		return draw;
+	}
+
 }
