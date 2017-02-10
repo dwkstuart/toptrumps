@@ -13,7 +13,7 @@ public class GameGUI extends JFrame implements ActionListener{
    //card text file name
    private final String title = "DINOSAUR TOP TRUMPS!";
    private final  String textFile = "cardText.txt";
- //  private final  String textFile = "DrawDeck.txt";
+  // private final  String textFile = "DrawDeck.txt";
 
    //integers representing the number of categories and the total number of cards in the deck
    private final int numCat = 5;
@@ -518,8 +518,14 @@ public class GameGUI extends JFrame implements ActionListener{
                     	int winValue =  winningCard.getCharacteristicValueAt(choosenCharIndex);
                     	String characteristic = categories[choosenCharIndex];
                     	
-                    	String roundresult="Round was won by player " + winner  +" They played the " + dinosaur  +"'s \n"  +characteristic + " which had a value of "+winValue;
-                        System.out.println(roundresult);  
+                    	String roundresult;
+                    	if(startGame.roundWasDraw()){
+                    		roundresult = characteristic +" was choosen but the round was a draw, same player chooses again";
+                    		System.out.println("\n" + roundresult);
+                    	}
+                    	else{
+                    	roundresult="\nRound was won by player " + winner  +" They played the " + dinosaur  +"'s \n"  +characteristic + " which had a value of "+winValue;
+                        System.out.println(roundresult);}  
                     	
                         messageArea.setText(roundresult);
                         

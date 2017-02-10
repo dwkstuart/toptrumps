@@ -27,14 +27,14 @@ public class DbCon {
 	 */
 	public void DbConnect()
 	{
-		String DBName = "TopTrumps";
+		String DBName = "m_16_0207805s";
 		String DBUser = "m_16_0207805s";
 		String DBPassword = "0207805s";
 		
 		try
 		{
 		connection = 
-				DriverManager.getConnection("jdbc:postgresql://localhost:5432/" + DBName,DBUser, DBPassword);
+				DriverManager.getConnection("jdbc:postgresql://yacata.dcs.gla.ac.uk:5432/" + DBName,DBUser, DBPassword);
 		}
 		catch (SQLException e)
 		{
