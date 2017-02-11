@@ -21,7 +21,7 @@ public class Game {
 
 	// constant to indicate when it is not the human user's turn to Pick
 	// a category
-	private int notUser =-1;
+	private int notUser = -1;
 
 	// number of rounds passed in current game
 	private int roundCount;
@@ -54,13 +54,13 @@ public class Game {
 	private boolean draw;
 
 	/**
-	* Constructor for the Game object.
-	*
-	* @param int
-	*            numberOfPlayers Number of players at the start of the Game (as
-	*            defined in startGui)
-	* @return Game object
-	*/
+	 * Constructor for the Game object.
+	 *
+	 * @param int
+	 *            numberOfPlayers Number of players at the start of the Game (as
+	 *            defined in startGui)
+	 * @return Game object
+	 */
 	public Game(int numberOfPlayers, String[] categories, String[] deckDetails) {
 		this.categories = categories;
 		numPlayers = numberOfPlayers + 1;
@@ -90,26 +90,27 @@ public class Game {
 		dealCards(deck);
 
 		roundCount = 0;
-		playerPointer = (int) (Math.random() * numPlayers); // randomise who starts
+		playerPointer = (int) (Math.random() * numPlayers); // randomise who
+															// starts
 	}
 
 	/**
-	* @author Niall Method to create a card object from each line of text
-	*         input, and add it to the deck array in the order it is read in.
-	* @param String
-	*            lineFromInput
-	*/
+	 * @author Niall Method to create a card object from each line of text
+	 *         input, and add it to the deck array in the order it is read in.
+	 * @param String
+	 *            lineFromInput
+	 */
 	public void addCardToDeck(String lineFromInput) {
 		deck[currentCardIndex] = new Card(categories, lineFromInput);
 		currentCardIndex++;
 	}
 
 	/**
-	* @author Niall Method that randomises the indexes of all elements of an
-	*         array of Card objects
-	* @param Card[]
-	*            unshuffledDeck
-	*/
+	 * @author Niall Method that randomises the indexes of all elements of an
+	 *         array of Card objects
+	 * @param Card[]
+	 *            unshuffledDeck
+	 */
 	public Card[] shuffleDeck(Card[] deck) {
 		Random rand = new Random();
 		// cycle thru each card
@@ -126,14 +127,14 @@ public class Game {
 	}
 
 	/**
-	* @author Niall Method to deal the deck out equally between the number of
-	*         players. N.B. The user / players with lower index numbers are
-	*         more likely to end up with more cards than those users with
-	*         higher index numbers Â¯\_(ãƒ„)_/Â¯
-	* @param Card[]
-	*            deckToBeDealt The array of card objects that is to be split
-	*            amongst all players.
-	*/
+	 * @author Niall Method to deal the deck out equally between the number of
+	 *         players. N.B. The user / players with lower index numbers are
+	 *         more likely to end up with more cards than those users with
+	 *         higher index numbers Â¯\_(ãƒ„)_/Â¯
+	 * @param Card[]
+	 *            deckToBeDealt The array of card objects that is to be split
+	 *            amongst all players.
+	 */
 	public void dealCards(Card[] deckToBeDealt) {
 		for (int i = 0; i < deckToBeDealt.length; i++) {
 			// cycle thru the numbers 0 to (numberOfPlayers-1)
@@ -143,12 +144,12 @@ public class Game {
 	}
 
 	/**
-	* takes in the index of the characteristic that the player has chosen in
-	* the JComboBox or -1 if it is a user turn
-	*
-	* @param chosenCharacteristic
-	* @return outcome method that determines the highest scoring card
-	*/
+	 * takes in the index of the characteristic that the player has chosen in
+	 * the JComboBox or -1 if it is a user turn
+	 *
+	 * @param chosenCharacteristic
+	 * @return outcome method that determines the highest scoring card
+	 */
 
 	public void playRound(int chosenCharacteristic) {
 		this.populateRoundCards();
@@ -164,11 +165,11 @@ public class Game {
 	}
 
 	/**
-	* @param index
-	*            of winning player in array or -1 if result was a draw passes
-	*            the round card pile to the winning player if previous round
-	*            was a draw adds the communal pile to the winning players hand
-	*/
+	 * @param index
+	 *            of winning player in array or -1 if result was a draw passes
+	 *            the round card pile to the winning player if previous round
+	 *            was a draw adds the communal pile to the winning players hand
+	 */
 	private void passCardsToWinner(int index) {
 
 		// if round was a draw cards are passed to communalPile Player instance
@@ -189,9 +190,9 @@ public class Game {
 	}
 
 	/**
-	* Method to pass the current rounds card to the communal pile
-	*
-	*/
+	 * Method to pass the current rounds card to the communal pile
+	 *
+	 */
 	private void passCardsToCommunalPile() {
 
 		for (int i = 0; i < roundCards.length; i++) {
@@ -207,12 +208,12 @@ public class Game {
 	}
 
 	/**
-	* Finds the characteristic of highest value from the current card of the
-	* player whose turn it is
-	*
-	* @param playerPointer
-	* @return the index of the chosen characteristic
-	*/
+	 * Finds the characteristic of highest value from the current card of the
+	 * player whose turn it is
+	 *
+	 * @param playerPointer
+	 * @return the index of the chosen characteristic
+	 */
 	private int setCharacteristic(int playerPointer) {
 		Card currentCard = activePlayers[playerPointer].getCurrentCard();
 		int currentCharacteristic = currentCard.getMaxCharacteristic();
@@ -220,19 +221,19 @@ public class Game {
 	}
 
 	/**
-	* Method that returns the index of the player currently choosing the
-	* characteristic
-	*
-	* @return playerPointer
-	*/
+	 * Method that returns the index of the player currently choosing the
+	 * characteristic
+	 *
+	 * @return playerPointer
+	 */
 	public int getPlayerPointer() {
 		return playerPointer;
 	}
 
 	/**
-	* Method for creating array of current of cards in the round
-	*
-	*/
+	 * Method for creating array of current of cards in the round
+	 *
+	 */
 	public void populateRoundCards() {
 		System.out.println("-----------------------------");
 		System.out.println("Cards in current round");
@@ -245,6 +246,14 @@ public class Game {
 		}
 	}
 
+	/**
+	 * Method that determines which player won a round Calls the methods that
+	 * passes cards to communal pile or winner and removes the cards from the
+	 * players deck
+	 * 
+	 * @param characteristic
+	 *            the index of the characteristic(category) chosen,
+	 */
 	public void getOutcome(int characteristic) {
 		int[] characteristicValues = new int[activePlayers.length];
 
@@ -253,11 +262,13 @@ public class Game {
 		int numMaxValue = 0;
 		draw = false;
 
-		//TESTING SYSTEM OUT
+		// TESTING SYSTEM OUT
 		System.out.println("\n The choosen characteristic for the round was " + this.categories[characteristic]);
 		// sets the current characteristic for each player
 		for (int i = 0; i < activePlayers.length; i++) {
 			activePlayers[i].setStatus();
+			// fetches the value of the characteristic for each active player,
+			// determines the highest and sets that player as winner
 			if (activePlayers[i].getStatus() == true) {
 				Card currentCard = activePlayers[i].getCurrentCard();
 				characteristicValues[i] = currentCard.getCharacteristicValueAt(characteristic);
@@ -269,8 +280,8 @@ public class Game {
 		// find the player whose card had the characteristic of greatest value
 		for (int i = 0; i < characteristicValues.length; i++) {
 
-			//TESTING OUT
-			System.out.println("\n Player " + i + " value for choosen characteristic was " +characteristicValues[i]);
+			// TESTING OUT
+			System.out.println("\n Player " + i + " value for choosen characteristic was " + characteristicValues[i]);
 
 			if (characteristicValues[i] > max) {
 				max = characteristicValues[i];
@@ -300,9 +311,6 @@ public class Game {
 		}
 
 		this.removeCardsFromHands();
-		
-		
-				
 
 		if (draw == false) {
 			this.passCardsToWinner(outcome);
@@ -314,9 +322,8 @@ public class Game {
 	}
 
 	/**
-	* Removes cards from players hands
-	*
-	*/
+	 * Removes the played card from the players hands at the end of the round
+	 */
 	public void removeCardsFromHands() {
 		// Testing printouts
 		System.out.println("-----------------------------");
@@ -334,11 +341,11 @@ public class Game {
 	}
 
 	/**
-	* Method to print out the cards in a players hand
-	*
-	* @param index
-	*            of player in activePLayer array or -1 when communalPile
-	*/
+	 * Method to print out the cards in a players hand
+	 *
+	 * @param index
+	 *            of player in activePLayer array or -1 when communalPile
+	 */
 	private void printHand(int playerIndex) {
 		String displayHand[];
 		if (playerIndex == -1) {
@@ -355,19 +362,19 @@ public class Game {
 	}
 
 	/**
-	* Returns the card at an index of the round cards array
-	*
-	* @param i
-	* @return
-	*/
+	 * Returns the card at an index of the round cards array
+	 *
+	 * @param i
+	 * @return
+	 */
 	public Card roundCardatIndex(int i) {
 		return roundCards[i];
 	}
 
 	/**
-	* Method to check if someone has won
-	*
-	*/
+	 * Method to check if someone has won will be a winner if any player had 40
+	 * cards
+	 */
 
 	public void gameOver() {
 		int total = 0;
@@ -377,27 +384,39 @@ public class Game {
 			if (total == 40) {
 				winnerIndex = i;
 				isGameOver = true;
-				//Testing System Out
-				System.out.println("The WINNER IS " + "Player " + winnerIndex);
 			}
 		}
+//		if (isGameOver) {
+//			// Testing System Out
+//			System.out.println("The WINNER IS " + "Player " + winnerIndex);
+//		}
 	}
 
 	/**
-	* Method to return the array of cards
-	*
-	* @return the array of cards from the round
-	*/
+	 * Method to return the array of cards played in a current round
+	 *
+	 * @return array of cards objects
+	 */
 	public Card[] getRoundCards() {
 		return roundCards;
 	}
 
+	/**
+	 * 
+	 * @return integer value, number of cards in the communal piel
+	 */
 	public int getCommunalCount() {
 		communalPile.setNumCards();
 		int commCount = communalPile.getNumCards();
 		return commCount;
 	}
 
+	/**
+	 * Public method that allows other class to access boolean instance variable
+	 * if game is finished or not *
+	 * 
+	 * @return boolean
+	 */
 	public boolean getGameOver() {
 		this.gameOver();
 		return isGameOver;
@@ -405,28 +424,32 @@ public class Game {
 
 	/**
 	 * In the case that the user player dies, this method plays through the
-	 * computer-only rounds to prevent a user having to click through each
-	 * game play.
+	 * computer-only rounds to prevent a user having to click through each game
+	 * play.
 	 */
 	public void playToEnd() {
 		// while this game ISN'T over
-		while(!(this.getGameOver())) {
+		while (!(this.getGameOver())) {
 			// notUser signals it is not user's turn
 			this.playRound(notUser);
 		}
-		new GameOverStats(this);
-
 	}
 
 	/**
-	*
-	* @param playerIndex
-	* @return a player object
-	*/
+	 *
+	 * @param playerIndex
+	 * @return a player object
+	 */
 	public Player getActivePlayer(int playerIndex) {
 		return activePlayers[playerIndex];
 	}
 
+	/**
+	 * Method to return number of rounds played in a game, used for statistics
+	 * purposes
+	 * 
+	 * @return number of rounds
+	 */
 	public int getNumRounds() {
 		return roundCount;
 	}

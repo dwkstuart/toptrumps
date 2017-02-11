@@ -12,7 +12,7 @@ public class GameGUI extends JFrame implements ActionListener {
 	// card text file name
 	private final String title = "DINOSAUR TOP TRUMPS!";
 	private final String textFile = "deck.txt";
-	// private final String textFile = "DrawDeck.txt";
+	// private final String textFile = "DrawDeck2.txt";
 
 	// integers representing the number of categories and the total number of
 	// cards in the deck
@@ -416,6 +416,7 @@ public class GameGUI extends JFrame implements ActionListener {
 		if (startGame.getGameOver()) {
 			this.setVisible(false);
 			new GameOverStats(startGame);
+			System.out.println("The WINNER IS " + "Player " + startGame.getWinnerIndex());
 		}
 
 		trumpCategories.setEnabled(false);
@@ -447,15 +448,6 @@ public class GameGUI extends JFrame implements ActionListener {
 			comp4Card.setBackground(Color.GREEN);
 		}
 
-		// set all computer cards to dinos between rounds
-		// comp1Card.setFont(theFont1);
-		// comp1Card.setText(dinoImage);
-		// comp2Card.setFont(theFont1);
-		// comp2Card.setText(dinoImage);
-		// comp3Card.setFont(theFont1);
-		// comp3Card.setText(dinoImage);
-		// comp4Card.setFont(theFont1);
-		// comp4Card.setText(dinoImage);
 
 		// set all computer cards to dinos between rounds for all players
 		// who are not dead
@@ -502,11 +494,6 @@ public class GameGUI extends JFrame implements ActionListener {
 			nextRound.setEnabled(false);
 			play.setEnabled(true);
 
-			// checks if game is over when a player has 40 cards
-		/*	if (startGame.getGameOver()) {
-				this.setVisible(false);
-				new GameOverStats(startGame);
-			}*/
 			this.ResetGUI();
 
 		}

@@ -61,7 +61,7 @@ public class Card {
 	* @return return the card description with values
 	*/
 	public String toString() {
-		String card = String.format("%-20s %s: %2d  %s: %2d %s; %2d :%s %2d %s: %2d ",
+		String card = String.format("%-20s %s: %2d  %s: %2d %s: %2d %s: %2d %s: %2d ",
 		description, category[0], cardvalues[0], category[1], cardvalues[1], category[2], cardvalues[2], category[3], cardvalues[3], category[4], cardvalues[4]);//method for importing category list is decided
 		return card;
 	}

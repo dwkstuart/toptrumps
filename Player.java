@@ -1,93 +1,109 @@
 /**
-* Class to store and update the current hand of cards held by a TopTrumps
-* player. Also used to get the player's current card, for the purpose of
-* knowing which card to play next.
-*/
+ * Class to store and update the current hand of cards held by a TopTrumps
+ * player. Also used to get the player's current card, for the purpose of
+ * knowing which card to play next.
+ */
 
 public class Player {
-
+//Instance Variables
+	
 	private final int HANDSIZE = 40;
-	private int playerNum;
 	private Card[] hand;
 	private Card currentCard;
 	private int numCards;
-	private boolean status=true;
+	private boolean status = true;
 
 	// constructor
 	public Player() {
 		hand = new Card[HANDSIZE];
 	}
 
-	// a method to check the correct player number is selected
-	public void numPlayer(int playerNum) {
-		if (playerNum < 1 || playerNum > 4) {
-			throw new IllegalArgumentException();
-		} else {
-			this.playerNum = playerNum;
-		}
-	}
 
-
-	// Boolean status - if a player is still in the game or not
-	public void setStatus(){
+	/**Sets the status of the player within a game
+	 * 
+	 *Checks if they have any cards 
+	 */
+	public void setStatus() {
 		this.setNumCards();
-		if(numCards==0)
-		status=false;
+		if (numCards == 0)
+			status = false;
 	}
 
-	// getCurrentCard - return the top card in their hand; at 0 in the array
+	/**getCurrentCard - return the top card in their hand; 
+	 * at 0 in the array of players deck
+	 * @return Card
+	 */
 	public Card getCurrentCard() {
 		return hand[0];
 	}
 
-	// getCurrentCard - returns an array of strings representing the cards in a players hand used in testing
+	/**Method that return an array of strings with the 
+	 * details of all the cards in a player's deck. Used for testing printouts
+	 * 
+	 * @return String array
+	 */
 	public String[] displayPlayerHand() {
 		this.setNumCards();
-		String handList[]=new String[numCards];
-		for(int i=0; i<numCards; i++){
-			handList[i]=hand[i].toString();
+		String handList[] = new String[numCards];
+		for (int i = 0; i < numCards; i++) {
+			handList[i] = hand[i].toString();
 		}
 		return handList;
 	}
 
-
-	//Card; -add a card to the back of their hand, first null value.
+	/**Method that adds a card to the back 
+	 * a players deck, replaces first null element
+	 * in the array
+	 * @param cardToAdd
+	 */
 	public void addCardToHand(Card cardToAdd) {
-		int i=0;	// index in card array
+		int i = 0; // index in card array
 
-		while (i<40) {
-			if(hand[i]==null) {
-				hand[i]=cardToAdd;
+		while (i < 40) {
+			if (hand[i] == null) {
+				hand[i] = cardToAdd;
 				break;
 			}
 			i++;
 		}
 	}
 
+	/**Method that counts the number of cards in a players hand
+	 * updates the instance variable
+	 */
 	public void setNumCards() {
 		int cardCount = 0;
 		try {
-			while(hand[cardCount] != null) {
+			while (hand[cardCount] != null) {
 				cardCount++;
 			}
-		} catch(ArrayIndexOutOfBoundsException e) {
-			//Exception thrown when a player has 40 cards and has won the game
+		} catch (ArrayIndexOutOfBoundsException e) {
+			// Exception thrown when a player has 40 cards and has won the game
 		}
 		numCards = cardCount;
 	}
 
-
-	// getNumCards - return the number of card objects in the array
+	/**Method to return the instance variable of number 
+	 * of cards in a players hand 
+	 * @return int of number of cards
+	 */
 	public int getNumCards() {
 		return numCards;
 	}
 
-
-	// getStatus - return boolean if they are an active player
+	/**Method that returns the boolean 
+	 * of if player is active in a game or not 
+	 * @return boolean value
+	 */
 	public boolean getStatus() {
 		return status;
 	}
 
+	/**
+	 * Method returns a formatted string with details of card
+	 * 
+	 * @return String
+	 */
 	public String returnCurrentCardStr() {
 		Card cardToBeFormatted = this.getCurrentCard();
 		if (cardToBeFormatted == null) {
@@ -97,13 +113,14 @@ public class Player {
 		}
 	}
 
-	/**Removes the first card in a players hand from the array and shifts array forward to fill space
-	* @author David Stuart
-	*/
-	public void removeCard(){
-		int i=0;
-		while (hand[i]!=null){
-			hand[i]=hand[i+1];
+	/**
+	 * Removes the first card in a players hand from the array and shifts array
+	 * forward to fill space
+	 */
+	public void removeCard() {
+		int i = 0;
+		while (hand[i] != null) {
+			hand[i] = hand[i + 1];
 			i++;
 		}
 	}

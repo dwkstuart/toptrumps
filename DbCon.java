@@ -25,9 +25,6 @@ public class DbCon {
 	/**
 	* database connection method
 	*/
-	
-	
-
 	public void DbConnect(){
 		String DBName = "m_16_0207805s";
 		String DBUser = "m_16_0207805s";
@@ -77,7 +74,7 @@ public class DbCon {
 	public int getPlayerWins() {
 		Statement stmt = null;
 		String playerWinsQuery = "SELECT COUNT(Winner) AS playerWinCount "
-		+ "FROM Game WHERE Game.Winner = 'Player1'";
+		+ "FROM Game WHERE Game.Winner = 'Player 1'";
 		int numPlayerWins = 0;
 
 		try {
